@@ -671,16 +671,23 @@ function V5Form({ L }) {
   );
 }
 
-function V5Intro({ onDone }) {
+function V5Intro({ onDone, L }) {
   const [out, setOut] = React.useState(false);
   const finish = React.useCallback(() => { setOut(true); setTimeout(onDone, 800); }, [onDone]);
   React.useEffect(() => {
     const t = setTimeout(finish, 9600);
     return () => clearTimeout(t);
   }, [finish]);
-  const mods = ['8D', 'ECR', 'Alertas de calidad', 'Auditorías · LPA', 'Hojas de operación', 'Hospital de defectos', 'Matriz ILU', 'KPI en vivo', 'Aprobaciones multinivel'];
+  const mods = L
+    ? ['8D', 'ECR', 'Alertas de calidad', 'Auditorías · LPA', 'Hojas de operación', 'Hospital de defectos', 'Matriz ILU', 'KPI en vivo', 'Aprobaciones multinivel']
+    : ['8D', 'ECR', 'Quality alerts', 'Audits · LPA', 'Operation sheets', 'Defect hospital', 'ILU matrix', 'Live KPIs', 'Multilevel approvals'];
   const svcs = ['Launch Excellence', 'Technical Representation', 'IxT-QMS', 'Training'];
-  const crs = ['Safe Launch · Shoki Ryudo', 'Control de Campo', 'Kaizen', 'Liderazgo', '8D · QA', 'Quality Control · SPC'];
+  const crs = L
+    ? ['Safe Launch · Shoki Ryudo', 'Control de Campo', 'Kaizen', 'Liderazgo', '8D · QA', 'Quality Control · SPC']
+    : ['Safe Launch · Shoki Ryudo', 'Field Control', 'Kaizen', 'Leadership', '8D · QA', 'Quality Control · SPC'];
+  const tI = L
+    ? { svc: 'SERVICIOS', trn: 'FORMACIÓN', mod: 'MÓDULOS DEL PROGRAMA', skip: 'SALTAR →' }
+    : { svc: 'SERVICES', trn: 'TRAINING', mod: 'PROGRAM MODULES', skip: 'SKIP →' };
   // fase 1: fábrica 0-3.4s · fase 2: módulos 3.4-5.8s · fase 3: servicios+cursos 5.8-8.4s · logo 8.4s+
   const ico = (k) => {
     const p = { stroke: 'currentColor', strokeWidth: 1.8, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
@@ -711,17 +718,17 @@ function V5Intro({ onDone }) {
   return (
     <div className={'v5intro' + (out ? ' out' : '')}>
       <div className="iph" style={{ animation: 'iPhase 4.2s .1s both' }}>
-        <div className="ttl">SERVICIOS</div>
+        <div className="ttl">{tI.svc}</div>
         <div className="ichips">
           {svcs.map((m, i) => <span key={m} className="ichip svc" style={{ animationDelay: `${0.3 + i * 0.22}s, ${0.3 + i * 0.22}s` }}>{ico(svcIco2[i])}{m}</span>)}
         </div>
-        <div className="ttl" style={{ marginTop: 6 }}>FORMACIÓN</div>
+        <div className="ttl" style={{ marginTop: 6 }}>{tI.trn}</div>
         <div className="ichips">
           {crs.map((m, i) => <span key={m} className="ichip crs" style={{ animationDelay: `${1.2 + i * 0.18}s, ${1.2 + i * 0.18}s` }}>{ico(crsIco[i])}{m}</span>)}
         </div>
       </div>
       <div className="iph" style={{ animation: 'iPhase 4.2s 4.4s both' }}>
-        <div className="ttl">MÓDULOS DEL PROGRAMA</div>
+        <div className="ttl">{tI.mod}</div>
         <div className="ichips">
           {mods.map((m, i) => <span key={m} className="ichip" style={{ animationDelay: `${4.6 + i * 0.18}s, ${4.6 + i * 0.18}s` }}>{ico(modIco[i])}{m}</span>)}
         </div>
@@ -736,18 +743,21 @@ function V5Intro({ onDone }) {
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(255,255,255,0.08)' }}>
         <div style={{ height: '100%', background: 'linear-gradient(90deg,#1D4FD7,#7DB7FF)', transformOrigin: 'left', animation: 'iBar 9.6s linear both' }}></div>
       </div>
-      <button className="skip" onClick={finish}>SALTAR →</button>
+      <button className="skip" onClick={finish}>{tI.skip}</button>
     </div>
   );
 }
 
 function HomeLanding() {
-  const [lang, setLang] = React.useState('es');
+  const [lang, setLang] = React.useState(() => {
+    const n = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
+    return /^es/i.test(n) ? 'es' : 'en';
+  });
   const [intro, setIntro] = React.useState(true);
   return (
     <div style={{ background: 'white', color: v4S.ink, fontFamily: '"Inter", system-ui, sans-serif' }}>
       <style>{v5CSS}</style>
-      {intro && <V5Intro onDone={() => setIntro(false)}/>}
+      {intro && <V5Intro L={lang === 'es'} onDone={() => setIntro(false)}/>}
       <V5Nav lang={lang} setLang={setLang}/>
       <V5Hero lang={lang}/>
       <V5Reveal><V5Creds lang={lang}/></V5Reveal>
