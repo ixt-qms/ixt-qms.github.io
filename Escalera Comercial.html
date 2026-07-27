@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Escalera Comercial — IxT-QMS (documento de revisión)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:"Inter",system-ui,sans-serif;background:#F4F6FA;color:#0B2545;padding:48px 24px}
+a{color:#1D4FD7}a:hover{color:#0B2545}
+.wrap{max-width:900px;margin:0 auto}
+h1{font-family:"Source Serif 4",Georgia,serif;font-size:32px;letter-spacing:-0.8px;margin:0 0 8px}
+.sub{color:#5A6B85;font-size:15px;margin:0 0 40px;line-height:1.6}
+.step{background:white;border:1px solid #DDE4EF;border-radius:14px;padding:26px 30px;position:relative}
+.ladder{display:flex;flex-direction:column;gap:0}
+.step + .connector{width:2px;height:28px;background:#C3CFE3;margin:0 0 0 60px}
+.lvl{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:10px}
+.free .lvl{background:#E6F7EF;color:#0E9F6E}
+.paid .lvl{background:#E8EFFC;color:#1D4FD7}
+.core .lvl{background:#0B2545;color:white}
+.step h2{font-size:19px;margin:0 0 6px;letter-spacing:-0.3px}
+.why{font-size:13px;color:#5A6B85;font-style:italic;margin:0 0 14px}
+.item{display:flex;gap:10px;font-size:14px;line-height:1.55;padding:7px 0;border-bottom:1px solid #F0F3F9}
+.item:last-child{border-bottom:none}
+.item .q{flex-shrink:0;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;height:fit-content;margin-top:2px;white-space:nowrap}
+.q.ok{background:#E6F7EF;color:#0E9F6E}
+.q.rev{background:#FDF0E7;color:#C2620A}
+.item .loc{color:#8A97AD;font-size:12px;display:block;margin-top:2px}
+.legend{display:flex;gap:18px;margin-bottom:26px;font-size:13px;color:#5A6B85;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.note{margin-top:36px;background:#FFF8ED;border:1px solid #F2DFBB;border-radius:12px;padding:20px 24px;font-size:14px;line-height:1.65;color:#6B5518}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Escalera comercial — qué se da y qué se cobra</h1>
+<p class="sub">Documento de revisión interna (no es página del sitio). Todo lo marcado <strong>A REVISAR</strong> es algo que yo puse y tú decides si se queda gratis, se cobra o se elimina.</p>
+<div class="legend">
+<span><span class="dot" style="background:#0E9F6E"></span>Viene de tu documento base</span>
+<span><span class="dot" style="background:#C2620A"></span>A REVISAR — lo agregué o interpreté yo</span>
+</div>
+<div class="ladder">
+<div class="step free">
+<span class="lvl">NIVEL 0 · SIN COSTO (marketing, no trabajo)</span>
+<h2>Lo que hoy aparece gratis en la página</h2>
+<p class="why">Regla de tu documento: gratis solo lo que califica al prospecto, nunca trabajo real.</p>
+<div class="item"><span class="q ok">TU DOC</span><div>Primera llamada de calificación de 30 minutos<span class="loc">Sección "Solicitar diagnóstico" → columna "Sin costo"</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Demo de la plataforma con datos ficticios<span class="loc">Sección "Solicitar diagnóstico" → columna "Sin costo"</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Guías cortas de metodología escritas por ti<span class="loc">Sección "Solicitar diagnóstico" → columna "Sin costo". Ojo: aún no existen — habría que escribirlas o quitar la línea</span></div></div>
+<div class="item"><span class="q rev">A REVISAR</span><div>Calculadora de ROI — estaba en tu doc como gratis, pero NO la incluí en la página<span class="loc">Decide: ¿la agregamos o la descartamos?</span></div></div>
+</div>
+<div class="connector"></div>
+<div class="step paid">
+<span class="lvl">NIVEL 1 · PAGADO — PUERTA DE ENTRADA</span>
+<h2>Diagnóstico</h2>
+<p class="why">Con alcance y entregable definidos. Acreditable contra el programa si contratan dentro de 30 días.</p>
+<div class="item"><span class="q ok">TU DOC</span><div>Diagnóstico pagado con entregable definido<span class="loc">CTA principal de toda la página</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Propuesta técnica detallada — solo tras diagnóstico<span class="loc">Columna "Con alcance y cotización"</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Piloto en planta — se cotiza, nunca gratis<span class="loc">Columna "Con alcance y cotización"</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Temario detallado de formación — solo a prospecto con interés real<span class="loc">Columna "Con alcance y cotización" + nota en sección Formación</span></div></div>
+</div>
+<div class="connector"></div>
+<div class="step core">
+<span class="lvl">NIVEL 2 · CONTRATO — DONDE ESTÁ EL NEGOCIO</span>
+<h2>Programa de acompañamiento / formación</h2>
+<p class="why">Contrato anual, alcance por escrito. Aquí vive el ingreso recurrente.</p>
+<div class="item"><span class="q ok">TU DOC</span><div>Seis líneas de servicio, cada una con "Solicitar propuesta"<span class="loc">Sección Servicios</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Cursos por evento cerrado, no por asiento · anticipo 50% para apartar fecha<span class="loc">La página dice "por evento cerrado"; el anticipo del 50% NO lo publiqué (es política interna, no de sitio)</span></div></div>
+<div class="item"><span class="q rev">A REVISAR</span><div>"Plataforma incluida en el programa de acompañamiento" — tu doc dice incluida PERO con cuota anual de mantenimiento y soporte. En la tarjeta de Digitalización quedó solo "incluida", que puede leerse como gratis total<span class="loc">Sección Servicios → tarjeta 06 · Sección Plataforma sí menciona la cuota anual</span></div></div>
+<div class="item"><span class="q rev">A REVISAR</span><div>Viáticos y traslado en línea aparte — está en tu doc, NO lo publiqué<span class="loc">Decide si va en el sitio o solo en cotizaciones</span></div></div>
+</div>
+<div class="connector"></div>
+<div class="step paid">
+<span class="lvl">NIVEL 3 · EXTRAS COBRADOS</span>
+<h2>Cargos adicionales ya definidos</h2>
+<div class="item"><span class="q ok">TU DOC</span><div>Tarifa de emergencia para equipo de respuesta rápida en crisis<span class="loc">Tarjeta de Representación técnica</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Máster de presentación de cursos: no se entrega; si lo exigen, se cotiza como licencia de uso interno<span class="loc">NO publicado — política interna</span></div></div>
+<div class="item"><span class="q ok">TU DOC</span><div>Descuentos solo con contrapartida (prepago, plazo, testimonial, logo, referidos) y con vencimiento<span class="loc">NO publicado — política interna</span></div></div>
+</div>
+</div>
+<div class="note"><strong>Cómo evitar que vuelva a pasar:</strong> todo lo que yo agregue sin que venga de tu documento o de tus mensajes va a quedar marcado como "A REVISAR" en un documento como este antes de publicarse. Si algo en la página no sabes de dónde salió, dímelo y te digo la fuente exacta o lo quito. Dime qué decides de los 4 puntos naranjas y ajusto la página.</div>
+</div>
+</body>
+</html>

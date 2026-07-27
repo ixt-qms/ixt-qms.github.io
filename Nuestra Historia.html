@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IxT-QMS — Nuestra Historia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&display=swap" rel="stylesheet"/>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  button, a { font-family: inherit; }
+  a { text-decoration: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const S = {
+  ink: '#0A1F3D', muted: '#5A6B82', line: '#E2E8F0',
+  bg: '#F6F8FB', bgCool: '#EEF3FA', primary: '#1D4FD7', primaryDark: '#0B3AAB',
+  ok: '#059669', okBg: '#ECFDF5',
+};
+const serif = { fontFamily: '"Source Serif 4", Georgia, serif' };
+
+function Nav({ lang, setLang, t }) {
+  return (
+    <nav style={{
+      position: 'sticky', top: 0, zIndex: 50,
+      background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)',
+      borderBottom: `1px solid ${S.line}`, padding: '14px 56px',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 40 }}>
+        <a href="IxT-QMS Landing.html" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 34, height: 34, borderRadius: 8,
+            background: `linear-gradient(135deg, ${S.primary}, ${S.primaryDark})`,
+            display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 14,
+          }}>SQ</div>
+          <div style={{ fontWeight: 700, fontSize: 17, color: S.ink, letterSpacing: -0.3 }}>IxT-QMS</div>
+        </a>
+        <div style={{ display: 'flex', gap: 28, fontSize: 14, color: '#1F3A5F', fontWeight: 500 }}>
+          <a href="IxT-QMS Landing.html" style={{ color: 'inherit' }}>{lang === 'es' ? 'Producto' : 'Product'}</a>
+          <a style={{ color: S.primary, fontWeight: 700 }}>{lang === 'es' ? 'Nuestra historia' : 'Our story'}</a>
+        </div>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ display: 'flex', border: `1px solid ${S.line}`, borderRadius: 8, overflow: 'hidden', fontSize: 12, fontWeight: 600 }}>
+          <button onClick={() => setLang('es')} style={{ padding: '6px 12px', border: 'none', cursor: 'pointer', background: lang === 'es' ? S.ink : 'white', color: lang === 'es' ? 'white' : '#1F3A5F' }}>ES</button>
+          <button onClick={() => setLang('en')} style={{ padding: '6px 12px', border: 'none', cursor: 'pointer', background: lang === 'en' ? S.ink : 'white', color: lang === 'en' ? 'white' : '#1F3A5F' }}>EN</button>
+        </div>
+        <button style={{ padding: '9px 18px', borderRadius: 8, border: 'none', cursor: 'pointer', background: S.primary, color: 'white', fontWeight: 600, fontSize: 13.5, whiteSpace: 'nowrap' }}>
+          {lang === 'es' ? 'Agendar demo' : 'Book demo'}
+        </button>
+      </div>
+    </nav>
+  );
+}
+
+function Hero({ lang }) {
+  const t = lang === 'es' ? {
+    eyebrow: 'POR QUÉ EXISTE FIELDCORE',
+    title: 'Experiencia real en ambos lados de la cadena de calidad automotriz.',
+    sub: '14 años trabajando tanto con constructoras (OEM) como con proveedores Tier 1 y Tier 2 nos dieron una vista completa: qué espera un OEM en una auditoría, y qué necesita un proveedor para cumplirla sin fricción. IxT-QMS digitaliza esa experiencia.',
+  } : {
+    eyebrow: 'WHY FIELDCORE EXISTS',
+    title: 'Real experience on both sides of the automotive quality chain.',
+    sub: '14 years working with both OEMs and Tier 1 / Tier 2 suppliers gave us the full picture: what an OEM expects in an audit, and what a supplier needs to meet it without friction. IxT-QMS digitizes that experience.',
+  };
+  return (
+    <section style={{ padding: '88px 56px 56px', background: `linear-gradient(180deg, ${S.bgCool} 0%, white 100%)` }}>
+      <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: S.primary, marginBottom: 20 }}>{t.eyebrow}</div>
+        <h1 style={{ ...serif, fontSize: 46, lineHeight: 1.15, fontWeight: 700, color: S.ink, letterSpacing: -1, margin: '0 0 22px' }}>{t.title}</h1>
+        <p style={{ fontSize: 17, lineHeight: 1.65, color: S.muted, margin: 0 }}>{t.sub}</p>
+      </div>
+    </section>
+  );
+}
+
+function StatStrip({ lang }) {
+  const items = lang === 'es'
+    ? [['14', 'años en calidad automotriz'], ['52', 'lanzamientos de proyecto liderados'], ['98', 'países — regulación y homologación'], ['$250K', 'ahorrados/año en un solo proyecto']]
+    : [['14', 'years in automotive quality'], ['52', 'project launches led'], ['98', 'countries — regulation & homologation'], ['$250K', 'saved/year on a single project']];
+  return (
+    <section style={{ padding: '0 56px 48px' }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, background: S.line, border: `1px solid ${S.line}`, borderRadius: 12, overflow: 'hidden' }}>
+        {items.map(([n, l], i) => (
+          <div key={i} style={{ background: 'white', padding: '28px 20px', textAlign: 'center' }}>
+            <div style={{ ...serif, fontSize: 32, fontWeight: 800, color: S.ink, letterSpacing: -1 }}>{n}</div>
+            <div style={{ fontSize: 12.5, color: S.muted, marginTop: 6, lineHeight: 1.4 }}>{l}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Achievement({ lang }) {
+  const t = lang === 'es' ? {
+    eyebrow: 'EL ORIGEN DIRECTO DE FIELDCORE',
+    title: 'En Nissan, diseñé el proyecto que hoy es el módulo de Spec Confirmation.',
+    body: 'Como Senior Supervisor de Aseguramiento de Calidad, lideré el “Quality Campaign Cost Reduction Project”: implementamos la Confirmación Virtual de Especificaciones (BOM) antes de las pruebas de producción — detectando desviaciones antes de que costaran dinero. Resultado: $250,000 USD ahorrados cada año. IxT-QMS digitaliza exactamente esa idea para cualquier planta.',
+    tag: 'RESULTADO VERIFICABLE',
+  } : {
+    eyebrow: 'FIELDCORE\'S DIRECT ORIGIN',
+    title: 'At Nissan, I designed the project that is now the Spec Confirmation module.',
+    body: 'As Quality Assurance Senior Supervisor, I led the “Quality Campaign Cost Reduction Project”: we implemented Virtual Confirmation of BOM Specifications before production trials — catching deviations before they cost money. Result: $250,000 USD saved every year. IxT-QMS digitizes that exact idea for any plant.',
+    tag: 'VERIFIABLE RESULT',
+  };
+  return (
+    <section style={{ padding: '0 56px 64px' }}>
+      <div style={{
+        maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 40,
+        alignItems: 'center', background: `linear-gradient(135deg, ${S.okBg}, white)`,
+        border: `1px solid #BBF7D0`, borderRadius: 16, padding: 40,
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8, color: S.ok, marginBottom: 10 }}>{t.tag}</div>
+          <div style={{ ...serif, fontSize: 52, fontWeight: 800, color: S.ok, letterSpacing: -1.5 }}>$250K</div>
+          <div style={{ fontSize: 13, color: S.muted, fontWeight: 500 }}>{lang === 'es' ? 'USD ahorrados / año' : 'USD saved / year'}</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.8, color: S.primary, marginBottom: 10 }}>{t.eyebrow}</div>
+          <h3 style={{ ...serif, fontSize: 24, fontWeight: 700, color: S.ink, margin: '0 0 12px', lineHeight: 1.3, letterSpacing: -0.4 }}>{t.title}</h3>
+          <p style={{ fontSize: 14.5, color: S.muted, lineHeight: 1.6, margin: 0 }}>{t.body}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VantagePoint({ lang, tag, title, body, companies, tags, color }) {
+  return (
+    <div style={{ marginBottom: 40 }}>
+      <div style={{
+        display: 'inline-block', fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8,
+        color, background: color + '14', padding: '6px 10px', borderRadius: 6, marginBottom: 18,
+      }}>{tag}</div>
+      <h3 style={{ ...serif, fontSize: 26, fontWeight: 700, color: S.ink, margin: '0 0 14px', letterSpacing: -0.5, maxWidth: 640 }}>{title}</h3>
+      <p style={{ fontSize: 15.5, color: S.muted, lineHeight: 1.65, margin: '0 0 22px', maxWidth: 640 }}>{body}</p>
+      {tags && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 22 }}>
+          {tags.map((d, i) => (
+            <span key={i} style={{ fontSize: 12.5, padding: '6px 12px', borderRadius: 999, background: S.bg, color: '#1F3A5F', border: `1px solid ${S.line}`, fontWeight: 500 }}>{d}</span>
+          ))}
+        </div>
+      )}
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.8, color: S.muted, marginBottom: 10, textTransform: 'uppercase' }}>
+          {lang === 'es' ? 'Dónde lo vimos' : 'Where we saw it'}
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+          {companies.map((c, i) => (
+            <div key={i} style={{
+              padding: '10px 16px', borderRadius: 8, border: `1px solid ${S.line}`,
+              background: 'white', fontSize: 14, fontWeight: 600, color: S.ink,
+              boxShadow: '0 1px 2px rgba(11,29,61,0.04)',
+            }}>{c}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Timeline({ lang }) {
+  const t = lang === 'es' ? {
+    eyebrow: 'EXPERIENCIA EN AMBOS LADOS',
+    title: 'Entendemos las expectativas del OEM y las necesidades del proveedor',
+    v1: {
+      tag: 'LADO OEM · EVALUACIÓN Y TESTING',
+      title: 'Evaluando calidad directamente para constructoras y laboratorios de certificación',
+      body: '52 lanzamientos de proyecto y homologación en 98 países nos enseñaron qué mediciones son críticas para un OEM y qué espera ver en una auditoría. Esa perspectiva guía los módulos de inspección de IxT-QMS.',
+      companies: ['Nissan', 'IDIADA Applus (Mercedes-Benz)', 'Allswell (Hyundai MOBIS / KIA)'],
+      tags: ['Fit & Finish', 'Water Intrusion', 'NVH', 'Durability', 'Squeak & Rattles', 'Infotainment', 'Brake Test', 'Wheel Alignment', 'Benchmark Study'],
+    },
+    v2: {
+      tag: 'LADO PROVEEDOR · REPRESENTACIÓN ANTE OEM',
+      title: 'Representando proveedores Tier 1 y Tier 2 frente a sus clientes OEM',
+      body: 'Disposición de material no conforme, campañas de calidad y soporte a PPAP/APQP frente al cliente OEM. Ese flujo de reportes y aprobaciones es lo que los módulos QAR, MRB y 8D de IxT-QMS digitalizan.',
+      companies: ['Preferred Precision Group', 'Martinrea Rollstar', 'Formel D'],
+      tags: null,
+    },
+  } : {
+    eyebrow: 'EXPERIENCE ON BOTH SIDES',
+    title: 'We understand OEM expectations and supplier needs',
+    v1: {
+      tag: 'OEM SIDE · EVALUATION & TESTING',
+      title: 'Evaluating quality directly for automakers and certification labs',
+      body: '52 project launches and homologation across 98 countries taught us which measurements matter most to an OEM and what they expect to see in an audit. That perspective guides IxT-QMS\'s inspection modules.',
+      companies: ['Nissan', 'IDIADA Applus (Mercedes-Benz)', 'Allswell (Hyundai MOBIS / KIA)'],
+      tags: ['Fit & Finish', 'Water Intrusion', 'NVH', 'Durability', 'Squeak & Rattles', 'Infotainment', 'Brake Test', 'Wheel Alignment', 'Benchmark Study'],
+    },
+    v2: {
+      tag: 'SUPPLIER SIDE · OEM REPRESENTATION',
+      title: 'Representing Tier 1 and Tier 2 suppliers in front of their OEM customers',
+      body: 'Non-conforming material disposition, quality campaigns and PPAP/APQP support in front of the OEM customer. That flow of reports and approvals is what IxT-QMS\'s QAR, MRB and 8D modules digitize.',
+      companies: ['Preferred Precision Group', 'Martinrea Rollstar', 'Formel D'],
+      tags: null,
+    },
+  };
+  return (
+    <section style={{ padding: '20px 56px 40px' }}>
+      <div style={{ maxWidth: 780, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
+          <h2 style={{ ...serif, fontSize: 34, fontWeight: 700, color: S.ink, letterSpacing: -0.7, margin: 0 }}>{t.title}</h2>
+        </div>
+        <VantagePoint lang={lang} color={S.primary} {...t.v1}/>
+        <VantagePoint lang={lang} color={S.ok} {...t.v2}/>
+      </div>
+    </section>
+  );
+}
+
+function Certifications({ lang }) {
+  const t = lang === 'es' ? {
+    eyebrow: 'CURSOS Y CERTIFICACIONES',
+    title: 'Formación formal detrás de la experiencia',
+    items: [
+      'Harvard Management Mentor Business School',
+      'Premium Quality (IPES 4.5)',
+      'Core Tools & APQP — TÜV Rheinland',
+      'QC Story',
+      'Siemens NX, SolidWorks, AutoCAD',
+      'SAP ERP, EPIC, G2B',
+      'Excel avanzado (macros, VBA, tablas dinámicas)',
+    ],
+  } : {
+    eyebrow: 'COURSES & CERTIFICATIONS',
+    title: 'Formal training behind the experience',
+    items: [
+      'Harvard Management Mentor Business School',
+      'Premium Quality (IPES 4.5)',
+      'Core Tools & APQP — TÜV Rheinland',
+      'QC Story',
+      'Siemens NX, SolidWorks, AutoCAD',
+      'SAP ERP, EPIC, G2B',
+      'Advanced Excel (macros, VBA, pivot tables)',
+    ],
+  };
+  return (
+    <section style={{ padding: '0 56px 88px' }}>
+      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
+          <h2 style={{ ...serif, fontSize: 28, fontWeight: 700, color: S.ink, letterSpacing: -0.5, margin: 0 }}>{t.title}</h2>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+          {t.items.map((c, i) => (
+            <div key={i} style={{
+              padding: '10px 16px', borderRadius: 8, border: `1px solid ${S.line}`,
+              background: 'white', fontSize: 13.5, fontWeight: 500, color: S.ink,
+            }}>{c}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyThisMatters({ lang }) {
+  const t = lang === 'es' ? {
+    eyebrow: 'POR QUÉ IMPORTA',
+    title: 'Entendemos ambas perspectivas de la calidad automotriz.',
+    items: [
+      { h: 'Conocemos las expectativas del OEM', b: 'Trabajar directamente en evaluación y testing nos dio la perspectiva exacta de qué busca un auditor de Nissan, Mercedes-Benz o Hyundai/KIA.' },
+      { h: 'Conocemos las necesidades del proveedor', b: 'Representar a Tier 1 y Tier 2 frente a su cliente OEM enseña qué reportes generan confianza y cuáles no.' },
+      { h: 'Sabemos qué specs importan de verdad', b: 'De Fit & Finish a NVH y Water Intrusion: entendemos qué mediciones son críticas — por eso los módulos de IxT-QMS van directo al grano.' },
+    ],
+  } : {
+    eyebrow: 'WHY IT MATTERS',
+    title: 'We understand both perspectives of automotive quality.',
+    items: [
+      { h: 'We understand OEM expectations', b: 'Working directly in evaluation and testing gave us the exact perspective of what a Nissan, Mercedes-Benz or Hyundai/KIA auditor looks for.' },
+      { h: 'We understand supplier needs', b: 'Representing Tier 1 and Tier 2 suppliers in front of their OEM customer teaches you which reports build trust and which don\'t.' },
+      { h: 'We know which specs actually matter', b: 'From Fit & Finish to NVH and Water Intrusion: we understand which measurements are critical — that\'s why IxT-QMS\'s modules go straight to the point.' },
+    ],
+  };
+  return (
+    <section style={{ padding: '80px 56px', background: S.ink, color: 'white' }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: '#7DB7FF', marginBottom: 14 }}>{t.eyebrow}</div>
+          <h2 style={{ ...serif, fontSize: 38, fontWeight: 700, letterSpacing: -0.8, margin: 0, maxWidth: 680, marginInline: 'auto' }}>{t.title}</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+          {t.items.map((it, i) => (
+            <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: 26 }}>
+              <div style={{ fontSize: 17, fontWeight: 700, marginBottom: 10 }}>{it.h}</div>
+              <div style={{ fontSize: 14, color: '#94A6C7', lineHeight: 1.6 }}>{it.b}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FoundingPerks({ lang }) {
+  const t = lang === 'es' ? {
+    eyebrow: 'PROGRAMA BETA · CUPOS LIMITADOS',
+    title: 'Condiciones de Founding Customer',
+    sub: 'Estamos abriendo un número limitado de lugares para la versión Beta con plantas piloto. A cambio de construir el producto junto contigo, esto es lo que obtienes:',
+    perks: [
+      { h: 'Precio congelado de por vida', b: 'Lo que pagues en Beta es lo que pagas siempre — aunque el precio público suba después.' },
+      { h: 'Línea directa con el founder', b: 'Sin tickets ni níveles de soporte — hablas conmigo directamente cuando lo necesites.' },
+      { h: '3-6 meses gratis', b: 'A cambio de ser caso de estudio y referencia cuando el producto madure.' },
+    ],
+  } : {
+    eyebrow: 'BETA PROGRAM · LIMITED SPOTS',
+    title: 'Founding Customer Terms',
+    sub: 'We\'re opening a limited number of spots for the Beta with pilot plants. In exchange for building the product alongside you, here\'s what you get:',
+    perks: [
+      { h: 'Price locked for life', b: 'Whatever you pay in Beta is what you always pay — even if the public price rises later.' },
+      { h: 'Direct line to the founder', b: 'No tickets, no support tiers — you talk to me directly whenever you need to.' },
+      { h: '3-6 months free', b: 'In exchange for being a case study and reference once the product matures.' },
+    ],
+  };
+  return (
+    <section style={{ padding: '80px 56px', background: S.bg }}>
+      <div style={{ maxWidth: 980, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 44 }}>
+          <div style={{ display: 'inline-block', fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8, color: S.ok, background: S.okBg, padding: '6px 12px', borderRadius: 999, marginBottom: 18 }}>{t.eyebrow}</div>
+          <h2 style={{ ...serif, fontSize: 36, fontWeight: 700, color: S.ink, letterSpacing: -0.7, margin: '0 0 14px' }}>{t.title}</h2>
+          <p style={{ fontSize: 15.5, color: S.muted, maxWidth: 620, margin: '0 auto', lineHeight: 1.6 }}>{t.sub}</p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+          {t.perks.map((p, i) => (
+            <div key={i} style={{ background: 'white', border: `1px solid ${S.line}`, borderRadius: 12, padding: 24 }}>
+              <div style={{ width: 30, height: 30, borderRadius: 999, background: S.okBg, color: S.ok, display: 'grid', placeItems: 'center', fontWeight: 700, marginBottom: 14 }}>✓</div>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: S.ink, marginBottom: 8 }}>{p.h}</div>
+              <div style={{ fontSize: 13.5, color: S.muted, lineHeight: 1.55 }}>{p.b}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTA({ lang }) {
+  const t = lang === 'es' ? {
+    title: '¿Quieres ser de los primeros founding customers?',
+    sub: 'Cupos limitados para la versión Beta. Ayúdanos a construir el sistema con tu proceso real — y asegura las condiciones de founding customer de por vida.',
+    cta: 'Aplicar al programa Beta',
+  } : {
+    title: 'Want to be one of the first founding customers?',
+    sub: 'Limited spots for the Beta. Help us build the system around your real process — and lock in founding-customer terms for life.',
+    cta: 'Apply to the Beta program',
+  };
+  return (
+    <section style={{ padding: '88px 56px', textAlign: 'center' }}>
+      <div style={{ maxWidth: 680, margin: '0 auto' }}>
+        <h2 style={{ ...serif, fontSize: 36, fontWeight: 700, color: S.ink, letterSpacing: -0.7, margin: '0 0 16px' }}>{t.title}</h2>
+        <p style={{ fontSize: 16, color: S.muted, margin: '0 0 28px', lineHeight: 1.6 }}>{t.sub}</p>
+        <button style={{ padding: '14px 26px', borderRadius: 10, border: 'none', cursor: 'pointer', background: S.primary, color: 'white', fontWeight: 700, fontSize: 15 }}>{t.cta} →</button>
+      </div>
+    </section>
+  );
+}
+
+function Footer({ lang }) {
+  return (
+    <footer style={{ padding: '32px 56px', background: '#06142E', color: '#7B8AA8', fontSize: 13, textAlign: 'center' }}>
+      © 2026 IxT-QMS. {lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}.
+    </footer>
+  );
+}
+
+function App() {
+  const [lang, setLang] = React.useState('es');
+  return (
+    <div style={{ background: 'white' }}>
+      <Nav lang={lang} setLang={setLang}/>
+      <Hero lang={lang}/>
+      <StatStrip lang={lang}/>
+      <Achievement lang={lang}/>
+      <Timeline lang={lang}/>
+      <Certifications lang={lang}/>
+      <FoundingPerks lang={lang}/>
+      <WhyThisMatters lang={lang}/>
+      <CTA lang={lang}/>
+      <Footer lang={lang}/>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
