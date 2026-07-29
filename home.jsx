@@ -231,8 +231,8 @@ function V5Nav({ lang, setLang }) {
     return () => obs.disconnect();
   }, []);
   const links = L
-    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Plataforma'],['Nuestra Historia.html','Perfil'],['Escalera Comercial.html','Niveles'],['#form-contacto','Contacto']]
-    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Platform'],['Nuestra Historia.html','Profile'],['Escalera Comercial.html','Levels'],['#form-contacto','Contact']];
+    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Método'],['#kaizen','Casos'],['Nuestra Historia.html','Perfil'],['Escalera Comercial.html','Niveles'],['#form-contacto','Contacto']]
+    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Method'],['#kaizen','Cases'],['Nuestra Historia.html','Profile'],['Escalera Comercial.html','Levels'],['#form-contacto','Contact']];
   return (
     <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px 12px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
@@ -266,17 +266,17 @@ function V5Nav({ lang, setLang }) {
 function V5Hero({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'CONSULTORÍA Y FORMACIÓN · INDUSTRIA AUTOMOTRIZ',
-    title: 'Experiencia de lanzamiento en OEM y Tier 1, del lado de tu planta.',
-    sub: 'Consultoría y formación en lanzamiento de nuevos modelos, gestión de cambios de ingeniería y confirmación de calidad para la industria automotriz.',
-    quote: 'Conocemos los dos lados de la mesa: el criterio con el que el OEM juzga tu breakpoint y tu paquete de aprobación, y la presión del proveedor dentro de la planta de su cliente.',
+    eyebrow: 'REPRESENTACIÓN TÉCNICA · CONSULTORÍA · FORMACIÓN',
+    title: 'Lo que funciona en plantas con estándares exigentes, adaptado a la realidad de su operación.',
+    sub: 'Representación técnica, apoyo en lanzamientos, cambios de ingeniería y formación de equipos. Todo respaldado por una metodología propia de control de proceso y trazabilidad.',
+    quote: '14 años en manufactura, entre operaciones que están construyendo su sistema de calidad y plantas auditadas con criterio severo. Conocemos los dos lados de la mesa: el criterio con el que el OEM juzga su paquete de aprobación, y la presión del proveedor dentro de la planta de su cliente. No importa de qué lado esté: recibe el beneficio de ambos.',
     cta1: 'Agendar reunión de descubrimiento', cta2: 'Ver líneas de servicio',
     proof: 'Respaldo: instrucción en Universidad Nissan · desarrollo de hojas de operación estándar y evaluación de personal de planta',
   } : {
-    eyebrow: 'CONSULTING & TRAINING · AUTOMOTIVE INDUSTRY',
-    title: 'OEM and Tier 1 launch experience, on your plant\'s side.',
-    sub: 'Consulting and training in new model launches, engineering change management and quality confirmation for the automotive industry.',
-    quote: 'We know both sides of the table: the criteria the OEM uses to judge your breakpoint and approval package, and the supplier\'s pressure inside their customer\'s plant.',
+    eyebrow: 'TECHNICAL REPRESENTATION · CONSULTING · TRAINING',
+    title: 'What works in plants held to demanding standards, adapted to the reality of yours.',
+    sub: 'On-site technical representation, support on launches and engineering changes, and training for your teams — backed by our own methodology for process control and traceability.',
+    quote: '14 years in manufacturing, across operations still building their quality system and plants audited to severe criteria. We know both sides of the table: the criteria the OEM uses to judge your approval package, and the supplier\'s pressure inside their customer\'s plant. Whichever side you are on, you get the benefit of both.',
     cta1: 'Schedule discovery meeting', cta2: 'View service lines',
     proof: 'Backed by: instruction at Nissan University · standard operation sheet development and plant staff assessment',
   };
@@ -336,7 +336,7 @@ function V5Kaizen({ lang }) {
   const L = lang === 'es';
   const t = L ? {
     eyebrow: 'DOS KAIZEN REGISTRADOS EN NISSAN',
-    title: 'Los dos métodos que dieron origen a esta práctica.',
+    title: 'Resultados medidos, no promesas.',
     sub: 'Registrados en la base global de mejores prácticas de Nissan.',
     lp: 'PROBLEMA', lm: 'MÉTODO', lr: 'RESULTADO',
     items: [
@@ -348,7 +348,7 @@ function V5Kaizen({ lang }) {
     close: 'Los módulos de BOM de cliente, auditorías, inspección de defectos y control de material de la plataforma son los nodos que correlacionan el dibujo, la especificación y la hoja de operación. La plataforma no es un producto aparte: es este kaizen automatizado.',
   } : {
     eyebrow: 'TWO KAIZEN REGISTERED AT NISSAN',
-    title: 'The two methods this practice was built on.',
+    title: 'Measured results, not promises.',
     sub: "Registered in Nissan's global best practices database.",
     lp: 'PROBLEM', lm: 'METHOD', lr: 'RESULT',
     items: [
@@ -395,22 +395,22 @@ function V5Services({ lang }) {
   const [exp, setExp] = React.useState({});
   const moreT = L ? ['Ver todo', 'Ver menos'] : ['Show all', 'Show less'];
   const t = L ? {
-    eyebrow: 'CUATRO LÍNEAS DE SERVICIO', title: 'Del programa de lanzamiento al piso de tu cliente.',
+    eyebrow: 'CUATRO LÍNEAS DE SERVICIO', title: 'Cuatro problemas que resolvemos, no cuatro catálogos.',
     sub: 'Cada línea se contrata con alcance y entregables definidos por escrito.', cta: 'Solicitar propuesta',
     cards: [
-      { h: 'Lanzamiento de nuevos modelos', d: 'Asesoría para lanzamientos de nuevos modelos y arranques de producción.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque'], link: ['#kaizen', 'Ver el método de confirmación virtual →'] },
-      { h: 'Representación técnica y auditoría en planta', d: 'Que tu cliente OEM tenga en su piso a alguien que hable su idioma técnico y el tuyo — y que alguien revise también cómo se manipula la pieza allá.', items: ['Ingeniero residente en planta del cliente OEM, representando al proveedor', 'Canal técnico entre OEM y proveedor, con juntas y documentación en inglés', 'Contención, clasificación y retrabajo en sitio bajo autorización del cliente', 'Gestión de RMA y disposición de material no conforme', 'Auditoría del manejo y uso del producto en la planta del cliente OEM', 'Auditoría de proceso, contención y estándares de inspección a proveedores Tier 1 y Tier 2', 'Investigación de fallas en línea y direccionamiento de acciones correctivas', 'Respuesta durante crisis de calidad'], note: 'No incluye auditoría de certificación de tercera parte.' },
-      { h: 'Confirmación y aprobación de producto', d: 'Que la unidad que sale de tu línea corresponda a lo que ingeniería liberó, y que se pueda demostrar.', items: ['Diseño del método de confirmación para un cambio, una pieza o una familia de piezas', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación', 'Definición de criterio de aceptación y de la evidencia requerida', 'Confirmación de especificación virtual y física previa a pruebas de producción', 'Estándares de confirmación para PDI, línea de prueba, torque y auditoría de lote de materiales', 'Aprobación de apariencia y paquetes AAR: muestras patrón de color, grano, brillo y textura'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de Nissan. Sometió paquetes con AAR como proveedor y los juzgó como OEM.' },
-      { h: 'Validación y pruebas vehiculares', d: 'Ejecución del programa de pruebas que valida el producto antes de liberarlo a producción.', items: ['ADAS: crucero inteligente, frenado autónomo de emergencia, asistente de estacionamiento y HUD', 'Durabilidad en pista y vía pública, NVH, ruidos y vibraciones y ruido de viento', 'Intrusión de agua, freno, alineación de ruedas e infoentretenimiento', 'Ajuste y acabado y evaluaciones de revisión del cliente: manejo, funcional, confort y apariencia', 'Preparación y evaluación de unidades para IQS, J.D. Power, IIHS y lote de revista', 'Benchmark competitivo, análisis de datos y reporte técnico conforme al estándar del cliente'], badge: 'Respaldo: programas de desarrollo de Mercedes-Benz y Volkswagen en IDIADA Applus, y preparación de unidades de lanzamiento en Nissan.', note: 'No incluye pista de pruebas, laboratorio ni instrumentación propios.' },
+      { k: 'Lanzamiento de nuevos modelos', h: 'Que el arranque no se detenga por un cambio de ingeniería', d: 'Asesoría para lanzamientos de nuevos modelos y arranques de producción.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque'], link: ['#kaizen', 'Ver el método de confirmación virtual →'] },
+      { k: 'Representación técnica y auditoría en planta', h: 'Un ingeniero de calidad en la planta de su cliente, sin plaza fija', d: 'Que su cliente OEM tenga en su piso a alguien que hable su idioma técnico y el suyo — y que alguien revise también cómo se manipula la pieza allá.', items: ['Ingeniero residente en planta del cliente OEM, representando al proveedor', 'Canal técnico entre OEM y proveedor, con juntas y documentación en inglés', 'Contención, clasificación y retrabajo en sitio bajo autorización del cliente', 'Gestión de RMA y disposición de material no conforme', 'Auditoría del manejo y uso del producto en la planta del cliente OEM', 'Auditoría de proceso, contención y estándares de inspección a proveedores Tier 1 y Tier 2', 'Investigación de fallas en línea y direccionamiento de acciones correctivas', 'Respuesta durante crisis de calidad'], note: 'No incluye auditoría de certificación de tercera parte.' },
+      { k: 'Confirmación y aprobación de producto', h: 'Que ninguna pieza salga de su línea con una duda abierta', d: 'Que la unidad que sale de su línea corresponda a lo que ingeniería liberó, y que se pueda demostrar.', items: ['Diseño del método de confirmación para un cambio, una pieza o una familia de piezas', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación', 'Definición de criterio de aceptación y de la evidencia requerida', 'Confirmación de especificación virtual y física previa a pruebas de producción', 'Estándares de confirmación para PDI, línea de prueba, torque y auditoría de lote de materiales', 'Aprobación de apariencia y paquetes AAR: muestras patrón de color, grano, brillo y textura'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de Nissan. Sometió paquetes con AAR como proveedor y los juzgó como OEM.' },
+      { k: 'Validación y pruebas vehiculares', h: 'Validado y demostrado antes de liberar a producción', d: 'Ejecución del programa de pruebas que valida el producto antes de liberarlo a producción.', items: ['ADAS: crucero inteligente, frenado autónomo de emergencia, asistente de estacionamiento y HUD', 'Durabilidad en pista y vía pública, NVH, ruidos y vibraciones y ruido de viento', 'Intrusión de agua, freno, alineación de ruedas e infoentretenimiento', 'Ajuste y acabado y evaluaciones de revisión del cliente: manejo, funcional, confort y apariencia', 'Preparación y evaluación de unidades para IQS, J.D. Power, IIHS y lote de revista', 'Benchmark competitivo, análisis de datos y reporte técnico conforme al estándar del cliente'], badge: 'Respaldo: programas de desarrollo de Mercedes-Benz y Volkswagen en IDIADA Applus, y preparación de unidades de lanzamiento en Nissan.', note: 'No incluye pista de pruebas, laboratorio ni instrumentación propios.' },
     ],
   } : {
-    eyebrow: 'FOUR SERVICE LINES', title: "From the launch program to your customer's floor.",
+    eyebrow: 'FOUR SERVICE LINES', title: 'Four problems we solve — not four catalogs.',
     sub: 'Every line is contracted with scope and deliverables defined in writing.', cta: 'Request proposal',
     cards: [
-      { h: 'New model launch', d: 'Advisory for new model launches and production ramp-ups.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards'], link: ['#kaizen', 'See the virtual confirmation method →'] },
-      { h: 'Technical representation and plant audits', d: 'Give your OEM customer someone on their floor who speaks their technical language and yours — and have someone review how the part is handled there.', items: ['Resident engineer at the OEM customer plant, representing the supplier', 'Technical channel between OEM and supplier, with meetings and documentation in English', 'On-site containment, sorting and rework under customer authorization', 'RMA management and disposition of non-conforming material', 'Audit of product handling and use at the OEM customer facility', 'Process, containment and inspection standard audits at Tier 1 and Tier 2 suppliers', 'Line failure investigation and routing of corrective actions', 'Response during quality crises'], note: 'Does not include third-party certification audits.' },
-      { h: 'Product confirmation and approval', d: 'Make sure the unit leaving your line matches what engineering released — and that it can be proven.', items: ['Confirmation method design for a change, a part or a part family', 'Correlation between drawing, BOM specification, inspection standard and operation sheet', 'Definition of acceptance criteria and required evidence', 'Virtual and physical specification confirmation prior to production trials', 'Confirmation standards for PDI, test line, torque and material lot audit', 'Appearance approval and AAR packages: color, grain, gloss and texture master samples'], badge: "Backed by: the two kaizen registered in Nissan's global best practices database. Submitted AAR packages as a supplier and judged them as an OEM." },
-      { h: 'Vehicle validation and testing', d: 'Execution of the test program that validates the product before release to production.', items: ['ADAS: intelligent cruise control, autonomous emergency braking, parking assist and HUD', 'Durability on proving ground and public road, NVH, squeak and rattle and wind noise', 'Water intrusion, brake testing, wheel alignment and infotainment', 'Fit and finish and customer review evaluations: driving, functional, comfort and appearance', 'Unit preparation and evaluation for IQS, J.D. Power, IIHS and press fleet', 'Competitive benchmark, data analysis and technical reporting to customer standard'], badge: 'Backed by: Mercedes-Benz and Volkswagen development programs at IDIADA Applus, and launch unit preparation at Nissan.', note: 'Does not include a proving ground, laboratory or instrumentation of our own.' },
+      { k: 'New model launch', h: 'A ramp-up that is not stopped by an engineering change', d: 'Advisory for new model launches and production ramp-ups.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards'], link: ['#kaizen', 'See the virtual confirmation method →'] },
+      { k: 'Technical representation and plant audits', h: 'A quality engineer at your customer plant, without adding headcount', d: 'Give your OEM customer someone on their floor who speaks their technical language and yours — and have someone review how the part is handled there.', items: ['Resident engineer at the OEM customer plant, representing the supplier', 'Technical channel between OEM and supplier, with meetings and documentation in English', 'On-site containment, sorting and rework under customer authorization', 'RMA management and disposition of non-conforming material', 'Audit of product handling and use at the OEM customer facility', 'Process, containment and inspection standard audits at Tier 1 and Tier 2 suppliers', 'Line failure investigation and routing of corrective actions', 'Response during quality crises'], note: 'Does not include third-party certification audits.' },
+      { k: 'Product confirmation and approval', h: 'No part leaves your line with an open question', d: 'Make sure the unit leaving your line matches what engineering released — and that it can be proven.', items: ['Confirmation method design for a change, a part or a part family', 'Correlation between drawing, BOM specification, inspection standard and operation sheet', 'Definition of acceptance criteria and required evidence', 'Virtual and physical specification confirmation prior to production trials', 'Confirmation standards for PDI, test line, torque and material lot audit', 'Appearance approval and AAR packages: color, grain, gloss and texture master samples'], badge: "Backed by: the two kaizen registered in Nissan's global best practices database. Submitted AAR packages as a supplier and judged them as an OEM." },
+      { k: 'Vehicle validation and testing', h: 'Validated and evidenced before release to production', d: 'Execution of the test program that validates the product before release to production.', items: ['ADAS: intelligent cruise control, autonomous emergency braking, parking assist and HUD', 'Durability on proving ground and public road, NVH, squeak and rattle and wind noise', 'Water intrusion, brake testing, wheel alignment and infotainment', 'Fit and finish and customer review evaluations: driving, functional, comfort and appearance', 'Unit preparation and evaluation for IQS, J.D. Power, IIHS and press fleet', 'Competitive benchmark, data analysis and technical reporting to customer standard'], badge: 'Backed by: Mercedes-Benz and Volkswagen development programs at IDIADA Applus, and launch unit preparation at Nissan.', note: 'Does not include a proving ground, laboratory or instrumentation of our own.' },
     ],
   };
   const P = { stroke: 'currentColor', strokeWidth: 1.7, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
@@ -435,7 +435,10 @@ function V5Services({ lang }) {
                 <div style={{ width: 36, height: 36, borderRadius: 9, background: '#EDF3FE', color: v4S.primary, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
                   <svg width="24" height="24" viewBox="-11 -11 22 22">{svcIc[i]}</svg>
                 </div>
-                <h3 style={{ fontSize: 19, fontWeight: 700, color: v4S.ink, margin: 0, letterSpacing: -0.4, flex: 1 }}>{c.h}</h3>
+                <div style={{ flex: 1 }}>
+                  {c.k && <div style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: 0.8, textTransform: 'uppercase', color: v4S.muted, marginBottom: 4, fontFamily: '"JetBrains Mono", monospace' }}>{c.k}</div>}
+                  <h3 style={{ fontSize: 19, fontWeight: 700, color: v4S.ink, margin: 0, letterSpacing: -0.4, lineHeight: 1.25 }}>{c.h}</h3>
+                </div>
                 <div style={{ fontSize: 12, fontWeight: 800, color: v4S.muted, fontFamily: '"JetBrains Mono", monospace' }}>{String(i + 1).padStart(2, '0')}</div>
               </div>
               <p style={{ fontSize: 14, color: v4S.ink2, margin: 0, lineHeight: 1.5, fontStyle: 'italic' }}>{c.d}</p>
@@ -530,14 +533,17 @@ function V5Training({ lang }) {
 function V5Platform({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'LA PLATAFORMA', title: 'La herramienta con la que trabajo.',
-    sub: 'IxT-QMS no se vende por separado: se incluye en los programas de acompañamiento y se instala en el servidor del cliente. Es la misma herramienta con la que se documenta y se da seguimiento al trabajo técnico de las líneas de servicio.',
+    eyebrow: 'ASÍ TRABAJAMOS', title: 'Nuestro método sigue cada pieza, no cada documento.',
+    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la herramienta con la que trabajamos. No se vende por separado: se incluye en los programas y se instala en el servidor del cliente.',
+    flowH: 'EL CICLO DE VIDA DE LA PIEZA',
+    flow: ['Inspección', 'Declaración de defecto', 'Reparación', 'Validación', 'MRB / Hospital de defectos', 'Reinspección', 'Liberación o scrap autorizado'],
+    flowNote: 'El documento es el resultado. El flujo operativo es el valor.',
     points: [
-      ['Instalada en tu servidor', 'Sin base de datos compartida con nadie, sin proveedor externo que auditar.'],
+      ['Instalada en su servidor', 'Sin base de datos compartida con nadie, sin proveedor externo que auditar.'],
       ['Opera sin internet', 'La operación crítica funciona aunque se caiga el enlace.'],
-      ['Se incluye en el programa', 'No estoy tomando instalaciones nuevas este trimestre. Trabajo con un número limitado de socios iniciales mientras se cierra funcionalidad.'],
+      ['Se incluye en el programa', 'No estamos tomando instalaciones nuevas este trimestre. Trabajamos con un número limitado de socios iniciales mientras se cierra funcionalidad.'],
     ],
-    shotsH: 'Cuatro módulos en operación',
+    shotsH: 'Evidencia: cuatro módulos en operación',
     shots: [
       ['8d-dashboard.png', '8D · resolución de problemas', 'Tablero de reportes 8D con estado, responsable y avance por disciplina.'],
       ['alerta-qar.png', 'Alertas QAR', 'Alerta de calidad emitida con evidencia, área responsable y seguimiento.'],
@@ -546,14 +552,17 @@ function V5Platform({ lang }) {
     ],
     note: 'Requisitos técnicos para el departamento de TI del cliente disponibles a solicitud: sistema operativo, recursos de servidor, base de datos, puertos, respaldos y autenticación.',
   } : {
-    eyebrow: 'THE PLATFORM', title: 'The tool I work with.',
-    sub: 'IxT-QMS is not sold separately: it is included in advisory programs and installed on the customer server. It is the same tool used to document and follow up the technical work of the service lines.',
+    eyebrow: 'HOW WE WORK', title: 'Our method follows every part, not every document.',
+    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the tool we work with. It is not sold separately: it is included in the programs and installed on the customer server.',
+    flowH: 'THE LIFECYCLE OF THE PART',
+    flow: ['Inspection', 'Defect declaration', 'Repair', 'Validation', 'MRB / Defect hospital', 'Reinspection', 'Release or authorized scrap'],
+    flowNote: 'The document is the result. The operational workflow is the value.',
     points: [
       ['Installed on your server', 'No shared database with anyone, no external vendor to audit.'],
       ['Runs without internet', 'Critical operation keeps working even if the link goes down.'],
-      ['Included in the program', 'I am not taking new installations this quarter. I work with a limited number of early partners while functionality is finalized.'],
+      ['Included in the program', 'We are not taking new installations this quarter. We work with a limited number of early partners while functionality is finalized.'],
     ],
-    shotsH: 'Four modules in operation',
+    shotsH: 'Evidence: four modules in operation',
     shots: [
       ['8d-dashboard.png', '8D · problem solving', '8D report board with status, owner and progress per discipline.'],
       ['alerta-qar.png', 'QAR alerts', 'Quality alert issued with evidence, responsible area and follow-up.'],
@@ -571,6 +580,18 @@ function V5Platform({ lang }) {
             <h2 style={{ fontSize: 38, lineHeight: 1.15, fontWeight: 700, margin: 0, letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
           </div>
           <p style={{ fontSize: 15.5, color: '#94A6C7', margin: 0, lineHeight: 1.65 }}>{t.sub}</p>
+        </div>
+        <div style={{ border: '1px solid rgba(255,255,255,0.12)', borderRadius: 14, padding: '24px 26px', marginBottom: 34, background: 'rgba(255,255,255,0.03)' }}>
+          <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: '#7DB7FF', marginBottom: 16, fontFamily: '"JetBrains Mono", monospace' }}>{t.flowH}</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', marginBottom: 16 }}>
+            {t.flow.map((f, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span style={{ color: '#4C7FE8', fontWeight: 700, fontSize: 13 }}>→</span>}
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'white', background: 'rgba(76,127,232,0.16)', border: '1px solid rgba(125,183,255,0.3)', borderRadius: 999, padding: '7px 15px' }}>{f}</span>
+              </React.Fragment>
+            ))}
+          </div>
+          <div style={{ fontSize: 14, color: '#94A6C7', fontStyle: 'italic' }}>{t.flowNote}</div>
         </div>
         <div className="g3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 46 }}>
           {t.points.map(([h, b], i) => (
@@ -617,7 +638,7 @@ function V5Diagnostico({ lang }) {
     levels: 'Ver los niveles de servicio →',
     cta: 'Agendar reunión de descubrimiento', contact: 'ixt.qms@gmail.com · +52 449 415 8248 · Aguascalientes, México',
     note: 'Todos los servicios se cotizan de acuerdo con el alcance del proyecto. Los viáticos y gastos de viaje se cotizan por separado para servicios fuera de Aguascalientes.',
-    priv: ['El envío de este formulario se procesa mediante Web3Forms. Consulta el ', 'aviso de privacidad', '.'],
+    priv: ['El envío de este formulario se procesa mediante Web3Forms. Consulte el ', 'aviso de privacidad', '.'],
   } : {
     eyebrow: 'HOW TO START', title: 'A clear path, step by step.',
     sub: 'The first conversation has no cost. Technical work always has scope, deliverable and quote.',
@@ -706,10 +727,10 @@ function V5Form({ L }) {
     msg: 'Contexto del proyecto', msgPh: 'Lanzamiento próximo, problema de calidad abierto, alcance estimado, plantas involucradas…',
     link: 'Enlace a documentación (opcional)', linkPh: 'Drive, SharePoint o WeTransfer con presentación, planos o reporte del problema',
     send: 'Enviar solicitud', sending: 'Enviando…',
-    okH: 'Solicitud enviada', okB: 'Gracias. Recibirás una respuesta en tu correo con propuesta de horarios.',
-    fbH: 'Se abrió tu cliente de correo', fbB: 'Verifica que el mensaje se haya enviado. Si no se abrió, escríbenos directo a ixt.qms@gmail.com',
-    errB: 'No se pudo enviar. Escríbenos directo a ixt.qms@gmail.com',
-    priv: 'La información se usa únicamente para responder tu solicitud. No compartimos datos con terceros.',
+    okH: 'Solicitud enviada', okB: 'Gracias. Recibirá una respuesta en su correo con propuesta de horarios.',
+    fbH: 'Se abrió su cliente de correo', fbB: 'Verifique que el mensaje se haya enviado. Si no se abrió, escríbanos directo a ixt.qms@gmail.com',
+    errB: 'No se pudo enviar. Escríbanos directo a ixt.qms@gmail.com',
+    priv: 'La información se usa únicamente para responder su solicitud. No compartimos datos con terceros.',
   } : {
     h: 'Schedule a discovery meeting', sub: 'We reply within one business day with proposed times.',
     name: 'Name', company: 'Company', role: 'Job title', email: 'Work email', phone: 'Phone (optional)',
@@ -900,10 +921,10 @@ function HomeLanding() {
       <V5Nav lang={lang} setLang={setLang}/>
       <V5Hero lang={lang}/>
       <V5Creds lang={lang}/>
-      <V5Kaizen lang={lang}/>
       <V5Services lang={lang}/>
       <V5Training lang={lang}/>
       <V5Platform lang={lang}/>
+      <V5Kaizen lang={lang}/>
       <V4AuditSim lang={lang}/>
       <V5Diagnostico lang={lang}/>
       <V4Footer lang={lang}/>

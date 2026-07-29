@@ -1054,7 +1054,7 @@ function V4AuditSim({ lang }) {
   const [open, setOpen] = React.useState(0);
   const t = lang === 'es' ? {
     eyebrow: 'PREPARACIÓN PARA AUDITORÍA',
-    title: 'Así respondes cuando el auditor pregunta.',
+    title: 'Así responde cuando el auditor pregunta.',
     sub: 'Preguntas típicas de una auditoría ISO 9001:2015 y dónde queda la evidencia dentro de la plataforma. Cada respuesta apunta al módulo donde queda registrada la evidencia.',
     items: [
       { clause: '8.5.2', q: 'Muéstrenme la trazabilidad completa de este lote específico, estación por estación.', a: 'Inspección de defectos: historial del lote — quién inspeccionó, cuándo, qué se encontró y con qué evidencia fotográfica.' },
