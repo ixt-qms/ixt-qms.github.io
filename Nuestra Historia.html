@@ -13,6 +13,12 @@
   * { box-sizing: border-box; }
   button, a { font-family: inherit; }
   a { text-decoration: none; }
+  .ixr{opacity:0;transform:translateY(30px) scale(.985);filter:blur(7px);transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .9s cubic-bezier(.16,.84,.3,1),filter .9s ease}
+  .ixr.on{opacity:1;transform:none;filter:none}
+  .ixr.ixh{transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .5s cubic-bezier(.16,.84,.3,1),filter .9s ease,box-shadow .5s ease}
+  .ixr.ixh.on:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(11,37,69,.11)}
+  .ixdark.ixr.ixh.on:hover{box-shadow:0 18px 42px rgba(0,0,0,.35)}
+  @media(prefers-reduced-motion:reduce){.ixr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -38,7 +44,7 @@ function Nav({ lang, setLang, t }) {
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 40 }}>
-        <a href="IxT-QMS Landing.html" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <a href="index.html" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
             width: 34, height: 34, borderRadius: 8,
             background: `linear-gradient(135deg, ${S.primary}, ${S.primaryDark})`,
@@ -47,7 +53,7 @@ function Nav({ lang, setLang, t }) {
           <div style={{ fontWeight: 700, fontSize: 17, color: S.ink, letterSpacing: -0.3 }}>IxT-QMS</div>
         </a>
         <div style={{ display: 'flex', gap: 28, fontSize: 14, color: '#1F3A5F', fontWeight: 500 }}>
-          <a href="IxT-QMS Landing.html" style={{ color: 'inherit' }}>{lang === 'es' ? 'Producto' : 'Product'}</a>
+          <a href="index.html" style={{ color: 'inherit' }}>{lang === 'es' ? 'Producto' : 'Product'}</a>
           <a style={{ color: S.primary, fontWeight: 700 }}>{lang === 'es' ? 'Nuestra historia' : 'Our story'}</a>
         </div>
       </div>
@@ -56,9 +62,9 @@ function Nav({ lang, setLang, t }) {
           <button onClick={() => setLang('es')} style={{ padding: '6px 12px', border: 'none', cursor: 'pointer', background: lang === 'es' ? S.ink : 'white', color: lang === 'es' ? 'white' : '#1F3A5F' }}>ES</button>
           <button onClick={() => setLang('en')} style={{ padding: '6px 12px', border: 'none', cursor: 'pointer', background: lang === 'en' ? S.ink : 'white', color: lang === 'en' ? 'white' : '#1F3A5F' }}>EN</button>
         </div>
-        <button style={{ padding: '9px 18px', borderRadius: 8, border: 'none', cursor: 'pointer', background: S.primary, color: 'white', fontWeight: 600, fontSize: 13.5, whiteSpace: 'nowrap' }}>
-          {lang === 'es' ? 'Agendar demo' : 'Book demo'}
-        </button>
+        <a href="index.html#diagnostico" style={{ padding: '9px 18px', borderRadius: 8, cursor: 'pointer', background: S.primary, color: 'white', fontWeight: 600, fontSize: 13.5, whiteSpace: 'nowrap' }}>
+          {lang === 'es' ? 'Agendar reunión' : 'Book a call'}
+        </a>
       </div>
     </nav>
   );
@@ -349,20 +355,20 @@ function FoundingPerks({ lang }) {
 
 function CTA({ lang }) {
   const t = lang === 'es' ? {
-    title: '¿Quieres ser de los primeros founding customers?',
-    sub: 'Cupos limitados para la versión Beta. Ayúdanos a construir el sistema con tu proceso real — y asegura las condiciones de founding customer de por vida.',
-    cta: 'Aplicar al programa Beta',
+    title: '¿Hablamos de tu próximo lanzamiento?',
+    sub: 'Una reunión de descubrimiento de 30 minutos para entender tu proceso, tus cambios de ingeniería en curso y qué tipo de apoyo necesitas en planta.',
+    cta: 'Agendar reunión de descubrimiento',
   } : {
-    title: 'Want to be one of the first founding customers?',
-    sub: 'Limited spots for the Beta. Help us build the system around your real process — and lock in founding-customer terms for life.',
-    cta: 'Apply to the Beta program',
+    title: 'Let’s talk about your next launch',
+    sub: 'A 30-minute discovery call to understand your process, your open engineering changes and the kind of on-site support you need.',
+    cta: 'Book a discovery call',
   };
   return (
     <section style={{ padding: '88px 56px', textAlign: 'center' }}>
       <div style={{ maxWidth: 680, margin: '0 auto' }}>
         <h2 style={{ ...serif, fontSize: 36, fontWeight: 700, color: S.ink, letterSpacing: -0.7, margin: '0 0 16px' }}>{t.title}</h2>
         <p style={{ fontSize: 16, color: S.muted, margin: '0 0 28px', lineHeight: 1.6 }}>{t.sub}</p>
-        <button style={{ padding: '14px 26px', borderRadius: 10, border: 'none', cursor: 'pointer', background: S.primary, color: 'white', fontWeight: 700, fontSize: 15 }}>{t.cta} →</button>
+        <a href="index.html#diagnostico" style={{ display: 'inline-block', padding: '14px 26px', borderRadius: 10, cursor: 'pointer', background: S.primary, color: 'white', fontWeight: 700, fontSize: 15 }}>{t.cta} →</a>
       </div>
     </section>
   );
@@ -394,6 +400,28 @@ function App() {
   );
 }
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+setTimeout(() => {
+  let seen = false;
+  try { seen = sessionStorage.getItem('ixSeenPerfil') === '1'; sessionStorage.setItem('ixSeenPerfil', '1'); } catch (e) {}
+  if (seen || location.hash) return;
+  const root = document.getElementById('root'), targets = [];
+  const isGrid = (el) => /grid/.test(getComputedStyle(el).display);
+  root.querySelectorAll('section').forEach((sec) => {
+    const dark = /rgb\(1?[0-9], ?[0-9]/.test(getComputedStyle(sec).backgroundColor);
+    const inner = sec.firstElementChild; if (!inner) return;
+    Array.from(inner.children).forEach((ch) => {
+      if (isGrid(ch) && ch.children.length > 1) {
+        Array.from(ch.children).forEach((c, i) => {
+          c.classList.add('ixr', 'ixh'); if (dark) c.classList.add('ixdark');
+          c.style.transitionDelay = Math.min(i, 6) * 90 + 'ms';
+          targets.push(c);
+        });
+      } else { ch.classList.add('ixr'); targets.push(ch); }
+    });
+  });
+  const obs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } }), { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+  targets.forEach((t) => obs.observe(t));
+}, 60);
 </script>
 </body>
 </html>

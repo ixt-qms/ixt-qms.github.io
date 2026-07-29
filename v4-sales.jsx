@@ -1027,7 +1027,7 @@ function V4Services({ lang }) {
 function V4Footer({ lang }) {
   return (
     <footer style={{ padding: '40px 56px', background: '#06142E', color: '#7B8AA8', fontSize: 13 }}>
-      <div style={{ maxWidth: 1180, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ maxWidth: 1180, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{
             width: 28, height: 28, borderRadius: 6,
@@ -1038,7 +1038,12 @@ function V4Footer({ lang }) {
           <span>·</span>
           <span>{lang === 'es' ? 'Consultoría y formación · Industria automotriz' : 'Consulting & training · Automotive industry'}</span>
         </div>
-        <div>© 2026 IxT-QMS. {lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}.</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
+          <a href="Nuestra Historia.html" style={{ color: '#C7D3E8', textDecoration: 'none', fontWeight: 600 }}>{lang === 'es' ? 'Perfil' : 'Profile'}</a>
+          <a href="Escalera Comercial.html" style={{ color: '#C7D3E8', textDecoration: 'none', fontWeight: 600 }}>{lang === 'es' ? 'Niveles de servicio' : 'Service levels'}</a>
+          <a href="Aviso de Privacidad.html" style={{ color: '#7B8AA8', textDecoration: 'none' }}>{lang === 'es' ? 'Aviso de privacidad' : 'Privacy notice'}</a>
+          <span>© 2026 IxT-QMS. {lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}.</span>
+        </div>
       </div>
     </footer>
   );
@@ -1048,49 +1053,53 @@ function V4Footer({ lang }) {
 function V4AuditSim({ lang }) {
   const [open, setOpen] = React.useState(0);
   const t = lang === 'es' ? {
-    eyebrow: 'ASÍ TE ACOMPAÑAMOS EN AUDITORÍA',
+    eyebrow: 'PREPARACIÓN PARA AUDITORÍA',
     title: 'Así respondes cuando el auditor pregunta.',
-    sub: 'Preguntas típicas de una auditoría ISO 9001:2015, con la evidencia exacta que IxT-QMS te muestra en pantalla — basado en la estructura de ISO/TS 9002:2016.',
+    sub: 'Preguntas típicas de una auditoría ISO 9001:2015 y dónde queda la evidencia dentro de la plataforma. Cada respuesta apunta al módulo donde queda registrada la evidencia.',
     items: [
-      { clause: '7.1.5', q: '¿Cómo controlan sus recursos de seguimiento y medición por parte y por cliente?', a: 'Módulo Confirmación de Especificaciones: catálogo de specs por parte/cliente con tolerancias, y evidencia fotográfica OK/NOK de cada inspección.' },
-      { clause: '7.5', q: '¿Dónde está la instrucción de trabajo vigente para esta operación, y cómo saben que el operador la leyó?', a: 'Módulo Work Instructions: versión vigente con control de cambios, más firma de lectura por operador con fecha y hora.' },
-      { clause: '8.4', q: '¿Cómo controlan los procesos y productos suministrados por proveedores externos?', a: 'Módulo Client Management + Engineering Changes: jerarquía cliente-proyecto-parte y trazabilidad de cada cambio de ingeniería con su análisis de impacto.' },
-      { clause: '8.5.2', q: 'Muéstrenme la trazabilidad completa de este lote específico, estación por estación.', a: 'Módulo Inspección de Defectos + Hospital de Defectos: historial completo del lote — quién inspeccionó, cuándo, qué se encontró y cómo se resolvió.' },
-      { clause: '8.7', q: '¿Cómo disponen del material no conforme y quién lo autoriza?', a: 'Módulo Material Review Board (MRB): flujo de disposición con evidencia fotográfica y firma electrónica del comité, timestamp incluido.' },
-      { clause: '9.1', q: '¿Qué indicadores de calidad monitorean y con qué frecuencia?', a: 'Módulo Dashboards / KPIs: PPM, FPY, costo de no-calidad y tendencias en vivo, filtrables por planta, cliente y periodo.' },
-      { clause: '9.2', q: '¿Cuál es su programa de auditorías internas y el estatus de los hallazgos abiertos?', a: 'Módulo Internal Audits: calendario anual, checklists, hallazgos con acción correctiva ligada y estatus en tiempo real.' },
-      { clause: '10.2', q: '¿Qué pasó la última vez que un defecto crítico llegó al cliente? Muéstrenme el 8D.', a: 'Módulo 8D + Quality Alert (QAR): alerta automática al momento del defecto, y reporte 8D con las 8 disciplinas, causa raíz y verificación de eficacia.' },
-      { clause: '7.2', q: '¿Cómo verifican que el inspector está calificado para esta operación?', a: 'Módulo Skills & Training: matriz de competencias por operador, con bloqueo de tareas críticas si la certificación venció.' },
-      { clause: '6.1 / 6.3', q: '¿Cómo evalúan el riesgo antes de implementar un cambio de ingeniería?', a: 'Módulo Engineering Changes (ECR): análisis de impacto documentado antes de aprobar el cambio, con trazabilidad por revisión.' },
-      { clause: '6.1', q: '¿Cómo deciden qué nivel de validación aplica a un cambio — desde revisión documental hasta PPAP completo?', a: 'Módulo Risk Matrix: matriz severidad × ocurrencia que sugiere automáticamente la validación requerida por tipo de cambio.' },
-      { clause: '8.5.1 / 8.7', q: '¿Cómo gestionan una excepción temporal a una especificación, con fecha de vigencia?', a: 'Módulo Deviations: desviaciones de producto o proceso con aprobación multinivel y vencimiento controlado por fecha.' },
-      { clause: '9.3', q: '¿Tienen evidencia de la última revisión por la dirección, con las entradas y salidas que pide la norma?', a: 'Módulo Management Review: KPIs de los 19 módulos agregados automáticamente, checklist de 9.3.2/9.3.3 y firma digital de los asistentes.' },
-      { clause: '10.3 / 10.2', q: '¿Cómo evitan que se repita un problema ya resuelto en otro proyecto o cliente?', a: 'Módulo Lecciones Aprendidas: base de conocimiento obligatoria al cerrar cada 8D, consultable por tipo de defecto y cliente.' },
-      { clause: '8.5.2', q: '¿Cómo saben qué porcentaje de su producción ya fue inspeccionado y qué falta?', a: 'Módulo Production Entries + Unit Registry: importación de seriales de producción con cálculo automático de cobertura de inspección.' },
+      { clause: '8.5.2', q: 'Muéstrenme la trazabilidad completa de este lote específico, estación por estación.', a: 'Inspección de defectos: historial del lote — quién inspeccionó, cuándo, qué se encontró y con qué evidencia fotográfica.' },
+      { clause: '8.7', q: '¿Cómo identifican y controlan el producto no conforme mientras se decide su disposición?', a: 'Hospital de defectos: unidades retenidas con su defecto, ubicación y estado de liberación.' },
+      { clause: '8.7', q: '¿Cómo disponen del material no conforme y quién lo autoriza?', a: 'MRB: flujo de disposición del material con ubicación física, evidencia y aprobación registrada.' },
+      { clause: '10.2', q: '¿Qué pasó la última vez que un defecto crítico llegó al cliente? Muéstrenme el 8D.', a: 'Alertas QAR y 8D: la alerta emitida al momento del defecto, y el reporte 8D con causa raíz, acciones y verificación de eficacia.' },
+      { clause: '8.4', q: '¿Cómo controlan la especificación vigente de cada parte de su cliente?', a: 'BOM de cliente: jerarquía cliente-proyecto-parte con la especificación confirmada que se usa para inspeccionar.' },
+      { clause: '9.2', q: '¿Cuál es su programa de auditorías internas y el estatus de los hallazgos abiertos?', a: 'Auditorías: calendario, checklist aplicada y hallazgos con su seguimiento.' },
+      { clause: '7.2', q: '¿Cómo verifican que el inspector está calificado para esta operación?', a: 'Matriz de habilidades: nivel de competencia por persona y operación.' },
+      { clause: '9.1.3', q: '¿Cómo analizan los datos para decidir dónde atacar un problema recurrente?', a: 'Taguchi y DOE: diseño de experimentos y análisis sobre los datos capturados en inspección.' },
+      { clause: '9.1', q: '¿Cómo saben si el plan de contención o de inspección se está ejecutando en tiempo?', a: 'Carga de trabajo: Gantt de actividades asignadas con avance real contra plan.' },
+      { clause: '7.5', q: '¿Dónde está la instrucción de trabajo vigente para esta operación, y cómo saben que el operador la leyó?', a: 'Hojas de operación: versión vigente con control de cambios y firma de lectura por operador con fecha y hora.' },
+      { clause: '6.1 / 6.3', q: '¿Cómo evalúan el riesgo antes de implementar un cambio de ingeniería?', a: 'Cambios de ingeniería (ECR): análisis de impacto documentado antes de aprobar el cambio, con trazabilidad por revisión.' },
+      { clause: '6.1', q: '¿Cómo deciden qué nivel de validación aplica a un cambio — desde revisión documental hasta validación completa?', a: 'Matriz de riesgo: severidad × ocurrencia que sugiere la validación requerida por tipo de cambio.' },
+      { clause: '8.5.1 / 8.7', q: '¿Cómo gestionan una excepción temporal a una especificación, con fecha de vigencia?', a: 'Desviaciones: desviaciones de producto o proceso con aprobación multinivel y vencimiento controlado por fecha.' },
+      { clause: '9.3', q: '¿Tienen evidencia de la última revisión por la dirección, con las entradas y salidas que pide la norma?', a: 'Revisión por la dirección: KPIs agregados automáticamente, checklist de 9.3.2/9.3.3 y firma digital de los asistentes.' },
+      { clause: '10.3 / 10.2', q: '¿Cómo evitan que se repita un problema ya resuelto en otro proyecto o cliente?', a: 'Lecciones aprendidas: registro obligatorio al cerrar cada 8D, consultable por tipo de defecto y cliente.' },
+      { clause: '8.5.2', q: '¿Cómo saben qué porcentaje de su producción ya fue inspeccionado y qué falta?', a: 'Registro de producción y unidades: importación de seriales con cálculo automático de cobertura de inspección.' },
+      { clause: '7.1.5', q: '¿Cómo controlan la confirmación de especificaciones por parte y por cliente?', a: 'Confirmación de especificaciones: catálogo de specs por parte y cliente con tolerancias, y evidencia fotográfica OK/NOK de cada inspección.' },
     ],
-    note: 'Basado en la estructura de ISO/TS 9002:2016 (guía de aplicación de ISO 9001:2015). IxT-QMS no certifica tu sistema de calidad — te da la evidencia y trazabilidad que tu auditor certificado va a pedir.',
+    note: 'Basado en la estructura de ISO/TS 9002:2016 (guía de aplicación de ISO 9001:2015). Esto es preparación de evidencia, no auditoría de certificación de tercera parte.',
   } : {
-    eyebrow: 'HOW WE SUPPORT YOUR AUDIT',
+    eyebrow: 'AUDIT READINESS',
     title: 'This is how you answer when the auditor asks.',
-    sub: 'Typical ISO 9001:2015 audit questions, with the exact evidence IxT-QMS shows on screen — based on the structure of ISO/TS 9002:2016.',
+    sub: 'Typical ISO 9001:2015 audit questions and where the evidence sits inside the platform. Each answer points to the module where the evidence is recorded.',
     items: [
-      { clause: '7.1.5', q: 'How do you control your monitoring and measuring resources by part and by customer?', a: 'Spec Confirmation module: spec catalog by part/customer with tolerances, and OK/NOK photo evidence for every inspection.' },
-      { clause: '7.5', q: 'Where is the current work instruction for this operation, and how do you know the operator read it?', a: 'Work Instructions module: current version with change control, plus read-receipt sign-off by operator with date and time.' },
-      { clause: '8.4', q: 'How do you control processes and products supplied by external providers?', a: 'Client Management + Engineering Changes modules: client-project-part hierarchy and traceability of every engineering change with its impact analysis.' },
-      { clause: '8.5.2', q: 'Show me the complete traceability of this specific lot, station by station.', a: 'Defect Inspection + Defect Hospital modules: full lot history — who inspected, when, what was found and how it was resolved.' },
-      { clause: '8.7', q: 'How do you disposition non-conforming material and who authorizes it?', a: 'Material Review Board (MRB) module: disposition flow with photo evidence and committee e-signature, timestamped.' },
-      { clause: '9.1', q: 'What quality indicators do you monitor and how often?', a: 'Dashboards / KPIs module: PPM, FPY, cost of poor quality and live trends, filterable by plant, customer and period.' },
-      { clause: '9.2', q: 'What is your internal audit program and the status of open findings?', a: 'Internal Audits module: annual calendar, checklists, findings linked to corrective action, real-time status.' },
-      { clause: '10.2', q: 'What happened the last time a critical defect reached the customer? Show me the 8D.', a: '8D + Quality Alert (QAR) modules: automatic alert at the moment of the defect, and 8D report with all 8 disciplines, root cause and effectiveness verification.' },
-      { clause: '7.2', q: 'How do you verify the inspector is qualified for this operation?', a: 'Skills & Training module: competency matrix per operator, with critical-task blocking when certification expires.' },
-      { clause: '6.1 / 6.3', q: 'How do you assess risk before implementing an engineering change?', a: 'Engineering Changes (ECR) module: documented impact analysis before approving the change, with traceability per revision.' },
-      { clause: '6.1', q: 'How do you decide what validation level applies to a change — from document review to full PPAP?', a: 'Risk Matrix module: severity × occurrence matrix that auto-suggests the required validation by change type.' },
-      { clause: '8.5.1 / 8.7', q: 'How do you manage a temporary exception to a specification, with a validity date?', a: 'Deviations module: product or process deviations with multi-level approval and date-controlled expiration.' },
-      { clause: '9.3', q: 'Do you have evidence of the last management review, with the inputs and outputs the standard requires?', a: 'Management Review module: KPIs from all 19 modules auto-aggregated, 9.3.2/9.3.3 checklist, and digital sign-off from attendees.' },
-      { clause: '10.3 / 10.2', q: 'How do you keep a problem already solved on one project from recurring on another project or customer?', a: 'Lessons Learned module: mandatory knowledge base entry at every 8D closure, searchable by defect type and customer.' },
-      { clause: '8.5.2', q: 'How do you know what percentage of your production has been inspected and what is still pending?', a: 'Production Entries + Unit Registry modules: production serial import with automatic inspection-coverage calculation.' },
+      { clause: '8.5.2', q: 'Show me the complete traceability of this specific lot, station by station.', a: 'Defect inspection: lot history — who inspected, when, what was found and with what photo evidence.' },
+      { clause: '8.7', q: 'How do you identify and control nonconforming product while its disposition is decided?', a: 'Defect hospital: units on hold with their defect, location and release status.' },
+      { clause: '8.7', q: 'How do you disposition non-conforming material and who authorizes it?', a: 'MRB: material disposition flow with physical location, evidence and recorded approval.' },
+      { clause: '10.2', q: 'What happened the last time a critical defect reached the customer? Show me the 8D.', a: 'QAR alerts and 8D: the alert issued at the moment of the defect, and the 8D report with root cause, actions and effectiveness verification.' },
+      { clause: '8.4', q: 'How do you control the current specification for each of your customer parts?', a: 'Customer BOM: client-project-part hierarchy with the confirmed specification used to inspect.' },
+      { clause: '9.2', q: 'What is your internal audit program and the status of open findings?', a: 'Audits: calendar, checklist applied and findings with their follow-up.' },
+      { clause: '7.2', q: 'How do you verify the inspector is qualified for this operation?', a: 'Skills matrix: competency level per person and operation.' },
+      { clause: '9.1.3', q: 'How do you analyze data to decide where to attack a recurring problem?', a: 'Taguchi and DOE: design of experiments and analysis over the data captured at inspection.' },
+      { clause: '9.1', q: 'How do you know the containment or inspection plan is being executed on time?', a: 'Workload: Gantt of assigned activities with actual progress against plan.' },
+      { clause: '7.5', q: 'Where is the current work instruction for this operation, and how do you know the operator read it?', a: 'Operation sheets: current version with change control and read-receipt sign-off by operator with date and time.' },
+      { clause: '6.1 / 6.3', q: 'How do you assess risk before implementing an engineering change?', a: 'Engineering changes (ECR): documented impact analysis before approving the change, with traceability per revision.' },
+      { clause: '6.1', q: 'How do you decide what validation level applies to a change — from document review to full validation?', a: 'Risk matrix: severity × occurrence that suggests the required validation by change type.' },
+      { clause: '8.5.1 / 8.7', q: 'How do you manage a temporary exception to a specification, with a validity date?', a: 'Deviations: product or process deviations with multi-level approval and date-controlled expiration.' },
+      { clause: '9.3', q: 'Do you have evidence of the last management review, with the inputs and outputs the standard requires?', a: 'Management review: KPIs auto-aggregated, 9.3.2/9.3.3 checklist and digital sign-off from attendees.' },
+      { clause: '10.3 / 10.2', q: 'How do you keep a problem already solved on one project from recurring on another?', a: 'Lessons learned: mandatory entry at every 8D closure, searchable by defect type and customer.' },
+      { clause: '8.5.2', q: 'How do you know what percentage of your production has been inspected and what is still pending?', a: 'Production and unit registry: serial import with automatic inspection-coverage calculation.' },
+      { clause: '7.1.5', q: 'How do you control specification confirmation by part and by customer?', a: 'Spec confirmation: spec catalog by part and customer with tolerances, and OK/NOK photo evidence for every inspection.' },
     ],
-    note: 'Based on the structure of ISO/TS 9002:2016 (application guidance for ISO 9001:2015). IxT-QMS doesn\'t certify your quality system — it gives you the evidence and traceability your certified auditor will ask for.',
+    note: 'Based on the structure of ISO/TS 9002:2016 (application guidance for ISO 9001:2015). This is evidence preparation, not a third-party certification audit.',
   };
   return (
     <section id="auditoria" style={{ padding: '88px 56px', background: v4S.bgSoft }}>

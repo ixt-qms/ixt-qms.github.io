@@ -1,11 +1,24 @@
 // Home V5 — posicionamiento: lanzamiento de nuevos modelos y gestión de cambios de ingeniería
-// Reusa v4S, V4TiltShot, V4Product, V4AuditSim, V4Risk, V4Footer definidos en v4-sales.jsx
+// Reusa v4S y V4Footer definidos en v4-sales.jsx
 
 const v5CSS = `
 @keyframes v5up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .v5-hero-in{opacity:0;animation:v5up .7s cubic-bezier(.2,.7,.3,1) forwards}
 .v5-reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
 .v5-reveal.on{opacity:1;transform:none}
+/* --- reveal elegante por elemento (estilo invitación) --- */
+.ixr{opacity:0;transform:translateY(30px) scale(.985);filter:blur(7px);transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .9s cubic-bezier(.16,.84,.3,1),filter .9s ease}
+.ixr.on{opacity:1;transform:none;filter:none}
+.ixr.ixh{transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .5s cubic-bezier(.16,.84,.3,1),filter .9s ease,box-shadow .5s ease}
+.ixr.ixh.on:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(11,37,69,.11)}
+.ixdark.ixr.ixh.on:hover{box-shadow:0 18px 42px rgba(0,0,0,.35)}
+@keyframes ixline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.ixstep0{text-decoration:none;transition:transform .35s ease,box-shadow .35s ease}
+.ixstep0:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(11,37,69,.12)}
+.ixmobcta{display:none}
+@media(max-width:760px){.ixmobcta{display:block;position:fixed;left:14px;right:14px;bottom:14px;z-index:60;text-align:center;padding:15px 18px;border-radius:12px;background:#0B2545;color:#fff;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 10px 30px rgba(11,37,69,.32)}}
+@media print{.ixmobcta{display:none}}
+@media(prefers-reduced-motion:reduce){.ixr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
 @keyframes v5grow{0%{transform:scaleX(0)}18%,100%{transform:scaleX(1)}}
 @keyframes v5pop{0%,60%{opacity:0;transform:scale(.5)}70%,100%{opacity:1;transform:scale(1)}}
 @keyframes v5dot{0%{offset-distance:0%;opacity:0}8%{opacity:1}45%{offset-distance:100%;opacity:1}50%{opacity:0}55%{offset-distance:100%;opacity:0}60%{opacity:1;offset-distance:100%}95%{offset-distance:0%;opacity:1}100%{opacity:0}}
@@ -34,11 +47,14 @@ const v5CSS = `
 @keyframes pBlink{0%,100%{opacity:1}50%{opacity:.35}}
 
 /* --- responsive --- */
+@media(max-width:1120px){.v5nav-links{gap:12px!important;font-size:12.5px!important}}
+@media(max-width:720px){.v5nav-links{width:100%;order:3;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.v5nav-links::-webkit-scrollbar{display:none}}
 @media(max-width:1024px){
  .g6{grid-template-columns:repeat(3,1fr)!important}
  .g5{grid-template-columns:repeat(3,1fr)!important}
  .g4{grid-template-columns:repeat(2,1fr)!important}
  .g3{grid-template-columns:repeat(2,1fr)!important}
+ .g2{grid-template-columns:1fr!important;gap:26px!important}
  section{padding-left:32px!important;padding-right:32px!important}
 }
 @media(max-width:720px){
@@ -207,7 +223,7 @@ function V5Nav({ lang, setLang }) {
   const L = lang === 'es';
   const [active, setActive] = React.useState('');
   React.useEffect(() => {
-    const ids = ['servicios', 'formacion', 'plataforma', 'diagnostico'];
+    const ids = ['kaizen', 'servicios', 'formacion', 'plataforma', 'diagnostico'];
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
     }, { rootMargin: '-30% 0px -60% 0px' });
@@ -215,11 +231,11 @@ function V5Nav({ lang, setLang }) {
     return () => obs.disconnect();
   }, []);
   const links = L
-    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Plataforma'],['Nuestra Historia.html','Perfil']]
-    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Platform'],['Nuestra Historia.html','Profile']];
+    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Plataforma'],['Nuestra Historia.html','Perfil'],['Escalera Comercial.html','Niveles'],['#form-contacto','Contacto']]
+    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Platform'],['Nuestra Historia.html','Profile'],['Escalera Comercial.html','Levels'],['#form-contacto','Contact']];
   return (
-    <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap', gap: 12 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20, minWidth: 0, overflow: 'hidden' }}>
+    <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px 12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
           <div style={{ width: 34, height: 34, borderRadius: 8, background: `linear-gradient(135deg, ${v4S.primary}, ${v4S.primaryDark})`, display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 14, letterSpacing: -0.3 }}>IxT</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -227,24 +243,26 @@ function V5Nav({ lang, setLang }) {
             <div style={{ fontWeight: 600, fontSize: 10, color: v4S.muted, letterSpacing: 0.5, textTransform: 'uppercase', lineHeight: 1 }}>Inspect. Then Trust.</div>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', overflowX: 'auto', scrollbarWidth: 'none', minWidth: 0, flex: '1 1 auto' }}>
+        <div className="v5nav-links" style={{ display: 'flex', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}>
           {links.map(([href, label]) => {
             const isActive = href === '#' + active;
             return <a key={href} href={href} style={{ color: isActive ? v4S.primary : 'inherit', textDecoration: 'none', fontWeight: isActive ? 700 : 500, borderBottom: isActive ? `2px solid ${v4S.primary}` : '2px solid transparent', paddingBottom: 2, transition: 'color 0.2s, border-color 0.2s' }}>{label}</a>;
           })}
         </div>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
         <div style={{ display: 'flex', border: `1px solid ${v4S.line}`, borderRadius: 8, overflow: 'hidden', fontSize: 12, fontWeight: 600 }}>
           <button onClick={() => setLang('es')} style={{ padding: '6px 10px', border: 'none', cursor: 'pointer', background: lang === 'es' ? v4S.ink : 'white', color: lang === 'es' ? 'white' : v4S.ink2 }}>ES</button>
           <button onClick={() => setLang('en')} style={{ padding: '6px 10px', border: 'none', cursor: 'pointer', background: lang === 'en' ? v4S.ink : 'white', color: lang === 'en' ? 'white' : v4S.ink2 }}>EN</button>
         </div>
-        <a href="#diagnostico" style={{ padding: '9px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', background: v4S.primary, color: 'white', fontWeight: 600, fontSize: 13, whiteSpace: 'nowrap', textDecoration: 'none' }}>{L ? 'Reunión de descubrimiento' : 'Discovery meeting'}</a>
+        <a href="https://wa.me/524494158248" target="_blank" rel="noopener" title="WhatsApp" style={{ width: 34, height: 34, borderRadius: 8, border: `1px solid ${v4S.line}`, display: 'grid', placeItems: 'center', color: '#25A366', flexShrink: 0 }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.25 3.75.59.25 1.06.4 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.19.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        </a>
+        <a href="#diagnostico" style={{ padding: '9px 16px', borderRadius: 8, border: 'none', cursor: 'pointer', background: v4S.primary, color: 'white', fontWeight: 600, fontSize: 13, whiteSpace: 'nowrap', textDecoration: 'none' }}>{L ? 'Agendar reunión de descubrimiento' : 'Schedule discovery meeting'}</a>
       </div>
     </nav>
   );
 }
-
 function V5Hero({ lang }) {
   const L = lang === 'es';
   const t = L ? {
@@ -292,6 +310,9 @@ function V5Creds({ lang }) {
     ['14', 'years across OEM and Tier 1'], ['2', 'new plant start-ups'],
     ['82', 'people coordinated in high-volume manufacturing'], ['250K USD', 'documented annual savings in quality campaigns'],
   ];
+  const kz = L
+    ? 'Dos kaizen registrados en la base global de mejores prácticas de Nissan'
+    : "Two kaizen registered in Nissan's global best practices database";
   return (
     <section style={{ padding: '0 56px 72px', background: 'white' }}>
       <div className="g6" style={{ maxWidth: 1140, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 0, border: `1px solid ${v4S.line}`, borderRadius: 14, overflow: 'hidden' }}>
@@ -302,31 +323,103 @@ function V5Creds({ lang }) {
           </div>
         ))}
       </div>
+      <div style={{ maxWidth: 1140, margin: '16px auto 0', display: 'flex', justifyContent: 'center' }}>
+        <a href="#kaizen" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13.5, fontWeight: 600, color: v4S.ink2, textDecoration: 'none', border: `1px solid ${v4S.line}`, borderRadius: 999, padding: '9px 18px' }}>
+          <svg width="16" height="16" viewBox="-11 -11 22 22" style={{ color: v4S.primary, flexShrink: 0 }}><g stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"><circle r="8"/><path d="M-3.4 0l2.4 2.4 4.4-5.2"/></g></svg>
+          {kz}<span style={{ color: v4S.primary, fontWeight: 700 }}>→</span>
+        </a>
+      </div>
+    </section>
+  );
+}
+function V5Kaizen({ lang }) {
+  const L = lang === 'es';
+  const t = L ? {
+    eyebrow: 'DOS KAIZEN REGISTRADOS EN NISSAN',
+    title: 'Los dos métodos que dieron origen a esta práctica.',
+    sub: 'Registrados en la base global de mejores prácticas de Nissan.',
+    lp: 'PROBLEMA', lm: 'MÉTODO', lr: 'RESULTADO',
+    items: [
+      { h: 'Método de Confirmación Virtual ECR → BOM 360 (Q, MFG, R&D)',
+        r: '250 mil USD anuales en costo de campañas de calidad, y prevención de retiros por desajuste de especificación.' },
+      { h: 'Análisis de fuga de agua con termografía infrarroja',
+        r: 'Reducción de manpower y del tiempo de reacción del análisis de paso de agua: de 24 horas a 2 horas.' },
+    ],
+    close: 'Los módulos de BOM de cliente, auditorías, inspección de defectos y control de material de la plataforma son los nodos que correlacionan el dibujo, la especificación y la hoja de operación. La plataforma no es un producto aparte: es este kaizen automatizado.',
+  } : {
+    eyebrow: 'TWO KAIZEN REGISTERED AT NISSAN',
+    title: 'The two methods this practice was built on.',
+    sub: "Registered in Nissan's global best practices database.",
+    lp: 'PROBLEM', lm: 'METHOD', lr: 'RESULT',
+    items: [
+      { h: 'Virtual Confirmation Method ECR → BOM 360 (Q, MFG, R&D)',
+        r: '250K USD in annual quality campaign cost, and prevention of recalls from specification mismatch.' },
+      { h: 'Water leak analysis with infrared thermography',
+        r: 'Reduced manpower and water-path analysis reaction time: from 24 hours down to 2 hours.' },
+    ],
+    close: 'The platform\'s customer BOM, audit, defect inspection and material control modules are the nodes correlating drawing, specification and operation sheet. The platform is not a separate product: it is this kaizen, automated.',
+  };
+  const Row = ({ label, body, accent }) => (
+    <div style={{ display: 'grid', gridTemplateColumns: '84px 1fr', gap: 16, alignItems: 'start' }}>
+      <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1, color: accent || v4S.muted, fontFamily: '"JetBrains Mono", monospace', paddingTop: 3 }}>{label}</div>
+      <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.65, color: v4S.ink2 }}>{body}</p>
+    </div>
+  );
+  return (
+    <section id="kaizen" style={{ padding: '88px 56px', background: 'white', borderTop: `1px solid ${v4S.line}` }}>
+      <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
+          <h2 style={{ fontSize: 38, fontWeight: 700, color: v4S.ink, margin: '0 0 14px', letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
+          <p style={{ fontSize: 16, color: v4S.muted, margin: '0 auto', maxWidth: 700, lineHeight: 1.6 }}>{t.sub}</p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+          {t.items.map((k, i) => (
+            <div key={i} style={{ border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '30px 34px', background: i === 0 ? v4S.bgCool : 'white' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, marginBottom: 16 }}>
+                <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 13, fontWeight: 700, color: v4S.primary }}>{'0' + (i + 1)}</span>
+                <h3 style={{ fontSize: 22, fontWeight: 700, color: v4S.ink, margin: 0, letterSpacing: -0.4, fontFamily: '"Source Serif 4", Georgia, serif' }}>{k.h}</h3>
+              </div>
+              <Row label={t.lr} body={<span style={{ color: v4S.ink, fontWeight: 600 }}>{k.r}</span>} accent={v4S.primary}/>
+            </div>
+          ))}
+        </div>
+        <p style={{ marginTop: 28, padding: '22px 30px', borderLeft: `3px solid ${v4S.primary}`, background: v4S.bgCool, borderRadius: '0 12px 12px 0', fontSize: 15.5, lineHeight: 1.65, color: v4S.ink, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.close}</p>
+      </div>
     </section>
   );
 }
 
 function V5Services({ lang }) {
   const L = lang === 'es';
+  const [exp, setExp] = React.useState({});
+  const moreT = L ? ['Ver todo', 'Ver menos'] : ['Show all', 'Show less'];
   const t = L ? {
     eyebrow: 'CUATRO LÍNEAS DE SERVICIO', title: 'Del programa de lanzamiento al piso de tu cliente.',
     sub: 'Cada línea se contrata con alcance y entregables definidos por escrito.', cta: 'Solicitar propuesta',
     cards: [
-      { h: 'Launch Excellence', d: 'Asesoría especializada para lanzamientos de nuevos modelos y arranques de producción.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque'] },
-      { h: 'Technical Representation', d: 'Representación técnica para OEM, Tier 1, Tier 2 y Tier 3.', items: ['Ingenieros residentes para representar a tu organización en planta', 'Contención, análisis y seguimiento de problemas de calidad con clientes y proveedores', 'Respuesta rápida durante crisis de calidad y soporte operativo'] },
-      { h: 'IxT-QMS', d: 'Digitalización de procesos de calidad mediante una plataforma integrada.', items: ['Acceso a la plataforma durante la vigencia del programa · renovación anual de soporte y mantenimiento', 'Digitalización de procesos, indicadores y flujo de acciones correctivas', 'Capacitación y soporte para la adopción de la plataforma'] },
-      { h: 'Training', d: 'Capacitación privada para su organización, basada en experiencia en la industria automotriz.', items: ['Programas de Safe Launch, resolución de problemas y calidad en producción', 'Cursos personalizados para supervisores, ingenieros y personal operativo', 'Talleres prácticos orientados a la aplicación inmediata en planta'] },
+      { h: 'Lanzamiento de nuevos modelos', d: 'Asesoría para lanzamientos de nuevos modelos y arranques de producción.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque'], link: ['#kaizen', 'Ver el método de confirmación virtual →'] },
+      { h: 'Representación técnica y auditoría en planta', d: 'Que tu cliente OEM tenga en su piso a alguien que hable su idioma técnico y el tuyo — y que alguien revise también cómo se manipula la pieza allá.', items: ['Ingeniero residente en planta del cliente OEM, representando al proveedor', 'Canal técnico entre OEM y proveedor, con juntas y documentación en inglés', 'Contención, clasificación y retrabajo en sitio bajo autorización del cliente', 'Gestión de RMA y disposición de material no conforme', 'Auditoría del manejo y uso del producto en la planta del cliente OEM', 'Auditoría de proceso, contención y estándares de inspección a proveedores Tier 1 y Tier 2', 'Investigación de fallas en línea y direccionamiento de acciones correctivas', 'Respuesta durante crisis de calidad'], note: 'No incluye auditoría de certificación de tercera parte.' },
+      { h: 'Confirmación y aprobación de producto', d: 'Que la unidad que sale de tu línea corresponda a lo que ingeniería liberó, y que se pueda demostrar.', items: ['Diseño del método de confirmación para un cambio, una pieza o una familia de piezas', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación', 'Definición de criterio de aceptación y de la evidencia requerida', 'Confirmación de especificación virtual y física previa a pruebas de producción', 'Estándares de confirmación para PDI, línea de prueba, torque y auditoría de lote de materiales', 'Aprobación de apariencia y paquetes AAR: muestras patrón de color, grano, brillo y textura'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de Nissan. Sometió paquetes con AAR como proveedor y los juzgó como OEM.' },
+      { h: 'Validación y pruebas vehiculares', d: 'Ejecución del programa de pruebas que valida el producto antes de liberarlo a producción.', items: ['ADAS: crucero inteligente, frenado autónomo de emergencia, asistente de estacionamiento y HUD', 'Durabilidad en pista y vía pública, NVH, ruidos y vibraciones y ruido de viento', 'Intrusión de agua, freno, alineación de ruedas e infoentretenimiento', 'Ajuste y acabado y evaluaciones de revisión del cliente: manejo, funcional, confort y apariencia', 'Preparación y evaluación de unidades para IQS, J.D. Power, IIHS y lote de revista', 'Benchmark competitivo, análisis de datos y reporte técnico conforme al estándar del cliente'], badge: 'Respaldo: programas de desarrollo de Mercedes-Benz y Volkswagen en IDIADA Applus, y preparación de unidades de lanzamiento en Nissan.', note: 'No incluye pista de pruebas, laboratorio ni instrumentación propios.' },
     ],
   } : {
-    eyebrow: 'FOUR SERVICE LINES', title: 'From the launch program to your customer\'s floor.',
+    eyebrow: 'FOUR SERVICE LINES', title: "From the launch program to your customer's floor.",
     sub: 'Every line is contracted with scope and deliverables defined in writing.', cta: 'Request proposal',
     cards: [
-      { h: 'Launch Excellence', d: 'Specialized advisory for new model launches and production ramp-ups.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up'] },
-      { h: 'Technical Representation', d: 'Technical representation for OEM, Tier 1, Tier 2 and Tier 3.', items: ['Resident engineers representing your organization in plant', 'Containment, analysis and follow-up of quality issues with customers and suppliers', 'Rapid response during quality crises and operational support'] },
-      { h: 'IxT-QMS', d: 'Digitalization of quality processes through an integrated platform.', items: ['Platform access for the duration of the program · annual support and maintenance renewal', 'Digitalization of processes, KPIs and corrective action flow', 'Training and support for platform adoption'] },
-      { h: 'Training', d: 'Private training for your organization, grounded in automotive industry experience.', items: ['Safe Launch, problem solving and production quality programs', 'Tailored courses for supervisors, engineers and operators', 'Practical workshops aimed at immediate application in plant'] },
+      { h: 'New model launch', d: 'Advisory for new model launches and production ramp-ups.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards'], link: ['#kaizen', 'See the virtual confirmation method →'] },
+      { h: 'Technical representation and plant audits', d: 'Give your OEM customer someone on their floor who speaks their technical language and yours — and have someone review how the part is handled there.', items: ['Resident engineer at the OEM customer plant, representing the supplier', 'Technical channel between OEM and supplier, with meetings and documentation in English', 'On-site containment, sorting and rework under customer authorization', 'RMA management and disposition of non-conforming material', 'Audit of product handling and use at the OEM customer facility', 'Process, containment and inspection standard audits at Tier 1 and Tier 2 suppliers', 'Line failure investigation and routing of corrective actions', 'Response during quality crises'], note: 'Does not include third-party certification audits.' },
+      { h: 'Product confirmation and approval', d: 'Make sure the unit leaving your line matches what engineering released — and that it can be proven.', items: ['Confirmation method design for a change, a part or a part family', 'Correlation between drawing, BOM specification, inspection standard and operation sheet', 'Definition of acceptance criteria and required evidence', 'Virtual and physical specification confirmation prior to production trials', 'Confirmation standards for PDI, test line, torque and material lot audit', 'Appearance approval and AAR packages: color, grain, gloss and texture master samples'], badge: "Backed by: the two kaizen registered in Nissan's global best practices database. Submitted AAR packages as a supplier and judged them as an OEM." },
+      { h: 'Vehicle validation and testing', d: 'Execution of the test program that validates the product before release to production.', items: ['ADAS: intelligent cruise control, autonomous emergency braking, parking assist and HUD', 'Durability on proving ground and public road, NVH, squeak and rattle and wind noise', 'Water intrusion, brake testing, wheel alignment and infotainment', 'Fit and finish and customer review evaluations: driving, functional, comfort and appearance', 'Unit preparation and evaluation for IQS, J.D. Power, IIHS and press fleet', 'Competitive benchmark, data analysis and technical reporting to customer standard'], badge: 'Backed by: Mercedes-Benz and Volkswagen development programs at IDIADA Applus, and launch unit preparation at Nissan.', note: 'Does not include a proving ground, laboratory or instrumentation of our own.' },
     ],
   };
+  const P = { stroke: 'currentColor', strokeWidth: 1.7, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
+  const svcIc = [
+    <g key="0" {...P}><path d="M0 -9c3.2 2.4 4.8 7 3.2 12h-6.4C-4.8 -2 -3.2 -6.6 0 -9z"/><path d="M-3.2 3.4l-3 3.8m9.6-3.8l3 3.8M0 3.4V9"/></g>,
+    <g key="1" {...P}><circle cx="-3" cy="-3.5" r="3"/><path d="M-8 7c0-3.6 2.2-5.8 5-5.8S2 3.4 2 7"/><circle cx="4.5" cy="-3" r="2.4"/><path d="M3.5 7c.3-2.7 1.8-4.3 4-4.3"/></g>,
+    <g key="2" {...P}><rect x="-8" y="-8.5" width="12" height="16" rx="2"/><path d="M-4.5 -4h5M-4.5 -0.5h5M-4.5 3h3"/><circle cx="5" cy="4.5" r="4"/><path d="M3 4.5l1.5 1.5 3-3.4" strokeWidth="1.9"/></g>,
+    <g key="3" {...P}><path d="M-9 4h18"/><path d="M-6 4V-1.5l3-4h6l3 4V4"/><circle cx="-3.5" cy="4" r="1.8"/><circle cx="3.5" cy="4" r="1.8"/><path d="M0 -9.5v3"/></g>,
+  ];
   return (
     <section id="servicios" style={{ padding: '88px 56px', background: v4S.bgCool }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
@@ -335,16 +428,9 @@ function V5Services({ lang }) {
           <h2 style={{ fontSize: 38, fontWeight: 700, color: v4S.ink, margin: '0 0 14px', letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
           <p style={{ fontSize: 16, color: v4S.muted, margin: 0 }}>{t.sub}</p>
         </div>
-        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22 }}>
-          {t.cards.map((c, i) => {
-            const svcIc = [
-              <path key="l" d="M0 -8c3 2.2 4.5 6.6 3 11.7h-6C-4.5 -1.4 -3 -5.8 0 -8zM-3 3.7l-3 3.7m9-3.7l3 3.7M0 3.7V9" stroke="currentColor" strokeWidth="1.7" fill="none" strokeLinecap="round"/>,
-              <g key="r"><circle cx="-3" cy="-3.5" r="3" stroke="currentColor" strokeWidth="1.7" fill="none"/><path d="M-8 7c0-3.6 2.2-5.8 5-5.8S2 3.4 2 7" stroke="currentColor" strokeWidth="1.7" fill="none" strokeLinecap="round"/><circle cx="4.5" cy="-3" r="2.4" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M3.5 7c.3-2.7 1.8-4.3 4-4.3" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/></g>,
-              <g key="q"><circle r="6.5" stroke="currentColor" strokeWidth="1.7" fill="none"/><path d="M0 -9.5v2M0 7.5v2M-9.5 0h2M7.5 0h2M-6.7 -6.7l1.4 1.4M5.3 5.3l1.4 1.4M-6.7 6.7l1.4-1.4M5.3 -5.3l1.4-1.4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M-2.8 0l2.1 2.1 4.2-4.9" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round"/></g>,
-              <g key="t"><path d="M0 -6.5l9 3.7-9 3.7-9-3.7z" stroke="currentColor" strokeWidth="1.7" fill="none" strokeLinejoin="round"/><path d="M-5 0.5v4.2c0 1.6 2.6 3 5 3s5-1.4 5-3V0.5" stroke="currentColor" strokeWidth="1.7" fill="none"/><path d="M9 -2.2v6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></g>,
-            ];
-            return (
-            <div key={i} style={{ background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '22px 26px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22, alignItems: 'stretch' }}>
+          {t.cards.map((c, i) => (
+            <div key={i} style={{ background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '22px 26px 24px', display: 'flex', flexDirection: 'column', gap: 11 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 36, height: 36, borderRadius: 9, background: '#EDF3FE', color: v4S.primary, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
                   <svg width="24" height="24" viewBox="-11 -11 22 22">{svcIc[i]}</svg>
@@ -353,52 +439,55 @@ function V5Services({ lang }) {
                 <div style={{ fontSize: 12, fontWeight: 800, color: v4S.muted, fontFamily: '"JetBrains Mono", monospace' }}>{String(i + 1).padStart(2, '0')}</div>
               </div>
               <p style={{ fontSize: 14, color: v4S.ink2, margin: 0, lineHeight: 1.5, fontStyle: 'italic' }}>{c.d}</p>
-              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 7, flex: 1 }}>
-                {c.items.map((it, j) => (
-                  <li key={j} style={{ fontSize: 13.5, color: v4S.ink2, lineHeight: 1.5, display: 'flex', gap: 9 }}>
-                    <span style={{ color: v4S.primary, fontWeight: 700, flexShrink: 0 }}>·</span>{it}
-                  </li>
-                ))}
-              </ul>
-              {c.badge && <div style={{ fontSize: 11.5, color: v4S.muted, fontWeight: 600, borderTop: `1px solid ${v4S.line}`, paddingTop: 12 }}>{c.badge}</div>}
-              <a href="#diagnostico" style={{ alignSelf: 'flex-start', fontSize: 13.5, fontWeight: 700, color: v4S.primary, textDecoration: 'none' }}>{t.cta} →</a>
+              <div style={{ position: 'relative' }}>
+                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 7, maxHeight: exp[i] ? 900 : 132, overflow: 'hidden', transition: 'max-height .35s ease' }}>
+                  {c.items.map((it, j) => (
+                    <li key={j} style={{ fontSize: 13.5, color: v4S.ink2, lineHeight: 1.5, display: 'flex', gap: 9 }}>
+                      <span style={{ color: v4S.primary, fontWeight: 700, flexShrink: 0 }}>·</span>{it}
+                    </li>
+                  ))}
+                </ul>
+                {!exp[i] && c.items.length > 4 && <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 40, background: 'linear-gradient(transparent, white)', pointerEvents: 'none' }}></div>}
+              </div>
+              {c.items.length > 4 && <button onClick={() => setExp(s => ({ ...s, [i]: !s[i] }))} style={{ alignSelf: 'flex-start', marginBottom: 'auto', background: 'none', border: 'none', padding: 0, cursor: 'pointer', font: 'inherit', fontSize: 13, fontWeight: 700, color: v4S.primary }}>{exp[i] ? moreT[1] + ' ↑' : moreT[0] + ' ↓'}</button>}
+              {c.note && <div style={{ fontSize: 12, color: v4S.muted, lineHeight: 1.5, background: v4S.bgCool, borderRadius: 8, padding: '10px 13px' }}>{c.note}</div>}
+              {c.badge && <div style={{ fontSize: 11.5, color: v4S.muted, fontWeight: 600, lineHeight: 1.5, borderTop: `1px solid ${v4S.line}`, paddingTop: 12 }}>{c.badge}</div>}
+              <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 2 }}>
+                <a href="#diagnostico" style={{ fontSize: 13.5, fontWeight: 700, color: v4S.primary, textDecoration: 'none' }}>{t.cta} →</a>
+                {c.link && <a href={c.link[0]} style={{ fontSize: 13.5, fontWeight: 600, color: v4S.ink2, textDecoration: 'none' }}>{c.link[1]}</a>}
+              </div>
             </div>
-          );})}
+          ))}
         </div>
       </div>
     </section>
   );
 }
-
 function V5Training({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'FORMACIÓN PRESENCIAL', title: 'Programas en aula, en tu planta o en sede.',
-    sub: 'Sin versión en línea ni material descargable. En el sitio se publican los títulos de módulo; el índice detallado se envía por correo al prospecto interesado.',
+    eyebrow: 'FORMACIÓN', title: 'Dos formatos: aula y piso.',
+    sub: 'Los títulos de módulo se publican aquí; el índice detallado se envía por correo al prospecto interesado. Sin versión en línea ni material descargable.',
     flagship: 'PROGRAMA INSIGNIA',
     programs: [
-      { h: 'Control de lanzamiento — Shoki Ryudo y Safe Launch', flag: true, mods: ['Selección de personal de proyecto', 'Estandarización de proceso', 'Job allocation', 'Entrenamiento del personal y confirmación de equipo e instalaciones', 'Shoki Ryudo', 'Control de Safe Launch'] },
-      { h: 'Sistema de producción y Control de Campo', mods: ['Sistema de producción ideal', 'Condición ideal de producción', 'Comportamientos básicos', 'Douki Seisan', 'Control de Campo', 'Los 7 desperdicios'] },
-      { h: 'Kaizen y economía de movimientos', mods: ['Fundamentos de Kaizen', 'Áreas de trabajo y práctica', 'Principios de economía de movimientos', 'Flujo para iniciar actividades de Kaizen', 'Práctica con maqueta'] },
-      { h: 'Liderazgo y gestión de equipos', mods: ['Liderazgo o gestión', 'Tipos de liderazgo', 'Dinámicas de aplicación', 'Gestión de equipos en piso'] },
+      { h: 'Formación teórica', tag: 'AULA', d: 'Marco conceptual y método, en su sala de juntas o en sede.', mods: ['Sistema de producción ideal y condición ideal de producción', 'Just in Time (JIT)', 'Los 7 desperdicios', 'Fundamentos de Kaizen y principios de economía de movimientos', 'Liderazgo y gestión de equipos', 'Selección de personal de proyecto y job allocation', 'Estandarización de proceso'] },
+      { h: 'Formación en planta', tag: 'PRÁCTICA', flag: true, d: 'Se imparte sobre el proceso real, con la línea y las piezas del cliente.', mods: ['Shoki Ryudo y control de Safe Launch', 'Control de Campo', 'Entrenamiento del personal y confirmación de equipo e instalaciones', 'Áreas de trabajo y flujo para iniciar actividades de Kaizen', 'Práctica con maqueta', 'Gestión de equipos en piso'] },
     ],
     extraH: 'Cursos adicionales del catálogo',
     extra: 'Resolución de problemas 8D y QA · QC Story · Quality Control & SPC · técnicas de confirmación de calidad · poka-yoke · formación de instructores y desarrollo de hojas de operación estándar',
-    delivery: 'Cada participante recibe cuaderno de trabajo impreso, foliado y con su nombre, más constancia de participación. Los cursos se cotizan por evento cerrado, no por asiento.',
+    delivery: 'La formación teórica puede impartirse en su sede o en la nuestra; la formación en planta se imparte sobre el proceso del cliente. El índice detallado se envía por correo.',
     cta: 'Solicitar propuesta de formación',
   } : {
-    eyebrow: 'IN-PERSON TRAINING', title: 'Classroom programs, at your plant or at our facility.',
-    sub: 'No online version, no downloadable material. Module titles are published on the site; the detailed index is emailed to interested prospects.',
+    eyebrow: 'TRAINING', title: 'Two formats: classroom and shop floor.',
+    sub: 'Module titles are published here; the detailed index is emailed to interested prospects. No online version, no downloadable material.',
     flagship: 'FLAGSHIP PROGRAM',
     programs: [
-      { h: 'Launch control — Shoki Ryudo and Safe Launch', flag: true, mods: ['Project staff selection', 'Process standardization', 'Job allocation', 'Staff training and equipment/facilities confirmation', 'Shoki Ryudo', 'Safe Launch control'] },
-      { h: 'Production system and Field Control', mods: ['Ideal production system', 'Ideal production condition', 'Basic behaviors', 'Douki Seisan', 'Field Control', 'The 7 wastes'] },
-      { h: 'Kaizen and motion economy', mods: ['Kaizen fundamentals', 'Work areas and practice', 'Motion economy principles', 'Flow to start Kaizen activities', 'Hands-on mockup practice'] },
-      { h: 'Leadership and team management', mods: ['Leadership vs management', 'Leadership types', 'Application dynamics', 'Team management on the floor'] },
+      { h: 'Classroom training', tag: 'CLASSROOM', d: 'Concepts and method, in your meeting room or at our venue.', mods: ['Ideal production system and ideal production condition', 'Just in Time (JIT)', 'The 7 wastes', 'Kaizen fundamentals and motion economy principles', 'Leadership and team management', 'Project staff selection and job allocation', 'Process standardization'] },
+      { h: 'In-plant training', tag: 'HANDS-ON', flag: true, d: 'Delivered on the real process, with the customer\'s line and parts.', mods: ['Shoki Ryudo and Safe Launch control', 'Field Control', 'Staff training and equipment/facilities confirmation', 'Work areas and flow to start Kaizen activities', 'Hands-on mockup practice', 'Team management on the floor'] },
     ],
     extraH: 'Additional catalog courses',
     extra: '8D and QA problem solving · QC Story · Quality Control & SPC · quality confirmation techniques · poka-yoke · train-the-trainer and standard operation sheet development',
-    delivery: 'Each participant receives a printed, numbered workbook with their name, plus a certificate of participation. Courses are quoted per closed event, not per seat.',
+    delivery: "Classroom training can be delivered at your site or ours; in-plant training is delivered on the customer's process. The detailed syllabus is sent by email.",
     cta: 'Request training proposal',
   };
   return (
@@ -412,8 +501,11 @@ function V5Training({ lang }) {
         <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22, marginBottom: 30 }}>
           {t.programs.map((p, i) => (
             <div key={i} style={{ border: p.flag ? `2px solid ${v4S.primary}` : `1px solid ${v4S.line}`, borderRadius: 14, padding: '28px 30px', background: p.flag ? '#F5F8FE' : 'white', position: 'relative' }}>
-              {p.flag && <div style={{ position: 'absolute', top: -11, left: 26, background: v4S.primary, color: 'white', fontSize: 10, fontWeight: 800, letterSpacing: 1, padding: '4px 10px', borderRadius: 6 }}>{t.flagship}</div>}
-              <h3 style={{ fontSize: 18.5, fontWeight: 700, color: v4S.ink, margin: '0 0 16px', letterSpacing: -0.3 }}>{p.h}</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                <h3 style={{ fontSize: 19.5, fontWeight: 700, color: v4S.ink, margin: 0, letterSpacing: -0.3 }}>{p.h}</h3>
+                <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1, color: v4S.primary, background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 5, padding: '3px 8px', fontFamily: '"JetBrains Mono", monospace' }}>{p.tag}</span>
+              </div>
+              <p style={{ fontSize: 13.5, color: v4S.muted, margin: '0 0 16px', lineHeight: 1.55, fontStyle: 'italic' }}>{p.d}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {p.mods.map((m, j) => (
                   <span key={j} style={{ fontSize: 12.5, color: v4S.ink2, background: p.flag ? 'white' : v4S.bgCool, border: `1px solid ${v4S.line}`, borderRadius: 999, padding: '5px 12px' }}>{m}</span>
@@ -438,39 +530,49 @@ function V5Training({ lang }) {
 function V5Platform({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'LA PLATAFORMA', title: 'La información no sale de tu planta.',
-    sub: 'IxT-QMS no se vende como software. El acceso se otorga durante la vigencia del programa de acompañamiento, con renovación anual de soporte y mantenimiento — instalada en tu propio servidor.',
+    eyebrow: 'LA PLATAFORMA', title: 'La herramienta con la que trabajo.',
+    sub: 'IxT-QMS no se vende por separado: se incluye en los programas de acompañamiento y se instala en el servidor del cliente. Es la misma herramienta con la que se documenta y se da seguimiento al trabajo técnico de las líneas de servicio.',
     points: [
       ['Instalada en tu servidor', 'Sin base de datos compartida con nadie, sin proveedor externo que auditar.'],
       ['Opera sin internet', 'La operación crítica funciona aunque se caiga el enlace.'],
-      ['Al vencer la licencia', 'El sistema pasa a modo solo lectura: no crea registros nuevos, pero todo el histórico sigue consultable y exportable. Tu información nunca queda secuestrada.'],
+      ['Se incluye en el programa', 'No estoy tomando instalaciones nuevas este trimestre. Trabajo con un número limitado de socios iniciales mientras se cierra funcionalidad.'],
     ],
-    modsH: 'Módulos incluidos',
-    mods: ['8D', 'ECR', 'Alertas de calidad', 'Auditorías y LPA', 'Hojas de operación', 'Hospital de defectos', 'Matriz de habilidades ILU', 'Evaluaciones de seguridad', 'Tableros de KPI', 'Motor de aprobaciones multinivel'],
-    note: 'Página de requisitos técnicos disponible para tu departamento de TI: sistema operativo, recursos de servidor, base de datos, puertos, respaldos y autenticación.',
+    shotsH: 'Cuatro módulos en operación',
+    shots: [
+      ['8d-dashboard.png', '8D · resolución de problemas', 'Tablero de reportes 8D con estado, responsable y avance por disciplina.'],
+      ['alerta-qar.png', 'Alertas QAR', 'Alerta de calidad emitida con evidencia, área responsable y seguimiento.'],
+      ['hospital-defectos.png', 'Hospital de defectos', 'Registro de unidades retenidas con defecto, disposición y liberación.'],
+      ['mrb-dashboard.png', 'MRB · control de material', 'Control de material no conforme con ubicación física y disposición.'],
+    ],
+    note: 'Requisitos técnicos para el departamento de TI del cliente disponibles a solicitud: sistema operativo, recursos de servidor, base de datos, puertos, respaldos y autenticación.',
   } : {
-    eyebrow: 'THE PLATFORM', title: 'Your information never leaves your plant.',
-    sub: 'IxT-QMS is not sold as software. Access is granted for the duration of the support program, with annual support and maintenance renewal — installed on your own server.',
+    eyebrow: 'THE PLATFORM', title: 'The tool I work with.',
+    sub: 'IxT-QMS is not sold separately: it is included in advisory programs and installed on the customer server. It is the same tool used to document and follow up the technical work of the service lines.',
     points: [
       ['Installed on your server', 'No shared database with anyone, no external vendor to audit.'],
       ['Runs without internet', 'Critical operation keeps working even if the link goes down.'],
-      ['When the license expires', 'The system switches to read-only mode: no new records, but the full history remains viewable and exportable. Your information is never held hostage.'],
+      ['Included in the program', 'I am not taking new installations this quarter. I work with a limited number of early partners while functionality is finalized.'],
     ],
-    modsH: 'Included modules',
-    mods: ['8D', 'ECR', 'Quality alerts', 'Audits & LPA', 'Operation sheets', 'Defect hospital', 'ILU skills matrix', 'Safety assessments', 'KPI boards', 'Multi-level approval engine'],
-    note: 'Technical requirements page available for your IT department: operating system, server resources, database, ports, backups and authentication.',
+    shotsH: 'Four modules in operation',
+    shots: [
+      ['8d-dashboard.png', '8D · problem solving', '8D report board with status, owner and progress per discipline.'],
+      ['alerta-qar.png', 'QAR alerts', 'Quality alert issued with evidence, responsible area and follow-up.'],
+      ['hospital-defectos.png', 'Defect hospital', 'Log of units held with a defect, disposition and release.'],
+      ['mrb-dashboard.png', 'MRB · material control', 'Non-conforming material control with physical location and disposition.'],
+    ],
+    note: "Technical requirements for the customer's IT department available on request: operating system, server resources, database, ports, backups and authentication.",
   };
   return (
     <section id="plataforma" style={{ padding: '88px 56px', background: v4S.ink, color: 'white' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start', marginBottom: 48 }}>
+        <div className="g2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start', marginBottom: 48 }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: '#7DB7FF', marginBottom: 14 }}>{t.eyebrow}</div>
             <h2 style={{ fontSize: 38, lineHeight: 1.15, fontWeight: 700, margin: 0, letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
           </div>
           <p style={{ fontSize: 15.5, color: '#94A6C7', margin: 0, lineHeight: 1.65 }}>{t.sub}</p>
         </div>
-        <div className="g3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 36 }}>
+        <div className="g3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 46 }}>
           {t.points.map(([h, b], i) => (
             <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '24px 26px' }}>
               <div style={{ fontSize: 15.5, fontWeight: 700, marginBottom: 10 }}>{h}</div>
@@ -478,95 +580,111 @@ function V5Platform({ lang }) {
             </div>
           ))}
         </div>
-        <div style={{ marginBottom: 20 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: '#94A6C7', textTransform: 'uppercase', marginBottom: 16 }}>{t.modsH}</div>
-          <div className="g5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 14 }}>
-            {t.mods.map((m, i) => {
-              const p = { stroke: '#7DB7FF', strokeWidth: 1.7, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
-              const ics = [
-                <g key="0" {...p}><circle r="7.5"/><path d="M-3 0l2.2 2.2 4-4.9"/><path d="M0 -10v2M0 8v2"/></g>,
-                <g key="1" {...p}><path d="M-7 -5h9l5 5-5 5h-9z"/><path d="M-3.5 0h5M1.5 -2.5L4 0 1.5 2.5"/></g>,
-                <g key="2" {...p}><path d="M0 -8l8 14h-16z"/><path d="M0 -2v4"/><circle cx="0" cy="4.3" r="0.4" fill="#7DB7FF"/></g>,
-                <g key="3" {...p}><rect x="-7" y="-8" width="14" height="16" rx="2"/><path d="M-3.5 -3h7M-3.5 0.5h7M-3.5 4h4"/><path d="M2.5 4.5l1.7 1.7 3-3.4" strokeWidth="1.9"/></g>,
-                <g key="4" {...p}><path d="M-6 -8h8l4 4v12h-12z"/><path d="M-3 -1h6M-3 2.5h6M-3 6h3.5"/></g>,
-                <g key="5" {...p}><path d="M-8 2h4l2-6 4 10 2-4h4"/><path d="M0 -9c-4.5 0-7.5 3-7.5 6.5C-7.5 3 -4 8 0 10c4-2 7.5-7 7.5-12.5C7.5 -6 4.5 -9 0 -9z" opacity="0.45"/></g>,
-                <g key="6" {...p}><rect x="-8" y="-8" width="16" height="16" rx="2"/><path d="M-8 -2.7h16M-8 2.7h16M-2.7 -8v16M2.7 -8v16" opacity="0.7"/><rect x="-8" y="-8" width="5.3" height="5.3" fill="#7DB7FF" opacity="0.5" stroke="none"/></g>,
-                <g key="7" {...p}><path d="M0 -9l7 3v4c0 5-3 8-7 10-4-2-7-5-7-10v-4z"/><path d="M-2.8 0l2.1 2.1 4-4.6"/></g>,
-                <g key="8" {...p}><path d="M-7 7V0M-2.3 7v-9M2.3 7V-2M7 7v-13" strokeWidth="2.2"/></g>,
-                <g key="9" {...p}><circle cx="0" cy="-5" r="2.6"/><circle cx="-5.5" cy="4" r="2.6"/><circle cx="5.5" cy="4" r="2.6"/><path d="M-1.8 -3l-2.5 4.5M1.8 -3l2.5 4.5M-2.9 4h5.8"/></g>,
-              ];
-              return (
-                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '18px 10px 14px' }}>
-                  <svg width="34" height="34" viewBox="-11 -11 22 22">{ics[i]}</svg>
-                  <span style={{ fontSize: 12, color: '#C7D3E8', textAlign: 'center', lineHeight: 1.35 }}>{m}</span>
-                </div>
-              );
-            })}
-          </div>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: '#94A6C7', textTransform: 'uppercase', marginBottom: 18 }}>{t.shotsH}</div>
+        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22, marginBottom: 26 }}>
+          {t.shots.map(([src, h, alt], i) => (
+            <figure key={i} style={{ margin: 0, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, overflow: 'hidden' }}>
+              <img src={'screenshots/' + src} alt={alt} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.1)' }}/>
+              <figcaption style={{ padding: '14px 18px 16px' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 5 }}>{h}</div>
+                <div style={{ fontSize: 12.5, color: '#94A6C7', lineHeight: 1.5 }}>{alt}</div>
+              </figcaption>
+            </figure>
+          ))}
         </div>
         <div style={{ fontSize: 12.5, color: '#7B8AA8', fontStyle: 'italic' }}>{t.note}</div>
       </div>
     </section>
   );
 }
-
 function V5Diagnostico({ lang }) {
   const L = lang === 'es';
   const t = L ? {
     eyebrow: 'CÓMO EMPEZAR', title: 'Un camino claro, paso a paso.',
-    sub: 'Cada nivel es un filtro que aumenta el compromiso — el trabajo técnico siempre tiene alcance, entregable y cotización.',
+    sub: 'La primera conversación no tiene costo. El trabajo técnico siempre tiene alcance, entregable y cotización.',
     steps: [
-      { n: '0', h: 'Reunión de descubrimiento', tag: 'Sin costo', tagC: '#0E9F6E', items: ['Llamada de 30 minutos para comprender su necesidad y determinar si podemos ayudarle', 'Demostración de la plataforma con datos ficticios', 'Whitepapers de la industria'] },
-      { n: '1', h: 'Quick Assessment', tag: 'Servicio de entrada', tagC: '#C2620A', items: ['Evaluación de procesos de calidad y principales riesgos operativos', 'Identificación de oportunidades de mejora y prioridades', 'Reporte ejecutivo con recomendaciones y siguientes pasos — en 1 día', 'Remoto fuera de Aguascalientes; en sitio se cotiza como proyecto'] },
-      { n: '2', h: 'Diagnóstico técnico en planta', tag: 'Acreditable al proyecto', tagC: '#1D4FD7', items: ['Evaluación documental, revisión de procesos y plan de acciones priorizado', 'La propuesta técnica detallada se elabora únicamente después del diagnóstico', 'Si contrata un programa dentro de 30 días, el costo del diagnóstico se acredita al proyecto'] },
-      { n: '3', h: 'Programa', tag: 'Contrato anual', tagC: '#0B2545', items: ['Implementación, formación privada, representación técnica o digitalización', 'Acceso a la plataforma durante la vigencia del programa · renovación anual de soporte y mantenimiento', 'Respuesta de emergencia y soporte prioritario disponibles como servicios premium'] },
+      { n: '0', h: 'Primer contacto', tag: 'Sin costo', tagC: '#0E9F6E',
+        items: ['Llamada de calificación de 30 minutos', 'Demostración de la plataforma con datos ficticios', 'White papers de metodología'] },
+      { n: '1', h: 'Quick Assessment', tag: 'Remoto', tagC: '#1D4FD7',
+        items: ['Evaluación de procesos de calidad y principales riesgos operativos', 'Identificación de oportunidades de mejora y prioridades', 'Reporte ejecutivo con recomendaciones y siguientes pasos'],
+        foot: 'Se realiza de forma remota. Si se requiere visita a planta fuera de Aguascalientes, pasa a Nivel 2.' },
+      { n: '2', h: 'Diagnóstico en planta', tag: 'Con cotización', tagC: '#1D4FD7',
+        items: ['Visita a planta con alcance y entregable definidos', 'Propuesta técnica detallada', 'Índice detallado de formación'],
+        foot: 'Acreditable contra el programa si se contrata dentro de 30 días.' },
+      { n: '3', h: 'Programa', tag: 'Contrato anual', tagC: '#0B2545',
+        items: ['Implementación, formación privada, representación técnica o digitalización', 'Acceso a la plataforma IxT-QMS incluido, instalada en su servidor', 'Seguimiento continuo con entregables por periodo'] },
     ],
+    levels: 'Ver los niveles de servicio →',
     cta: 'Agendar reunión de descubrimiento', contact: 'ixt.qms@gmail.com · +52 449 415 8248 · Aguascalientes, México',
     note: 'Todos los servicios se cotizan de acuerdo con el alcance del proyecto. Los viáticos y gastos de viaje se cotizan por separado para servicios fuera de Aguascalientes.',
+    priv: ['El envío de este formulario se procesa mediante Web3Forms. Consulta el ', 'aviso de privacidad', '.'],
   } : {
     eyebrow: 'HOW TO START', title: 'A clear path, step by step.',
-    sub: 'Each level is a filter that raises commitment — technical work always has scope, deliverable and quote.',
+    sub: 'The first conversation has no cost. Technical work always has scope, deliverable and quote.',
     steps: [
-      { n: '0', h: 'Discovery meeting', tag: 'No cost', tagC: '#0E9F6E', items: ['30-minute call to understand your need and determine whether we can help', 'Platform demonstration with fictitious data', 'Industry whitepapers'] },
-      { n: '1', h: 'Quick Assessment', tag: 'Entry service', tagC: '#C2620A', items: ['Assessment of quality processes and main operational risks', 'Identification of improvement opportunities and priorities', 'Executive report with recommendations and next steps — in 1 day', 'Remote outside Aguascalientes; on-site is quoted as a project'] },
-      { n: '2', h: 'On-site technical diagnostic', tag: 'Credited to the project', tagC: '#1D4FD7', items: ['Document evaluation, process review and prioritized action plan', 'The detailed technical proposal is prepared only after the diagnostic', 'If you contract a program within 30 days, the diagnostic cost is credited to the project'] },
-      { n: '3', h: 'Program', tag: 'Annual contract', tagC: '#0B2545', items: ['Implementation, private training, technical representation or digitalization', 'Platform access for the duration of the program · annual support and maintenance renewal', 'Emergency response and priority support available as premium services'] },
+      { n: '0', h: 'First contact', tag: 'No cost', tagC: '#0E9F6E',
+        items: ['30-minute qualification call', 'Platform demo with sample data', 'Methodology white papers'] },
+      { n: '1', h: 'Quick Assessment', tag: 'Remote', tagC: '#1D4FD7',
+        items: ['Review of quality processes and main operational risks', 'Identification of improvement opportunities and priorities', 'Executive report with recommendations and next steps'],
+        foot: 'Delivered remotely. If a plant visit outside Aguascalientes is required, it moves to Level 2.' },
+      { n: '2', h: 'On-site assessment', tag: 'Quoted', tagC: '#1D4FD7',
+        items: ['Plant visit with defined scope and deliverable', 'Detailed technical proposal', 'Detailed training syllabus'],
+        foot: 'Creditable against the program if contracted within 30 days.' },
+      { n: '3', h: 'Program', tag: 'Annual contract', tagC: '#0B2545',
+        items: ['Implementation, private training, technical representation or digitalization', 'IxT-QMS platform included, installed on your server', 'Ongoing follow-up with deliverables per period'] },
     ],
+    levels: 'See the service levels →',
     cta: 'Schedule discovery meeting', contact: 'ixt.qms@gmail.com · +52 449 415 8248 · Aguascalientes, Mexico',
     note: 'All services are quoted according to project scope. Travel expenses are quoted separately for services outside Aguascalientes.',
+    priv: ['This form is processed through Web3Forms. See the ', 'privacy notice', '.'],
   };
   return (
     <section id="diagnostico" style={{ padding: '88px 56px', background: v4S.bgCool }}>
       <div style={{ maxWidth: 1020, margin: '0 auto', textAlign: 'center' }}>
         <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
         <h2 style={{ fontSize: 38, fontWeight: 700, color: v4S.ink, margin: '0 0 14px', letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
-        <p style={{ fontSize: 16, color: v4S.ink2, margin: '0 auto 44px', maxWidth: 620, lineHeight: 1.6 }}>{t.sub}</p>
-        <div className="g4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18, marginBottom: 40, textAlign: 'left' }}>
-          {t.steps.map((s, i) => (
-            <div key={i} style={{ background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '24px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 13, fontWeight: 700, color: v4S.muted }}>N{s.n}</span>
-                <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.6, textTransform: 'uppercase', color: 'white', background: s.tagC, borderRadius: 5, padding: '3px 8px' }}>{s.tag}</span>
+        <p style={{ fontSize: 16, color: v4S.ink2, margin: '0 auto 20px', maxWidth: 640, lineHeight: 1.6 }}>{t.sub}</p>
+        <div style={{ marginBottom: 34 }}>
+          <a href="#form-contacto" style={{ display: 'inline-block', padding: '13px 26px', borderRadius: 10, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{L ? 'Ir al formulario de contacto ↓' : 'Go to the contact form ↓'}</a>
+        </div>
+        <div className="g4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24, textAlign: 'left' }}>
+          {t.steps.map((s, i) => {
+            const first = i === 0;
+            const Tag = first ? 'a' : 'div';
+            const extra = first ? { href: '#form-contacto', className: 'ixstep0' } : {};
+            return (
+            <Tag key={i} {...extra} style={{ background: 'white', border: `1px solid ${first ? s.tagC : v4S.line}`, borderRadius: 14, padding: '22px 22px 20px', display: 'flex', flexDirection: 'column', gap: 12, borderTop: `3px solid ${s.tagC}`, color: 'inherit' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 12, fontWeight: 700, color: s.tagC }}>N{s.n}</span>
+                <span style={{ fontSize: 9.5, fontWeight: 800, letterSpacing: 0.7, textTransform: 'uppercase', color: 'white', background: s.tagC, borderRadius: 4, padding: '3px 8px' }}>{s.tag}</span>
               </div>
-              <h3 style={{ fontSize: 16.5, fontWeight: 700, color: v4S.ink, margin: 0, letterSpacing: -0.2 }}>{s.h}</h3>
-              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: v4S.ink, margin: 0, letterSpacing: -0.3 }}>{s.h}</h3>
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
                 {s.items.map((it, j) => (
-                  <li key={j} style={{ fontSize: 12.5, color: v4S.ink2, lineHeight: 1.5, display: 'flex', gap: 8 }}>
+                  <li key={j} style={{ fontSize: 13, color: v4S.ink2, lineHeight: 1.5, display: 'flex', gap: 8 }}>
                     <span style={{ color: s.tagC, fontWeight: 700, flexShrink: 0 }}>·</span>{it}
                   </li>
                 ))}
               </ul>
-            </div>
-          ))}
+              {s.foot && <p style={{ margin: 0, paddingTop: 10, borderTop: `1px solid ${v4S.line}`, fontSize: 11.5, color: v4S.muted, lineHeight: 1.5, fontStyle: 'italic' }}>{s.foot}</p>}
+              {first && <span style={{ marginTop: 2, paddingTop: 10, borderTop: `1px solid ${v4S.line}`, fontSize: 12.5, fontWeight: 700, color: s.tagC }}>{L ? 'Empieza aquí — abrir formulario ↓' : 'Start here — open the form ↓'}</span>}
+            </Tag>
+          );})}
+        </div>
+        <div style={{ marginBottom: 30 }}>
+          <a href="Escalera Comercial.html" style={{ fontSize: 13.5, fontWeight: 700, color: v4S.primary, textDecoration: 'none' }}>{t.levels}</a>
         </div>
         <p style={{ fontSize: 12.5, color: v4S.muted, fontStyle: 'italic', margin: '0 0 32px' }}>{t.note}</p>
+        <div id="form-contacto" style={{ scrollMarginTop: 80 }}></div>
         <V5Form L={L}/>
-        <div style={{ fontSize: 13, color: v4S.muted, marginTop: 22 }}>{t.contact}</div>
+        <div style={{ fontSize: 12, color: v4S.muted, marginTop: 16 }}>
+          {t.priv[0]}<a href="Aviso de Privacidad.html" style={{ color: v4S.primary, fontWeight: 600 }}>{t.priv[1]}</a>{t.priv[2]}
+        </div>
+        <div style={{ fontSize: 13, color: v4S.muted, marginTop: 16 }}>{t.contact}</div>
       </div>
     </section>
   );
 }
-
 // ── Configuración de envío del formulario ────────────────────────────────
 // Pega UNA de las dos. Ambas son gratis y envían el mensaje directo a tu correo.
 //  A) Web3Forms  → web3forms.com  (solo pide tu correo, sin cuenta · 250 envíos/mes)
@@ -584,7 +702,7 @@ function V5Form({ L }) {
     h: 'Agendar reunión de descubrimiento', sub: 'Respondemos en menos de 24 horas hábiles con propuesta de agenda.',
     name: 'Nombre', company: 'Empresa', role: 'Puesto', email: 'Correo corporativo', phone: 'Teléfono (opcional)',
     tier: 'Tipo de organización', tierOpts: ['OEM', 'Tier 1', 'Tier 2', 'Tier 3', 'Otro'],
-    svc: 'Servicio de interés', svcOpts: ['Launch Excellence', 'Technical Representation', 'IxT-QMS (plataforma)', 'Training', 'No estoy seguro'],
+    svc: 'Servicio de interés', svcOpts: ['Representación técnica en planta', 'Confirmación y aprobación de producto', 'Validación y pruebas vehiculares', 'Auditoría a OEM y proveedores', 'Lanzamiento de nuevos modelos', 'Formación en planta', 'No estoy seguro'],
     msg: 'Contexto del proyecto', msgPh: 'Lanzamiento próximo, problema de calidad abierto, alcance estimado, plantas involucradas…',
     link: 'Enlace a documentación (opcional)', linkPh: 'Drive, SharePoint o WeTransfer con presentación, planos o reporte del problema',
     send: 'Enviar solicitud', sending: 'Enviando…',
@@ -596,7 +714,7 @@ function V5Form({ L }) {
     h: 'Schedule a discovery meeting', sub: 'We reply within one business day with proposed times.',
     name: 'Name', company: 'Company', role: 'Job title', email: 'Work email', phone: 'Phone (optional)',
     tier: 'Organization type', tierOpts: ['OEM', 'Tier 1', 'Tier 2', 'Tier 3', 'Other'],
-    svc: 'Service of interest', svcOpts: ['Launch Excellence', 'Technical Representation', 'IxT-QMS (platform)', 'Training', 'Not sure yet'],
+    svc: 'Service of interest', svcOpts: ['Technical representation in plant', 'Product confirmation and approval', 'Vehicle validation and testing', 'OEM and supplier audits', 'New model launch', 'In-plant training', 'Not sure yet'],
     msg: 'Project context', msgPh: 'Upcoming launch, open quality issue, estimated scope, plants involved…',
     link: 'Link to documentation (optional)', linkPh: 'Drive, SharePoint or WeTransfer with a deck, drawings or issue report',
     send: 'Send request', sending: 'Sending…',
@@ -675,13 +793,15 @@ function V5Intro({ onDone, L }) {
   const [out, setOut] = React.useState(false);
   const finish = React.useCallback(() => { setOut(true); setTimeout(onDone, 800); }, [onDone]);
   React.useEffect(() => {
-    const t = setTimeout(finish, 9600);
+    const t = setTimeout(finish, 2000);
     return () => clearTimeout(t);
   }, [finish]);
   const mods = L
-    ? ['8D', 'ECR', 'Alertas de calidad', 'Auditorías · LPA', 'Hojas de operación', 'Hospital de defectos', 'Matriz ILU', 'KPI en vivo', 'Aprobaciones multinivel']
-    : ['8D', 'ECR', 'Quality alerts', 'Audits · LPA', 'Operation sheets', 'Defect hospital', 'ILU matrix', 'Live KPIs', 'Multilevel approvals'];
-  const svcs = ['Launch Excellence', 'Technical Representation', 'IxT-QMS', 'Training'];
+    ? ['8D', 'Alertas QAR', 'Auditorías', 'BOM de cliente', 'Hospital de defectos', 'Inspección de defectos', 'MRB · material', 'Matriz de habilidades', 'Carga de trabajo']
+    : ['8D', 'QAR alerts', 'Audits', 'Customer BOM', 'Defect hospital', 'Defect inspection', 'MRB · material', 'Skills matrix', 'Workload'];
+  const svcs = L
+    ? ['Representación técnica', 'Confirmación de producto', 'Pruebas vehiculares', 'Auditoría a proveedores']
+    : ['Technical representation', 'Product confirmation', 'Vehicle testing', 'Supplier audits'];
   const crs = L
     ? ['Safe Launch · Shoki Ryudo', 'Control de Campo', 'Kaizen', 'Liderazgo', '8D · QA', 'Quality Control · SPC']
     : ['Safe Launch · Shoki Ryudo', 'Field Control', 'Kaizen', 'Leadership', '8D · QA', 'Quality Control · SPC'];
@@ -712,28 +832,12 @@ function V5Intro({ onDone, L }) {
     };
     return <svg width="15" height="15" viewBox="-11 -11 22 22">{g[k]}</svg>;
   };
-  const modIco = ['seal', 'ecr', 'alert', 'audit', 'doc', 'hosp', 'grid', 'kpi', 'flow'];
-  const svcIco2 = ['rocket', 'people', 'gear', 'grad'];
+  const modIco = ['seal', 'alert', 'audit', 'doc', 'hosp', 'eye', 'grid', 'people', 'kpi'];
+  const svcIco2 = ['people', 'seal', 'gear', 'audit'];
   const crsIco = ['flag', 'eye', 'bulb', 'people', 'tools', 'gear'];
   return (
     <div className={'v5intro' + (out ? ' out' : '')}>
-      <div className="iph" style={{ animation: 'iPhase 4.2s .1s both' }}>
-        <div className="ttl">{tI.svc}</div>
-        <div className="ichips">
-          {svcs.map((m, i) => <span key={m} className="ichip svc" style={{ animationDelay: `${0.3 + i * 0.22}s, ${0.3 + i * 0.22}s` }}>{ico(svcIco2[i])}{m}</span>)}
-        </div>
-        <div className="ttl" style={{ marginTop: 6 }}>{tI.trn}</div>
-        <div className="ichips">
-          {crs.map((m, i) => <span key={m} className="ichip crs" style={{ animationDelay: `${1.2 + i * 0.18}s, ${1.2 + i * 0.18}s` }}>{ico(crsIco[i])}{m}</span>)}
-        </div>
-      </div>
-      <div className="iph" style={{ animation: 'iPhase 4.2s 4.4s both' }}>
-        <div className="ttl">{tI.mod}</div>
-        <div className="ichips">
-          {mods.map((m, i) => <span key={m} className="ichip" style={{ animationDelay: `${4.6 + i * 0.18}s, ${4.6 + i * 0.18}s` }}>{ico(modIco[i])}{m}</span>)}
-        </div>
-      </div>
-      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', animation: 'iLogo 1s 8.7s both', pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', animation: 'iLogo 1s .15s both', pointerEvents: 'none' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
           <div style={{ width: 64, height: 64, borderRadius: 16, background: 'linear-gradient(135deg,#1D4FD7,#0B2545)', display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 22, boxShadow: '0 0 60px rgba(29,79,215,0.55)' }}>IxT</div>
           <div style={{ color: 'white', fontSize: 30, fontWeight: 700, letterSpacing: -0.5 }}>IxT-QMS</div>
@@ -748,26 +852,62 @@ function V5Intro({ onDone, L }) {
   );
 }
 
+// memoria de animación: una sola vez por sesión (y nunca cuando se llega con #ancla)
+const IX_SEEN = (() => { try { return sessionStorage.getItem('ixSeenAnim') === '1'; } catch (e) { return false; } })();
+try { sessionStorage.setItem('ixSeenAnim', '1'); } catch (e) {}
+const IX_SKIP = IX_SEEN || !!location.hash;
+
 function HomeLanding() {
   const [lang, setLang] = React.useState(() => {
     const n = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
     return /^es/i.test(n) ? 'es' : 'en';
   });
-  const [intro, setIntro] = React.useState(true);
+  const [intro, setIntro] = React.useState(!IX_SKIP);
+  React.useEffect(() => {
+    if (intro) return;
+    const root = document.getElementById('root'); if (!root) return;
+    if (IX_SKIP) {
+      const h = location.hash && document.querySelector(location.hash);
+      if (h) requestAnimationFrame(() => window.scrollTo(0, h.getBoundingClientRect().top + window.pageYOffset - 70));
+      return;
+    }
+    const targets = [];
+    const isGrid = (el) => /grid/.test(getComputedStyle(el).display);
+    root.querySelectorAll('section').forEach((sec) => {
+      if (sec.querySelector('.v5-hero-in')) return; // el hero ya tiene su propia entrada
+      const dark = /rgb\(1?[0-9], ?[0-9]/.test(getComputedStyle(sec).backgroundColor);
+      const inner = sec.firstElementChild; if (!inner) return;
+      Array.from(inner.children).forEach((ch) => {
+        if (isGrid(ch) && ch.children.length > 1) {
+          Array.from(ch.children).forEach((c, i) => {
+            c.classList.add('ixr', 'ixh'); if (dark) c.classList.add('ixdark');
+            c.style.transitionDelay = Math.min(i, 6) * 90 + 'ms';
+            targets.push(c);
+          });
+        } else { ch.classList.add('ixr'); targets.push(ch); }
+      });
+    });
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+    targets.forEach((t) => obs.observe(t));
+    return () => obs.disconnect();
+  }, [intro]);
   return (
     <div style={{ background: 'white', color: v4S.ink, fontFamily: '"Inter", system-ui, sans-serif' }}>
       <style>{v5CSS}</style>
       {intro && <V5Intro L={lang === 'es'} onDone={() => setIntro(false)}/>}
       <V5Nav lang={lang} setLang={setLang}/>
       <V5Hero lang={lang}/>
-      <V5Reveal><V5Creds lang={lang}/></V5Reveal>
-      <V5Reveal><V5Services lang={lang}/></V5Reveal>
-      <V5Reveal><V5Training lang={lang}/></V5Reveal>
-      <V5Reveal><V5Platform lang={lang}/></V5Reveal>
-      <V5Reveal><V4Product lang={lang}/></V5Reveal>
-      <V5Reveal><V4AuditSim lang={lang}/></V5Reveal>
-      <V5Reveal><V5Diagnostico lang={lang}/></V5Reveal>
+      <V5Creds lang={lang}/>
+      <V5Kaizen lang={lang}/>
+      <V5Services lang={lang}/>
+      <V5Training lang={lang}/>
+      <V5Platform lang={lang}/>
+      <V4AuditSim lang={lang}/>
+      <V5Diagnostico lang={lang}/>
       <V4Footer lang={lang}/>
+      <a className="ixmobcta" href="#form-contacto">{lang === 'es' ? 'Agendar reunión de descubrimiento' : 'Book a discovery call'}</a>
     </div>
   );
 }
