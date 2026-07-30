@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IxT-QMS — Preparación de lanzamiento</title>
+<meta name="description" content="Qué cubre la preparación de calidad de un lanzamiento de nuevo modelo: frentes de trabajo y catálogo de evaluaciones."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet"/>
+<style>
+html,body{margin:0;padding:0}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif}
+*{box-sizing:border-box}
+button,a{font-family:inherit}
+a{text-decoration:none;color:#1D4FD7}
+a:hover{color:#0B3AAB}
+.ixr{opacity:0;transform:translateY(30px) scale(.985);filter:blur(7px);transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .9s cubic-bezier(.16,.84,.3,1),filter .9s ease}
+.ixr.on{opacity:1;transform:none;filter:none}
+.ixr.ixh{transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .5s cubic-bezier(.16,.84,.3,1),filter .9s ease,box-shadow .5s ease}
+.ixr.ixh.on:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(11,37,69,.11)}
+@media(prefers-reduced-motion:reduce){.ixr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
+@media(max-width:900px){.pg2{grid-template-columns:1fr!important;gap:26px!important}.pg4{grid-template-columns:repeat(2,1fr)!important}nav{padding:12px 18px!important}section{padding-left:20px!important;padding-right:20px!important}h1{font-size:31px!important}h2{font-size:25px!important}.hidem{display:none!important}}
+@media(max-width:560px){.pg4{grid-template-columns:1fr!important}}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const S={ink:'#0A1F3D',ink2:'#1F3A5F',muted:'#5A6B82',line:'#E2E8F0',bg:'#F6F8FB',bgCool:'#EEF3FA',primary:'#1D4FD7',primaryDark:'#0B3AAB',ok:'#059669'};
+const serif={fontFamily:'"Source Serif 4", Georgia, serif'};
+const mono={fontFamily:'"JetBrains Mono", monospace'};
+
+const ES={
+  navHome:'Inicio', navSvc:'Servicios', navHere:'Preparación de lanzamiento', navCta:'Agendar reunión',
+  eyebrow:'LÍNEA DE SERVICIO 01 · LANZAMIENTO DE NUEVOS MODELOS',
+  title:'Qué cubre la preparación de calidad de un lanzamiento.',
+  sub:'La mayoría de las plantas ya tiene lo necesario: gente, equipo y documentos. Lo que suele faltar es organizarlo y sostener el seguimiento del evento. Acompañamos a su equipo en los frentes que hay que tener cerrados antes del primer embarque, y en las evaluaciones con las que se demuestra que están cerrados.',
+  note:'Trabajamos como acompañamiento: aportamos el criterio, la estructura de seguimiento y la experiencia de haber pasado por esto. La ejecución y las decisiones de aprobación quedan siempre en su organización. El alcance real se define según el nivel de cambio del programa y la madurez de la operación.',
+  chaosH:'LO QUE YA VIMOS ROMPERSE',
+  chaosT:'Cuatro escenas que reconoce cualquiera que haya vivido un arranque.',
+  chaosS:'Ninguna es hipotética. Todas se detectaron tarde alguna vez, y todas dejaron un evento sin valor de evaluación.',
+  chaos:[
+    ['La unidad se construyó con la especificación anterior','El cambio estaba liberado en el sistema, pero el documento que viajó con la unidad traía la versión previa. Se descubre en la línea de pruebas, con la unidad ya armada y el evento corriendo.'],
+    ['El operador nunca vio la operación nueva','La distribución de trabajo cambió para el modelo nuevo. La capacitación se dio, pero no al turno que corrió el evento. El mismo defecto aparece repetido en la misma estación.'],
+    ['Las partes del evento llegaron incompletas','Las de arrastre sí estaban. Las nuevas y las secuenciadas no. Se corre el evento con sustitutos y la evaluación deja de representar al producto que se va a vender.'],
+    ['El dispositivo a prueba de error no estaba dado de alta','El equipo estaba instalado, pero la parte nueva no cargada. El dispositivo aprueba todo lo que pasa. Nadie se entera hasta que la unidad llega al final de la línea.'],
+  ],
+  chaosNote:'Ninguno de estos casos es exótico. Los cuatro se detectan antes — si alguien los está buscando.',
+  phasesH:'VEINTIÚN FRENTES DE TRABAJO, EN CINCO ETAPAS',
+  phases:[
+    {n:'01',t:'Planeación del programa',d:'Lo que define el tamaño real del trabajo antes de tocar una unidad.',items:[
+      'Revisión y establecimiento de los objetivos de calidad del programa, con retroalimentación por evento',
+      'Definición del programa de evaluaciones para cada evento: corridas piloto de primera y segunda mitad, y confirmación final',
+      'Definición y liberación de equipos e instalaciones de inspección requeridos por los sistemas nuevos',
+    ]},
+    {n:'02',t:'Documentación y criterios',d:'Sin criterio escrito y liberado, cada inspector juzga distinto.',items:[
+      'Elaboración, liberación y emisión por evento de las normas de inspección, incorporando los sistemas nuevos',
+      'Clasificación de características críticas y significativas: normas, auditorías de preparación y control documental cruzado',
+      'Control de especificación: cross-check contra la lista de partes y validación en unidades de evento',
+      'Prevención de recurrencia: histórico de modelos afines, checklist de puntos y definición de items de control en la hoja de operación',
+    ]},
+    {n:'03',t:'Preparación del personal',d:'El estándar solo existe si el que inspecciona lo mide igual que el cliente.',items:[
+      'Plan de capacitación y certificación del personal de inspección, con tablero de seguimiento',
+      'Características de control del vehículo: base de datos por item, medición y nivelación de evaluadores',
+      'Fit & Finish: obtención de targets, hojas de control por zona y capacitación por área del vehículo',
+      'Evaluación de vehículo terminado: nivelación de criterios de juicio por evento y por mercado destino',
+    ]},
+    {n:'04',t:'Eventos, liberación y arranque',d:'Donde se demuestra que el programa está listo para producir.',items:[
+      'Junta de revisión conjunta y emisión de reportes por evento',
+      'Verificación del checklist regulatorio que emite el equipo de diseño: auditoría de los items en planta y confirmación de preparación para la inspección oficial',
+      'Control intensivo de arranque: puntos de control, selección y capacitación de personal, y sistema de retroalimentación',
+      'Transferencia de modelo entre plantas: checklist de transferencia y validación',
+    ]},
+    {n:'05',t:'Control y seguimiento del evento',d:'Lo que suele faltar cuando la planta ya tiene todo lo demás.',items:[
+      'Diseño de los indicadores de control del evento: qué se mide, con qué frecuencia y quién lo revisa',
+      'Diseño del reporte de seguimiento de problemas: estado, responsable, fecha de implementación y reincidencia',
+      'Cumplimiento del plan de pruebas contra el programa: qué se ejecutó, qué falta y qué se recorrió',
+      'Validación de efectividad de contramedidas: confirmación en unidad y cierre solo cuando se demuestra',
+      'Estructura de la junta de avance: quién reporta, con qué evidencia y qué se decide en ella',
+      'Consolidación de los reportes de prueba en el formato que su cliente va a pedir',
+    ]},
+  ],
+  toolH:'LA HERRAMIENTA CON LA QUE SE SOSTIENE',
+  toolT:'Ese seguimiento no vive en un Excel que nadie actualiza.',
+  toolS:'Los frentes de la etapa 05 se operan en IxT-QMS, la plataforma con la que trabajamos. Se incluye en el programa de acompañamiento y se instala en el servidor del cliente: el reporte de problemas, la evidencia y el estado de cada contramedida quedan en un solo lugar, con historial.',
+  toolItems:[
+    ['QAR','Reporte de calidad: registro del problema, contención, responsable y estado — con la evidencia adjunta y el historial de cada movimiento.'],
+    ['8D','Análisis y cierre en las ocho disciplinas: causa raíz, contramedida, validación de efectividad y control de reincidencia.'],
+    ['MRB','Disposición de material no conforme: retenido, reparado, revalidado, liberado o desechado, con autorización registrada.'],
+    ['Hospital de defectos','Seguimiento de la pieza retenida desde que se detecta hasta su disposición final, sin que se pierda en el piso.'],
+  ],
+  toolNote:'No se vende por separado. Si su operación ya tiene un sistema, trabajamos con el suyo — lo que aportamos es el criterio de qué registrar y cómo darle seguimiento.',
+  toolLink:'Ver la plataforma →',
+  evalH:'CATÁLOGO DE EVALUACIONES',
+  evalT:'Las evaluaciones con las que se demuestra.',
+  evalS:'Evaluaciones en las que hemos participado durante lanzamientos de programa vehicular. Se ejecutan según el alcance del programa y la capacidad de la planta.',
+  fams:[
+    ['Evaluación de vehículo terminado',[
+      'Calidad de origen: auditoría de vehículo terminado fuera de línea, estática y dinámica',
+      'Junta de revisión física del vehículo con las áreas involucradas',
+      'Process readiness: análisis por estación a lo largo de todo el proceso',
+      'Nivelación y certificación de evaluadores y operadores',
+      'Revisión ejecutiva del vehículo',
+      'Fit & Finish: holguras y desniveles antes y después de ajuste',
+      'Evaluación con punto de vista del cliente final contra objetivos de IQS y J.D. Power',
+    ]],
+    ['Características de control del vehículo',[
+      'Verificación dimensional del vehículo',
+      'Postura y altura de carrocería',
+      'Medición de peso',
+      'Alineación de ruedas',
+      'Hermeticidad: simulación de lluvia monzónica con presión negativa e inundación',
+    ]],
+    ['Ruido y vibración',[
+      'Squeak & Rattles en pista de ruidos',
+      'Ruidos y rechinidos en banco de cuatro postes',
+      'NVH: ruido, vibración y aspereza',
+    ]],
+    ['Función dinámica y sistemas en pista',[
+      'Fuerza de frenado',
+      'Alineación de ruedas y balanceo',
+      'Desempeño del equipo de llenado de aire acondicionado',
+      'Precisión de frenado autónomo de emergencia',
+      'Confirmación de tren motriz: transmisión continua variable y motor',
+      'Asistente de estacionamiento autónomo y cámaras de visión perimetral',
+    ]],
+    ['Eléctrico',[
+      'Evaluación eléctrica estática del desempeño de los sistemas del vehículo',
+      'Voltaje de batería y funciones eléctricas, incluyendo consumo parásito',
+      'Alineación de faros y faros de niebla, y preparación de unidad patrón para calibrar el equipo de línea',
+    ]],
+    ['Cumplimiento, emisiones y planeación de producto',[
+      'Verificación en planta contra el checklist regulatorio del equipo de diseño, por país destino',
+      'Coordinación del envío a laboratorio externo certificado para emisión de gases y consumo de combustible, y seguimiento del resultado',
+      'Seguridad del producto: verificación en laboratorio y en cabina',
+      'Literatura técnica y manual del propietario contra planeación de producto',
+      'Validación de planeación de producto: intención de producto contra lo establecido por diseño',
+    ]],
+    ['Confirmación en línea de calidad',[
+      'Confirmación de vehículo en línea de calidad: especificación, cumplimiento legal, pruebas funcionales, paso de agua y hospital de reparaciones',
+      'Seguimiento de reparación: causa raíz, responsable asignado y confirmación de no reincidencia',
+      'Confirmación al 100% de características críticas y significativas de seguridad y satisfacción del cliente, incluyendo torques y control por lote',
+      'Prueba de especificación contra BOM y prevención de reincidencia en desviaciones de especificación',
+      'Validación de empaque en partes nuevas con requerimientos especiales',
+      'Preparación y auditoría de condición de entrega a logística para unidades de prensa y showroom',
+    ]],
+  ],
+  disc:'Qué no hacemos: no somos organismo de certificación ni laboratorio acreditado. La homologación y el establecimiento de requisitos regulatorios corresponden al equipo de diseño y a la autoridad de cada país. Tampoco contamos con pista, laboratorio ni instrumentación propios: trabajamos con las instalaciones del cliente o con laboratorios externos certificados. Nuestro trabajo es verificar, organizar el seguimiento y atrapar el error antes de que llegue a la inspección oficial.',
+  ctaT:'¿Tiene un lanzamiento en el horizonte?',
+  ctaS:'Una reunión de descubrimiento de 30 minutos para revisar el nivel de cambio del programa y qué frentes conviene atender primero.',
+  ctaB:'Agendar reunión de descubrimiento',
+  back:'Ver las cuatro líneas de servicio',
+  foot:'Aguascalientes, México · Cobertura en planta: Bajío, Norte y Centro del país',
+  rights:'Todos los derechos reservados', priv:'Aviso de privacidad',
+};
+const EN={
+  navHome:'Home', navSvc:'Services', navHere:'Launch preparation', navCta:'Book a call',
+  eyebrow:'SERVICE LINE 01 · NEW MODEL LAUNCH',
+  title:'What quality preparation for a launch actually covers.',
+  sub:'Most plants already have what they need: people, equipment and documents. What is usually missing is organizing it and sustaining follow-up through the event. We support your team on the workstreams that must be closed before the first shipment, and on the evaluations that prove they are closed.',
+  note:'We work as support: we bring the judgement, the follow-up structure and the experience of having been through this. Execution and approval decisions always remain with your organization. Actual scope is defined by the level of change in the program and the maturity of the operation.',
+  chaosH:'WHAT WE HAVE SEEN BREAK',
+  chaosT:'Four scenes anyone who has lived a ramp-up will recognize.',
+  chaosS:'None of them are hypothetical. All of them were caught late at some point, and all of them left an event with no evaluation value.',
+  chaos:[
+    ['The unit was built to the previous specification','The change was released in the system, but the document that travelled with the unit carried the previous version. It surfaces on the test line, with the unit already built and the event running.'],
+    ['The operator never saw the new operation','Work distribution changed for the new model. Training was delivered, but not to the shift that ran the event. The same defect shows up again and again at the same station.'],
+    ['Event parts arrived incomplete','Carry-over parts were there. New and sequenced parts were not. The event runs on substitutes and the evaluation stops representing the product that will actually be sold.'],
+    ['The error-proofing device was never set up','The equipment was installed, but the new part was not loaded. The device passes everything that goes through it. Nobody finds out until the unit reaches the end of the line.'],
+  ],
+  chaosNote:'None of these cases are exotic. All four can be caught earlier — if someone is looking for them.',
+  phasesH:'TWENTY-ONE WORKSTREAMS, IN FIVE STAGES',
+  phases:[
+    {n:'01',t:'Program planning',d:'What defines the real size of the job before touching a unit.',items:[
+      'Review and setting of program quality objectives, with feedback by event',
+      'Definition of the evaluation program for each event: first and second half pilot runs, and final confirmation',
+      'Definition and release of inspection equipment and facilities required by new systems',
+    ]},
+    {n:'02',t:'Documentation and criteria',d:'Without written, released criteria every inspector judges differently.',items:[
+      'Drafting, release and issue by event of inspection standards, incorporating new systems',
+      'Classification of critical and significant characteristics: standards, readiness audits and cross-checked document control',
+      'Specification control: cross-check against the parts list and validation on event units',
+      'Recurrence prevention: history from comparable models, point checklist and definition of control items on the operation sheet',
+    ]},
+    {n:'03',t:'Workforce preparation',d:'The standard only exists if the inspector measures it the way the customer does.',items:[
+      'Training and certification plan for inspection personnel, with a tracking board',
+      'Vehicle control characteristics: database per item, measurement and evaluator leveling',
+      'Fit & Finish: target acquisition, control sheets per zone and training by vehicle area',
+      'Finished vehicle evaluation: leveling of judgement criteria by event and destination market',
+    ]},
+    {n:'04',t:'Events, release and ramp-up',d:'Where the program proves it is ready to produce.',items:[
+      'Joint review meeting and issue of reports by event',
+      'Verification of the regulatory checklist issued by the design team: on-site item audit and readiness confirmation for the official inspection',
+      'Intensive ramp-up control: control points, personnel selection and training, and feedback system',
+      'Model transfer between plants: transfer checklist and validation',
+    ]},
+    {n:'05',t:'Event control and follow-up',d:'What is usually missing when the plant already has everything else.',items:[
+      'Design of event control indicators: what is measured, how often and who reviews it',
+      'Design of the issue follow-up report: status, owner, implementation date and recurrence',
+      'Test plan compliance against schedule: what was executed, what is pending and what slipped',
+      'Countermeasure effectiveness validation: confirmation on the unit, closed only when demonstrated',
+      'Progress meeting structure: who reports, with what evidence and what gets decided',
+      'Consolidation of test reports in the format your customer will ask for',
+    ]},
+  ],
+  toolH:'THE TOOL THAT SUSTAINS IT',
+  toolT:'That follow-up does not live in a spreadsheet nobody updates.',
+  toolS:'Stage 05 workstreams are operated in IxT-QMS, the platform we work with. It is included in the support program and installed on the customer server: the issue report, the evidence and the status of every countermeasure live in one place, with history.',
+  toolItems:[
+    ['QAR','Quality report: issue record, containment, owner and status — with attached evidence and the history of every change.'],
+    ['8D','Analysis and closure across the eight disciplines: root cause, countermeasure, effectiveness validation and recurrence control.'],
+    ['MRB','Nonconforming material disposition: held, repaired, revalidated, released or scrapped, with recorded authorization.'],
+    ['Defect hospital','Follow-up of the held part from detection through final disposition, without losing it on the floor.'],
+  ],
+  toolNote:'It is not sold separately. If your operation already has a system, we work with yours — what we bring is the judgement of what to record and how to follow it up.',
+  toolLink:'See the platform →',
+  evalH:'EVALUATION CATALOG',
+  evalT:'The evaluations that prove it.',
+  evalS:'Evaluations we have taken part in during vehicle program launches. Executed according to program scope and plant capability.',
+  fams:[
+    ['Finished vehicle evaluation',[
+      'Origin quality: off-line finished vehicle audit, static and dynamic',
+      'Physical vehicle review meeting with all involved areas',
+      'Process readiness: station-by-station analysis across the whole process',
+      'Leveling and certification of evaluators and operators',
+      'Executive vehicle review',
+      'Fit & Finish: gaps and flushness before and after adjustment',
+      'Evaluation from the end customer point of view against IQS and J.D. Power targets',
+    ]],
+    ['Vehicle control characteristics',[
+      'Vehicle dimensional verification',
+      'Body posture and ride height',
+      'Weight measurement',
+      'Wheel alignment',
+      'Water tightness: monsoon rain simulation with negative pressure and flooding',
+    ]],
+    ['Noise and vibration',[
+      'Squeak & rattles on the noise track',
+      'Squeak & rattles on the four-post rig',
+      'NVH: noise, vibration and harshness',
+    ]],
+    ['Dynamic function and systems on track',[
+      'Braking force',
+      'Wheel alignment and balancing',
+      'Air conditioning charging equipment performance',
+      'Forward emergency braking accuracy',
+      'Powertrain confirmation: continuously variable transmission and engine',
+      'Autonomous park assist and around-view cameras',
+    ]],
+    ['Electrical',[
+      'Static electrical evaluation of vehicle system performance',
+      'Battery voltage and electrical functions, including parasitic drain',
+      'Head lamp and fog lamp aiming, and master unit preparation to calibrate line equipment',
+    ]],
+    ['Compliance, emissions and product planning',[
+      'On-site verification against the design team regulatory checklist, by destination country',
+      'Coordination of submission to a certified external laboratory for exhaust gas and fuel consumption, and result follow-up',
+      'Product safety: laboratory and cabin verification',
+      'Technical literature and owner manual against product planning',
+      'Product planning validation: product intent against what design established',
+    ]],
+    ['Quality line confirmation',[
+      'Vehicle confirmation on the quality line: specification, legal compliance, functional testing, water pass and repair hospital',
+      'Repair follow-up: root cause, assigned owner and confirmation of non-recurrence',
+      '100% confirmation of critical and significant characteristics for safety and customer satisfaction, including torques and lot control',
+      'Specification test against BOM and prevention of recurring specification deviations',
+      'Packaging validation on new parts with special requirements',
+      'Preparation and audit of delivery condition to logistics for press and showroom units',
+    ]],
+  ],
+  disc:'What we do not do: we are not a certification body or an accredited laboratory. Homologation and the setting of regulatory requirements belong to the design team and to each country authority. We also do not have our own track, laboratory or instrumentation: we work with the customer facilities or with certified external laboratories. Our job is to verify, organize the follow-up and catch the error before it reaches the official inspection.',
+  ctaT:'Do you have a launch on the horizon?',
+  ctaS:'A 30-minute discovery meeting to review the level of change in the program and which workstreams to address first.',
+  ctaB:'Book a discovery meeting',
+  back:'See the four service lines',
+  foot:'Aguascalientes, Mexico · On-site coverage: Bajío, Northern and Central Mexico',
+  rights:'All rights reserved', priv:'Privacy notice',
+};
+
+function Nav({lang,setLang,t}){
+  return (
+    <nav style={{position:'sticky',top:0,zIndex:50,background:'rgba(255,255,255,0.95)',backdropFilter:'blur(12px)',borderBottom:`1px solid ${S.line}`,padding:'14px 56px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:16}}>
+      <div style={{display:'flex',alignItems:'center',gap:36}}>
+        <a href="index.html" style={{display:'flex',alignItems:'center',gap:10}}>
+          <div style={{width:34,height:34,borderRadius:8,background:`linear-gradient(135deg, ${S.primary}, ${S.primaryDark})`,display:'grid',placeItems:'center',color:'white',fontWeight:800,fontSize:13}}>IxT</div>
+          <div style={{fontWeight:700,fontSize:17,color:S.ink,letterSpacing:-0.3}}>IxT-QMS</div>
+        </a>
+        <div className="hidem" style={{display:'flex',gap:26,fontSize:14,fontWeight:500}}>
+          <a href="index.html" style={{color:S.ink2}}>{t.navHome}</a>
+          <a href="index.html#servicios" style={{color:S.ink2}}>{t.navSvc}</a>
+          <span style={{color:S.primary,fontWeight:700}}>{t.navHere}</span>
+        </div>
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <div style={{display:'flex',border:`1px solid ${S.line}`,borderRadius:8,overflow:'hidden',fontSize:12,fontWeight:600}}>
+          <button onClick={()=>setLang('es')} style={{padding:'6px 12px',border:'none',cursor:'pointer',background:lang==='es'?S.ink:'white',color:lang==='es'?'white':S.ink2}}>ES</button>
+          <button onClick={()=>setLang('en')} style={{padding:'6px 12px',border:'none',cursor:'pointer',background:lang==='en'?S.ink:'white',color:lang==='en'?'white':S.ink2}}>EN</button>
+        </div>
+        <a href="index.html#form-contacto" style={{padding:'9px 18px',borderRadius:8,background:S.primary,color:'white',fontWeight:600,fontSize:13.5,whiteSpace:'nowrap'}}>{t.navCta}</a>
+      </div>
+    </nav>
+  );
+}
+
+function Hero({t}){
+  return (
+    <section style={{padding:'80px 56px 48px',background:`linear-gradient(180deg, ${S.bgCool} 0%, white 100%)`}}>
+      <div style={{maxWidth:840,margin:'0 auto',textAlign:'center'}}>
+        <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.primary,marginBottom:20}}>{t.eyebrow}</div>
+        <h1 style={{...serif,fontSize:44,lineHeight:1.15,fontWeight:700,color:S.ink,letterSpacing:-1,margin:'0 0 22px',textWrap:'pretty'}}>{t.title}</h1>
+        <p style={{fontSize:17,lineHeight:1.65,color:S.muted,margin:0,textWrap:'pretty'}}>{t.sub}</p>
+      </div>
+    </section>
+  );
+}
+
+function Chaos({t}){
+  return (
+    <section style={{padding:'56px 56px 76px'}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:34}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.primary,marginBottom:14}}>{t.chaosH}</div>
+          <h2 style={{...serif,fontSize:32,fontWeight:700,color:S.ink,letterSpacing:-0.7,margin:'0 0 14px',textWrap:'pretty'}}>{t.chaosT}</h2>
+          <p style={{fontSize:15.5,color:S.muted,margin:'0 auto',maxWidth:660,lineHeight:1.65,textWrap:'pretty'}}>{t.chaosS}</p>
+        </div>
+        <div className="pg2" style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:16,alignItems:'start'}}>
+          {t.chaos.map(([h,d],i)=>(
+            <div key={i} style={{background:'white',border:`1px solid ${S.line}`,borderLeft:`3px solid ${S.primary}`,borderRadius:12,padding:'22px 24px'}}>
+              <h3 style={{...serif,fontSize:19,fontWeight:700,color:S.ink,margin:'0 0 10px',letterSpacing:-0.3,lineHeight:1.3}}>{h}</h3>
+              <p style={{fontSize:14.5,color:S.ink2,margin:0,lineHeight:1.6}}>{d}</p>
+            </div>
+          ))}
+        </div>
+        <p style={{fontSize:15,color:S.ink2,textAlign:'center',margin:'28px auto 0',maxWidth:600,lineHeight:1.6,...serif,fontStyle:'italic'}}>{t.chaosNote}</p>
+      </div>
+    </section>
+  );
+}
+function Phases({t}){
+  return (
+    <section style={{padding:'20px 56px 80px'}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.muted,marginBottom:24,textAlign:'center'}}>{t.phasesH}</div>
+        <div style={{display:'grid',gap:18}}>
+          {t.phases.map((p,i)=>(
+            <div key={i} className="pg2" style={{display:'grid',gridTemplateColumns:'260px 1fr',gap:32,background:'white',border:`1px solid ${S.line}`,borderRadius:14,padding:'28px 30px',alignItems:'start'}}>
+              <div>
+                <div style={{...mono,fontSize:26,fontWeight:700,color:S.primary,letterSpacing:-1,marginBottom:8}}>{p.n}</div>
+                <h3 style={{...serif,fontSize:22,fontWeight:700,color:S.ink,margin:'0 0 8px',letterSpacing:-0.4,lineHeight:1.25}}>{p.t}</h3>
+                <p style={{fontSize:13.5,color:S.muted,margin:0,lineHeight:1.55,fontStyle:'italic'}}>{p.d}</p>
+              </div>
+              <ul style={{margin:0,paddingLeft:0,listStyle:'none',display:'grid',gap:11}}>
+                {p.items.map((it,j)=>(
+                  <li key={j} style={{fontSize:14.5,color:S.ink2,lineHeight:1.55,paddingLeft:20,position:'relative'}}>
+                    <span style={{position:'absolute',left:0,top:7,width:7,height:7,borderRadius:2,background:S.primary,opacity:.5}}></span>{it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p style={{fontSize:13.5,color:S.muted,textAlign:'center',margin:'26px auto 0',maxWidth:660,lineHeight:1.6,fontStyle:'italic'}}>{t.note}</p>
+      </div>
+    </section>
+  );
+}
+
+function Tool({t}){
+  return (
+    <section style={{padding:'76px 56px',background:S.bg,borderTop:`1px solid ${S.line}`,borderBottom:`1px solid ${S.line}`}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:38}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.primary,marginBottom:14}}>{t.toolH}</div>
+          <h2 style={{...serif,fontSize:32,fontWeight:700,color:S.ink,letterSpacing:-0.7,margin:'0 0 14px',textWrap:'pretty'}}>{t.toolT}</h2>
+          <p style={{fontSize:15.5,color:S.muted,margin:'0 auto',maxWidth:700,lineHeight:1.65,textWrap:'pretty'}}>{t.toolS}</p>
+        </div>
+        <div className="pg4" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:14,alignItems:'start',marginBottom:26}}>
+          {t.toolItems.map(([h,d],i)=>(
+            <div key={i} style={{background:'white',border:`1px solid ${S.line}`,borderRadius:12,padding:'20px 20px 22px'}}>
+              <div style={{...mono,fontSize:12.5,fontWeight:700,color:S.primary,letterSpacing:0.5,marginBottom:10}}>{h}</div>
+              <div style={{fontSize:13.5,color:S.ink2,lineHeight:1.55}}>{d}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{textAlign:'center'}}>
+          <p style={{fontSize:13.5,color:S.muted,margin:'0 auto 16px',maxWidth:640,lineHeight:1.6,fontStyle:'italic'}}>{t.toolNote}</p>
+          <a href="index.html#plataforma" style={{fontSize:14,fontWeight:700,color:S.primary}}>{t.toolLink}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+function Evaluations({t}){
+  return (
+    <section style={{padding:'80px 56px',background:S.ink,color:'white'}}>
+      <div style={{maxWidth:1100,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:44}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:'#7DB7FF',marginBottom:14}}>{t.evalH}</div>
+          <h2 style={{...serif,fontSize:36,fontWeight:700,letterSpacing:-0.8,margin:'0 0 14px'}}>{t.evalT}</h2>
+          <p style={{fontSize:15.5,color:'#94A6C7',margin:'0 auto',maxWidth:640,lineHeight:1.6}}>{t.evalS}</p>
+        </div>
+        <div className="pg2" style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:18,alignItems:'start'}}>
+          {t.fams.map(([h,items],i)=>(
+            <div key={i} style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:12,padding:'22px 24px'}}>
+              <div style={{fontSize:16,fontWeight:700,marginBottom:14,lineHeight:1.3}}>{h}</div>
+              <ul style={{margin:0,paddingLeft:0,listStyle:'none',display:'grid',gap:9}}>
+                {items.map((it,j)=>(
+                  <li key={j} style={{fontSize:13.5,color:'#B8C7DF',lineHeight:1.55,paddingLeft:16,position:'relative'}}>
+                    <span style={{position:'absolute',left:0,top:6,width:6,height:6,borderRadius:999,background:'#4C7FE8'}}></span>{it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p style={{fontSize:13,color:'#7B8AA8',textAlign:'center',margin:'28px auto 0',maxWidth:660,lineHeight:1.6}}>{t.disc}</p>
+      </div>
+    </section>
+  );
+}
+
+function CTA({t}){
+  return (
+    <section style={{padding:'80px 56px',textAlign:'center'}}>
+      <div style={{maxWidth:680,margin:'0 auto'}}>
+        <h2 style={{...serif,fontSize:34,fontWeight:700,color:S.ink,letterSpacing:-0.7,margin:'0 0 16px'}}>{t.ctaT}</h2>
+        <p style={{fontSize:16,color:S.muted,margin:'0 0 28px',lineHeight:1.6}}>{t.ctaS}</p>
+        <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
+          <a href="index.html#form-contacto" style={{padding:'14px 26px',borderRadius:10,background:S.primary,color:'white',fontWeight:700,fontSize:15}}>{t.ctaB} →</a>
+          <a href="index.html#servicios" style={{padding:'14px 26px',borderRadius:10,border:`1px solid ${S.line}`,color:S.ink2,fontWeight:600,fontSize:15}}>{t.back}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App(){
+  const [lang,setLang]=React.useState(()=>{
+    const n=(navigator.languages&&navigator.languages[0])||navigator.language||'es';
+    return /^es/i.test(n)?'es':'en';
+  });
+  const t=lang==='es'?ES:EN;
+  return (
+    <div style={{background:'white'}}>
+      <Nav lang={lang} setLang={setLang} t={t}/>
+      <Hero t={t}/>
+      <Chaos t={t}/>
+      <Phases t={t}/>
+      <Tool t={t}/>
+      <Evaluations t={t}/>
+      <CTA t={t}/>
+      <footer style={{padding:'32px 56px',background:'#06142E',color:'#7B8AA8',fontSize:13,textAlign:'center'}}>
+        <div style={{marginBottom:10}}>{t.foot}</div>
+        <div>© 2026 IxT-QMS. {t.rights}. <a href="Aviso de Privacidad.html" style={{color:'#9FB4D6'}}>{t.priv}</a></div>
+      </footer>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+setTimeout(()=>{
+  let seen=false;
+  try{seen=sessionStorage.getItem('ixSeenLanz')==='1';sessionStorage.setItem('ixSeenLanz','1');}catch(e){}
+  if(seen||location.hash) return;
+  const root=document.getElementById('root'),targets=[];
+  root.querySelectorAll('section').forEach((sec)=>{
+    const inner=sec.firstElementChild; if(!inner) return;
+    Array.from(inner.children).forEach((ch)=>{
+      if(/grid/.test(getComputedStyle(ch).display)&&ch.children.length>1){
+        Array.from(ch.children).forEach((c,i)=>{c.classList.add('ixr','ixh');c.style.transitionDelay=Math.min(i,6)*90+'ms';targets.push(c);});
+      } else {ch.classList.add('ixr');targets.push(ch);}
+    });
+  });
+  const obs=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}}),{threshold:0.06,rootMargin:'0px 0px -6% 0px'});
+  targets.forEach((x)=>obs.observe(x));
+},60);
+</script>
+</body>
+</html>

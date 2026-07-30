@@ -22,7 +22,7 @@ Aguascalientes, México · [ixt.qms@gmail.com](mailto:ixt.qms@gmail.com)
 | `v4-sales.jsx` | Componentes compartidos (plataforma, simulación de auditoría, pie de página) |
 | `Nuestra Historia.html` | Perfil profesional y trayectoria |
 | `Catalogo de Servicios.html` | Catálogo detallado de servicios |
-| `Escalera Comercial.html` | Niveles de contratación |
+| `Preparacion de Lanzamiento.html` | Alcance de la preparación de lanzamiento |
 | `screenshots/` | Capturas de la plataforma |
 
 ## Publicación

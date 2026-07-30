@@ -1040,7 +1040,7 @@ function V4Footer({ lang }) {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
           <a href="Nuestra Historia.html" style={{ color: '#C7D3E8', textDecoration: 'none', fontWeight: 600 }}>{lang === 'es' ? 'Perfil' : 'Profile'}</a>
-          <a href="Escalera Comercial.html" style={{ color: '#C7D3E8', textDecoration: 'none', fontWeight: 600 }}>{lang === 'es' ? 'Niveles de servicio' : 'Service levels'}</a>
+          <a href="Preparacion de Lanzamiento.html" style={{ color: '#C7D3E8', textDecoration: 'none', fontWeight: 600 }}>{lang === 'es' ? 'Preparación de lanzamiento' : 'Launch preparation'}</a>
           <a href="Aviso de Privacidad.html" style={{ color: '#7B8AA8', textDecoration: 'none' }}>{lang === 'es' ? 'Aviso de privacidad' : 'Privacy notice'}</a>
           <span>© 2026 IxT-QMS. {lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}.</span>
         </div>

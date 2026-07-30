@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>IxT-QMS — Nuestra Historia</title>
+<meta name="description" content="14 años de experiencia en calidad automotriz para OEM, proveedores Tier 1, 2 y 3, y laboratorios de validación y testing."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&display=swap" rel="stylesheet"/>
@@ -19,6 +20,8 @@
   .ixr.ixh.on:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(11,37,69,.11)}
   .ixdark.ixr.ixh.on:hover{box-shadow:0 18px 42px rgba(0,0,0,.35)}
   @media(prefers-reduced-motion:reduce){.ixr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
+  @media(max-width:900px){.pg4{grid-template-columns:repeat(2,1fr)!important}.pg3{grid-template-columns:1fr!important}.pg2{grid-template-columns:1fr!important;gap:26px!important}nav{padding:12px 18px!important}section{padding-left:20px!important;padding-right:20px!important}h1{font-size:32px!important}h2{font-size:26px!important}}
+  @media(max-width:560px){.pg4{grid-template-columns:1fr!important}}
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -49,11 +52,11 @@ function Nav({ lang, setLang, t }) {
             width: 34, height: 34, borderRadius: 8,
             background: `linear-gradient(135deg, ${S.primary}, ${S.primaryDark})`,
             display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 14,
-          }}>SQ</div>
+          }}>IxT</div>
           <div style={{ fontWeight: 700, fontSize: 17, color: S.ink, letterSpacing: -0.3 }}>IxT-QMS</div>
         </a>
         <div style={{ display: 'flex', gap: 28, fontSize: 14, color: '#1F3A5F', fontWeight: 500 }}>
-          <a href="index.html" style={{ color: 'inherit' }}>{lang === 'es' ? 'Producto' : 'Product'}</a>
+          <a href="index.html#servicios" style={{ color: 'inherit' }}>{lang === 'es' ? 'Servicios' : 'Services'}</a>
           <a style={{ color: S.primary, fontWeight: 700 }}>{lang === 'es' ? 'Nuestra historia' : 'Our story'}</a>
         </div>
       </div>
@@ -72,13 +75,13 @@ function Nav({ lang, setLang, t }) {
 
 function Hero({ lang }) {
   const t = lang === 'es' ? {
-    eyebrow: 'POR QUÉ EXISTE FIELDCORE',
+    eyebrow: 'QUIÉNES SOMOS',
     title: 'Experiencia real en ambos lados de la cadena de calidad automotriz.',
-    sub: '14 años trabajando tanto con constructoras (OEM) como con proveedores Tier 1 y Tier 2 nos dieron una vista completa: qué espera un OEM en una auditoría, y qué necesita un proveedor para cumplirla sin fricción. IxT-QMS digitaliza esa experiencia.',
+    sub: 'Trabajamos con OEM, proveedores Tier 1, 2 y 3, y laboratorios de validación y testing. 14 años en los dos lados de la mesa nos dan la vista completa: qué espera un OEM en una auditoría y qué necesita un proveedor para cumplirla sin fricción — y de qué lado está cada exigencia.',
   } : {
-    eyebrow: 'WHY FIELDCORE EXISTS',
+    eyebrow: 'WHO WE ARE',
     title: 'Real experience on both sides of the automotive quality chain.',
-    sub: '14 years working with both OEMs and Tier 1 / Tier 2 suppliers gave us the full picture: what an OEM expects in an audit, and what a supplier needs to meet it without friction. IxT-QMS digitizes that experience.',
+    sub: 'We work with OEMs, Tier 1, 2 and 3 suppliers, and validation and testing labs. 14 years on both sides of the table give us the full picture: what an OEM expects in an audit and what a supplier needs to meet it without friction — and which side each requirement comes from.',
   };
   return (
     <section style={{ padding: '88px 56px 56px', background: `linear-gradient(180deg, ${S.bgCool} 0%, white 100%)` }}>
@@ -97,7 +100,7 @@ function StatStrip({ lang }) {
     : [['14', 'years in automotive quality'], ['52', 'project launches led'], ['98', 'countries — regulation & homologation'], ['$250K', 'saved/year on a single project']];
   return (
     <section style={{ padding: '0 56px 48px' }}>
-      <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, background: S.line, border: `1px solid ${S.line}`, borderRadius: 12, overflow: 'hidden' }}>
+      <div className="pg4" style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, background: S.line, border: `1px solid ${S.line}`, borderRadius: 12, overflow: 'hidden' }}>
         {items.map(([n, l], i) => (
           <div key={i} style={{ background: 'white', padding: '28px 20px', textAlign: 'center' }}>
             <div style={{ ...serif, fontSize: 32, fontWeight: 800, color: S.ink, letterSpacing: -1 }}>{n}</div>
@@ -111,19 +114,19 @@ function StatStrip({ lang }) {
 
 function Achievement({ lang }) {
   const t = lang === 'es' ? {
-    eyebrow: 'EL ORIGEN DIRECTO DE FIELDCORE',
-    title: 'En Nissan, diseñé el proyecto que hoy es el módulo de Spec Confirmation.',
-    body: 'Como Senior Supervisor de Aseguramiento de Calidad, lideré el “Quality Campaign Cost Reduction Project”: implementamos la Confirmación Virtual de Especificaciones (BOM) antes de las pruebas de producción — detectando desviaciones antes de que costaran dinero. Resultado: $250,000 USD ahorrados cada año. IxT-QMS digitaliza exactamente esa idea para cualquier planta.',
+    eyebrow: 'EL ORIGEN DEL MÉTODO',
+    title: 'En Nissan diseñamos el método de confirmación que hoy aplicamos en planta.',
+    body: 'Desde la supervisión senior de Aseguramiento de Calidad lideramos el “Quality Campaign Cost Reduction Project”: implementamos la confirmación virtual de especificaciones (BOM) antes de las pruebas de producción, detectando desviaciones antes de que costaran dinero. Resultado: $250,000 USD ahorrados cada año. Ese es el método que llevamos a la planta de nuestros clientes.',
     tag: 'RESULTADO VERIFICABLE',
   } : {
-    eyebrow: 'FIELDCORE\'S DIRECT ORIGIN',
-    title: 'At Nissan, I designed the project that is now the Spec Confirmation module.',
-    body: 'As Quality Assurance Senior Supervisor, I led the “Quality Campaign Cost Reduction Project”: we implemented Virtual Confirmation of BOM Specifications before production trials — catching deviations before they cost money. Result: $250,000 USD saved every year. IxT-QMS digitizes that exact idea for any plant.',
+    eyebrow: 'WHERE THE METHOD CAME FROM',
+    title: 'At Nissan we designed the confirmation method we apply on the floor today.',
+    body: 'From senior supervision in Quality Assurance we led the “Quality Campaign Cost Reduction Project”: we implemented virtual confirmation of BOM specifications before production trials, catching deviations before they cost money. Result: $250,000 USD saved every year. That is the method we bring to our customers plants.',
     tag: 'VERIFIABLE RESULT',
   };
   return (
     <section style={{ padding: '0 56px 64px' }}>
-      <div style={{
+      <div className="pg2" style={{
         maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 40,
         alignItems: 'center', background: `linear-gradient(135deg, ${S.okBg}, white)`,
         border: `1px solid #BBF7D0`, borderRadius: 16, padding: 40,
@@ -183,15 +186,15 @@ function Timeline({ lang }) {
     title: 'Entendemos las expectativas del OEM y las necesidades del proveedor',
     v1: {
       tag: 'LADO OEM · EVALUACIÓN Y TESTING',
-      title: 'Evaluando calidad directamente para constructoras y laboratorios de certificación',
-      body: '52 lanzamientos de proyecto y homologación en 98 países nos enseñaron qué mediciones son críticas para un OEM y qué espera ver en una auditoría. Esa perspectiva guía los módulos de inspección de IxT-QMS.',
-      companies: ['Nissan', 'IDIADA Applus (Mercedes-Benz)', 'Allswell (Hyundai MOBIS / KIA)'],
-      tags: ['Fit & Finish', 'Water Intrusion', 'NVH', 'Durability', 'Squeak & Rattles', 'Infotainment', 'Brake Test', 'Wheel Alignment', 'Benchmark Study'],
+      title: 'Evaluando calidad para armadoras y laboratorios de validación',
+      body: '52 lanzamientos de proyecto y homologación en 98 países nos enseñaron qué mediciones son críticas para un OEM y qué espera ver en una auditoría. Sabemos con qué criterio se juzga su producto porque estuvimos del lado que lo juzga.',
+      companies: ['Nissan', 'IDIADA Applus (Mercedes-Benz)', 'Lucid Motors'],
+      tags: ['Fit & Finish', 'Apariencia exterior', 'Apariencia interior', 'Water Intrusion', 'NVH', 'Durability', 'Squeak & Rattles', 'Infotainment', 'Brake Test', 'Wheel Alignment', 'Benchmark Study'],
     },
     v2: {
       tag: 'LADO PROVEEDOR · REPRESENTACIÓN ANTE OEM',
-      title: 'Representando proveedores Tier 1 y Tier 2 frente a sus clientes OEM',
-      body: 'Disposición de material no conforme, campañas de calidad y soporte a PPAP/APQP frente al cliente OEM. Ese flujo de reportes y aprobaciones es lo que los módulos QAR, MRB y 8D de IxT-QMS digitalizan.',
+      title: 'Representando proveedores Tier 1, 2 y 3 frente a sus clientes OEM',
+      body: 'Disposición de material no conforme, campañas de calidad y soporte a PPAP/APQP frente al cliente OEM. Conocemos la presión de sostener la relación técnica desde el piso de la planta del cliente, y qué reportes cierran un tema y cuáles lo dejan abierto.',
       companies: ['Preferred Precision Group', 'Martinrea Rollstar', 'Formel D'],
       tags: null,
     },
@@ -200,15 +203,15 @@ function Timeline({ lang }) {
     title: 'We understand OEM expectations and supplier needs',
     v1: {
       tag: 'OEM SIDE · EVALUATION & TESTING',
-      title: 'Evaluating quality directly for automakers and certification labs',
-      body: '52 project launches and homologation across 98 countries taught us which measurements matter most to an OEM and what they expect to see in an audit. That perspective guides IxT-QMS\'s inspection modules.',
-      companies: ['Nissan', 'IDIADA Applus (Mercedes-Benz)', 'Allswell (Hyundai MOBIS / KIA)'],
-      tags: ['Fit & Finish', 'Water Intrusion', 'NVH', 'Durability', 'Squeak & Rattles', 'Infotainment', 'Brake Test', 'Wheel Alignment', 'Benchmark Study'],
+      title: 'Evaluating quality for automakers and validation labs',
+      body: '52 project launches and homologation across 98 countries taught us which measurements matter most to an OEM and what they expect to see in an audit. We know the criteria your product is judged by because we sat on the side that judges it.',
+      companies: ['Nissan', 'IDIADA Applus (Mercedes-Benz)', 'Lucid Motors'],
+      tags: ['Fit & Finish', 'Exterior appearance', 'Interior appearance', 'Water Intrusion', 'NVH', 'Durability', 'Squeak & Rattles', 'Infotainment', 'Brake Test', 'Wheel Alignment', 'Benchmark Study'],
     },
     v2: {
       tag: 'SUPPLIER SIDE · OEM REPRESENTATION',
-      title: 'Representing Tier 1 and Tier 2 suppliers in front of their OEM customers',
-      body: 'Non-conforming material disposition, quality campaigns and PPAP/APQP support in front of the OEM customer. That flow of reports and approvals is what IxT-QMS\'s QAR, MRB and 8D modules digitize.',
+      title: 'Representing Tier 1, 2 and 3 suppliers in front of their OEM customers',
+      body: 'Non-conforming material disposition, quality campaigns and PPAP/APQP support in front of the OEM customer. We know the pressure of holding the technical relationship from inside the customer plant, and which reports close an issue and which leave it open.',
       companies: ['Preferred Precision Group', 'Martinrea Rollstar', 'Formel D'],
       tags: null,
     },
@@ -238,7 +241,6 @@ function Certifications({ lang }) {
       'QC Story',
       'Siemens NX, SolidWorks, AutoCAD',
       'SAP ERP, EPIC, G2B',
-      'Excel avanzado (macros, VBA, tablas dinámicas)',
     ],
   } : {
     eyebrow: 'COURSES & CERTIFICATIONS',
@@ -250,7 +252,6 @@ function Certifications({ lang }) {
       'QC Story',
       'Siemens NX, SolidWorks, AutoCAD',
       'SAP ERP, EPIC, G2B',
-      'Advanced Excel (macros, VBA, pivot tables)',
     ],
   };
   return (
@@ -278,17 +279,17 @@ function WhyThisMatters({ lang }) {
     eyebrow: 'POR QUÉ IMPORTA',
     title: 'Entendemos ambas perspectivas de la calidad automotriz.',
     items: [
-      { h: 'Conocemos las expectativas del OEM', b: 'Trabajar directamente en evaluación y testing nos dio la perspectiva exacta de qué busca un auditor de Nissan, Mercedes-Benz o Hyundai/KIA.' },
-      { h: 'Conocemos las necesidades del proveedor', b: 'Representar a Tier 1 y Tier 2 frente a su cliente OEM enseña qué reportes generan confianza y cuáles no.' },
-      { h: 'Sabemos qué specs importan de verdad', b: 'De Fit & Finish a NVH y Water Intrusion: entendemos qué mediciones son críticas — por eso los módulos de IxT-QMS van directo al grano.' },
+      { h: 'Conocemos las expectativas del OEM', b: 'Trabajar directamente en evaluación y testing nos dio la perspectiva exacta de qué busca un auditor de Nissan, Mercedes-Benz o Lucid Motors.' },
+      { h: 'Conocemos las necesidades del proveedor', b: 'Representar a proveedores Tier 1, 2 y 3 frente a su cliente OEM enseña qué reportes generan confianza y cuáles no.' },
+      { h: 'Sabemos qué specs importan de verdad', b: 'De Fit & Finish a NVH e intrusión de agua: sabemos qué mediciones deciden una aprobación y cuáles solo llenan un reporte.' },
     ],
   } : {
     eyebrow: 'WHY IT MATTERS',
     title: 'We understand both perspectives of automotive quality.',
     items: [
-      { h: 'We understand OEM expectations', b: 'Working directly in evaluation and testing gave us the exact perspective of what a Nissan, Mercedes-Benz or Hyundai/KIA auditor looks for.' },
+      { h: 'We understand OEM expectations', b: 'Working directly in evaluation and testing gave us the exact perspective of what a Nissan, Mercedes-Benz or Lucid Motors auditor looks for.' },
       { h: 'We understand supplier needs', b: 'Representing Tier 1 and Tier 2 suppliers in front of their OEM customer teaches you which reports build trust and which don\'t.' },
-      { h: 'We know which specs actually matter', b: 'From Fit & Finish to NVH and Water Intrusion: we understand which measurements are critical — that\'s why IxT-QMS\'s modules go straight to the point.' },
+      { h: 'We know which specs actually matter', b: 'From Fit & Finish to NVH and water intrusion: we know which measurements decide an approval and which only fill a report.' },
     ],
   };
   return (
@@ -298,7 +299,7 @@ function WhyThisMatters({ lang }) {
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: '#7DB7FF', marginBottom: 14 }}>{t.eyebrow}</div>
           <h2 style={{ ...serif, fontSize: 38, fontWeight: 700, letterSpacing: -0.8, margin: 0, maxWidth: 680, marginInline: 'auto' }}>{t.title}</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+        <div className="pg3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
           {t.items.map((it, i) => (
             <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: 26 }}>
               <div style={{ fontSize: 17, fontWeight: 700, marginBottom: 10 }}>{it.h}</div>
@@ -311,52 +312,38 @@ function WhyThisMatters({ lang }) {
   );
 }
 
-function FoundingPerks({ lang }) {
-  const t = lang === 'es' ? {
-    eyebrow: 'PROGRAMA BETA · CUPOS LIMITADOS',
-    title: 'Condiciones de Founding Customer',
-    sub: 'Estamos abriendo un número limitado de lugares para la versión Beta con plantas piloto. A cambio de construir el producto junto contigo, esto es lo que obtienes:',
-    perks: [
-      { h: 'Precio congelado de por vida', b: 'Lo que pagues en Beta es lo que pagas siempre — aunque el precio público suba después.' },
-      { h: 'Línea directa con el founder', b: 'Sin tickets ni níveles de soporte — hablas conmigo directamente cuando lo necesites.' },
-      { h: '3-6 meses gratis', b: 'A cambio de ser caso de estudio y referencia cuando el producto madure.' },
-    ],
-  } : {
-    eyebrow: 'BETA PROGRAM · LIMITED SPOTS',
-    title: 'Founding Customer Terms',
-    sub: 'We\'re opening a limited number of spots for the Beta with pilot plants. In exchange for building the product alongside you, here\'s what you get:',
-    perks: [
-      { h: 'Price locked for life', b: 'Whatever you pay in Beta is what you always pay — even if the public price rises later.' },
-      { h: 'Direct line to the founder', b: 'No tickets, no support tiers — you talk to me directly whenever you need to.' },
-      { h: '3-6 months free', b: 'In exchange for being a case study and reference once the product matures.' },
-    ],
-  };
+function ServicesLink({ lang }) {
+  const L = lang === 'es';
+  const items = L
+    ? [['01', 'Lanzamiento de nuevos modelos'], ['02', 'Representación técnica en planta del cliente'], ['03', 'Trazabilidad de inspección y contención'], ['04', 'Auditoría y seguimiento a proveedores']]
+    : [['01', 'New model launch'], ['02', 'Technical representation at your customer plant'], ['03', 'Inspection traceability and containment'], ['04', 'Supplier audits and follow-up']];
   return (
     <section style={{ padding: '80px 56px', background: S.bg }}>
-      <div style={{ maxWidth: 980, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 44 }}>
-          <div style={{ display: 'inline-block', fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8, color: S.ok, background: S.okBg, padding: '6px 12px', borderRadius: 999, marginBottom: 18 }}>{t.eyebrow}</div>
-          <h2 style={{ ...serif, fontSize: 36, fontWeight: 700, color: S.ink, letterSpacing: -0.7, margin: '0 0 14px' }}>{t.title}</h2>
-          <p style={{ fontSize: 15.5, color: S.muted, maxWidth: 620, margin: '0 auto', lineHeight: 1.6 }}>{t.sub}</p>
+      <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: S.primary, marginBottom: 14 }}>{L ? 'CÓMO SE APLICA' : 'HOW IT IS APPLIED'}</div>
+          <h2 style={{ ...serif, fontSize: 30, fontWeight: 700, color: S.ink, letterSpacing: -0.6, margin: '0 0 12px' }}>{L ? 'Cuatro formas de poner esa experiencia en su planta' : 'Four ways to put that experience in your plant'}</h2>
+          <p style={{ fontSize: 15.5, color: S.muted, margin: 0, maxWidth: 620, marginInline: 'auto', lineHeight: 1.6 }}>{L ? 'Apoyo en lanzamientos y cambios de ingeniería, representación técnica en la planta de su cliente, trazabilidad de inspección y auditoría y seguimiento a proveedores — con una metodología propia de control de proceso.' : 'Launch and engineering change support, technical representation at your customer plant, inspection traceability and supplier audits — backed by our own methodology for process control.'}</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
-          {t.perks.map((p, i) => (
-            <div key={i} style={{ background: 'white', border: `1px solid ${S.line}`, borderRadius: 12, padding: 24 }}>
-              <div style={{ width: 30, height: 30, borderRadius: 999, background: S.okBg, color: S.ok, display: 'grid', placeItems: 'center', fontWeight: 700, marginBottom: 14 }}>✓</div>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: S.ink, marginBottom: 8 }}>{p.h}</div>
-              <div style={{ fontSize: 13.5, color: S.muted, lineHeight: 1.55 }}>{p.b}</div>
-            </div>
+        <div className="pg4" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 32 }}>
+          {items.map(([n, h], i) => (
+            <a key={i} href="index.html#servicios" style={{ background: 'white', border: `1px solid ${S.line}`, borderRadius: 12, padding: '20px 18px', color: 'inherit', display: 'block' }}>
+              <div style={{ fontSize: 12, fontWeight: 800, color: S.primary, marginBottom: 10, letterSpacing: 0.5 }}>{n}</div>
+              <div style={{ fontSize: 14.5, fontWeight: 600, color: S.ink, lineHeight: 1.4 }}>{h}</div>
+            </a>
           ))}
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <a href="index.html#servicios" style={{ fontSize: 14.5, fontWeight: 700, color: S.primary }}>{L ? 'Ver el detalle de cada línea de servicio →' : 'See the detail of each service line →'}</a>
         </div>
       </div>
     </section>
   );
 }
-
 function CTA({ lang }) {
   const t = lang === 'es' ? {
-    title: '¿Hablamos de tu próximo lanzamiento?',
-    sub: 'Una reunión de descubrimiento de 30 minutos para entender tu proceso, tus cambios de ingeniería en curso y qué tipo de apoyo necesitas en planta.',
+    title: '¿Hablamos de su próximo lanzamiento?',
+    sub: 'Una reunión de descubrimiento de 30 minutos para entender su proceso, sus cambios de ingeniería en curso y qué tipo de apoyo necesita en planta.',
     cta: 'Agendar reunión de descubrimiento',
   } : {
     title: 'Let’s talk about your next launch',
@@ -377,13 +364,17 @@ function CTA({ lang }) {
 function Footer({ lang }) {
   return (
     <footer style={{ padding: '32px 56px', background: '#06142E', color: '#7B8AA8', fontSize: 13, textAlign: 'center' }}>
-      © 2026 IxT-QMS. {lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}.
+      <div style={{ marginBottom: 10 }}>{lang === 'es' ? 'Aguascalientes, México · Cobertura en planta: Bajío, Norte y Centro del país' : 'Aguascalientes, Mexico · On-site coverage: Bajío, Northern and Central Mexico'}</div>
+      <div>© 2026 IxT-QMS. {lang === 'es' ? 'Todos los derechos reservados' : 'All rights reserved'}. <a href="Aviso de Privacidad.html" style={{ color: '#9FB4D6' }}>{lang === 'es' ? 'Aviso de privacidad' : 'Privacy notice'}</a></div>
     </footer>
   );
 }
 
 function App() {
-  const [lang, setLang] = React.useState('es');
+  const [lang, setLang] = React.useState(() => {
+    const n = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
+    return /^es/i.test(n) ? 'es' : 'en';
+  });
   return (
     <div style={{ background: 'white' }}>
       <Nav lang={lang} setLang={setLang}/>
@@ -392,8 +383,8 @@ function App() {
       <Achievement lang={lang}/>
       <Timeline lang={lang}/>
       <Certifications lang={lang}/>
-      <FoundingPerks lang={lang}/>
       <WhyThisMatters lang={lang}/>
+      <ServicesLink lang={lang}/>
       <CTA lang={lang}/>
       <Footer lang={lang}/>
     </div>
