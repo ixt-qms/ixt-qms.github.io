@@ -663,7 +663,7 @@ function V5Diagnostico({ lang }) {
     ],
     costF: 'Si tres o más de estos rubros le resultan difíciles de estimar, ese es en sí mismo el hallazgo.',
     levels: 'Ver los niveles de servicio →',
-    cta: 'Agendar reunión de descubrimiento', contact: 'ixt.qms@gmail.com · +52 449 415 8248 · Aguascalientes, México',
+    cta: 'Agendar reunión de descubrimiento', contact: 'contacto@ixt-qms.com · +52 449 415 8248 · Aguascalientes, México',
     note: 'Todos los servicios se cotizan de acuerdo con el alcance del proyecto. Los viáticos y gastos de viaje se cotizan por separado para servicios fuera de Aguascalientes.',
     priv: ['El envío de este formulario se procesa mediante Web3Forms. Consulte el ', 'aviso de privacidad', '.'],
   } : {
@@ -696,7 +696,7 @@ function V5Diagnostico({ lang }) {
     ],
     costF: 'If three or more of these are hard for you to estimate, that is the finding in itself.',
     levels: 'See the service levels →',
-    cta: 'Schedule discovery meeting', contact: 'ixt.qms@gmail.com · +52 449 415 8248 · Aguascalientes, Mexico',
+    cta: 'Schedule discovery meeting', contact: 'contacto@ixt-qms.com · +52 449 415 8248 · Aguascalientes, Mexico',
     note: 'All services are quoted according to project scope. Travel expenses are quoted separately for services outside Aguascalientes.',
     priv: ['This form is processed through Web3Forms. See the ', 'privacy notice', '.'],
   };
@@ -781,8 +781,8 @@ function V5Form({ L }) {
     link: 'Enlace a documentación (opcional)', linkPh: 'Drive, SharePoint o WeTransfer con presentación, planos o reporte del problema',
     send: 'Enviar solicitud', sending: 'Enviando…',
     okH: 'Solicitud enviada', okB: 'Gracias. Recibirá una respuesta en su correo con propuesta de horarios.',
-    fbH: 'Se abrió su cliente de correo', fbB: 'Verifique que el mensaje se haya enviado. Si no se abrió, escríbanos directo a ixt.qms@gmail.com',
-    errB: 'No se pudo enviar. Escríbanos directo a ixt.qms@gmail.com',
+    fbH: 'Se abrió su cliente de correo', fbB: 'Verifique que el mensaje se haya enviado. Si no se abrió, escríbanos directo a contacto@ixt-qms.com',
+    errB: 'No se pudo enviar. Escríbanos directo a contacto@ixt-qms.com',
     priv: 'La información se usa únicamente para responder su solicitud. No compartimos datos con terceros.',
   } : {
     h: 'Schedule a discovery meeting', sub: 'We reply within one business day with proposed times.',
@@ -793,8 +793,8 @@ function V5Form({ L }) {
     link: 'Link to documentation (optional)', linkPh: 'Drive, SharePoint or WeTransfer with a deck, drawings or issue report',
     send: 'Send request', sending: 'Sending…',
     okH: 'Request sent', okB: 'Thank you. You will receive a reply with proposed times.',
-    fbH: 'Your email client was opened', fbB: 'Please confirm the message was actually sent. If nothing opened, email us directly at ixt.qms@gmail.com',
-    errB: 'Could not send. Email us directly at ixt.qms@gmail.com',
+    fbH: 'Your email client was opened', fbB: 'Please confirm the message was actually sent. If nothing opened, email us directly at contacto@ixt-qms.com',
+    errB: 'Could not send. Email us directly at contacto@ixt-qms.com',
     priv: 'Information is used only to answer your request. We do not share data with third parties.',
   };
   const lbl = { display: 'block', fontSize: 11.5, fontWeight: 700, letterSpacing: 0.4, textTransform: 'uppercase', color: v4S.muted, marginBottom: 6 };
@@ -804,7 +804,7 @@ function V5Form({ L }) {
     const fd = new FormData(e.target);
     if (!IXT_POST_URL) {
       const body = [...fd.entries()].map(([k, v]) => `${k}: ${v}`).join('\n');
-      window.location.href = `mailto:ixt.qms@gmail.com?subject=${encodeURIComponent((L ? 'Reunión de descubrimiento — ' : 'Discovery meeting — ') + (fd.get('company') || 'IxT-QMS'))}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:contacto@ixt-qms.com?subject=${encodeURIComponent((L ? 'Reunión de descubrimiento — ' : 'Discovery meeting — ') + (fd.get('company') || 'IxT-QMS'))}&body=${encodeURIComponent(body)}`;
       setState('fallback');
       return;
     }

@@ -4,7 +4,7 @@
 
 Sitio web de IxT-QMS — consultoría y formación para la industria automotriz.
 
-Aguascalientes, México · [ixt.qms@gmail.com](mailto:ixt.qms@gmail.com)
+Aguascalientes, México · [contacto@ixt-qms.com](mailto:contacto@ixt-qms.com)
 
 ## Servicios
 
@@ -22,7 +22,7 @@ Aguascalientes, México · [ixt.qms@gmail.com](mailto:ixt.qms@gmail.com)
 | `v4-sales.jsx` | Componentes compartidos (plataforma, simulación de auditoría, pie de página) |
 | `Nuestra Historia.html` | Perfil profesional y trayectoria |
 | `Catalogo de Servicios.html` | Catálogo detallado de servicios |
-| `Preparacion de Lanzamiento.html` | Alcance de la preparación de lanzamiento |
+| `Escalera Comercial.html` | Niveles de contratación |
 | `screenshots/` | Capturas de la plataforma |
 
 ## Publicación
