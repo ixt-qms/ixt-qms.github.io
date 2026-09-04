@@ -50,16 +50,19 @@ const v5CSS = `
 @media(max-width:1120px){.v5nav-links{gap:12px!important;font-size:12.5px!important}}
 @media(max-width:720px){.v5nav-links{width:100%;order:3;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.v5nav-links::-webkit-scrollbar{display:none}}
 @media(max-width:1024px){
+ .g10{grid-template-columns:repeat(4,1fr)!important}
+ .g8{grid-template-columns:repeat(3,1fr)!important}
  .g6{grid-template-columns:repeat(3,1fr)!important}
  .g5{grid-template-columns:repeat(3,1fr)!important}
  .g4{grid-template-columns:repeat(2,1fr)!important}
+ .g5{grid-template-columns:repeat(3,1fr)!important}
  .g3{grid-template-columns:repeat(2,1fr)!important}
  .g2{grid-template-columns:1fr!important;gap:26px!important}
  section{padding-left:32px!important;padding-right:32px!important}
 }
 @media(max-width:900px){.gsplit{grid-template-columns:1fr!important;gap:26px!important}}
 @media(max-width:720px){
- .g6,.g5,.g4,.g3,.g2,.gform{grid-template-columns:1fr!important}
+ .g6,.g5,.g4,.g3,.g2,.gform,.g8,.g10{grid-template-columns:1fr!important}
  .g6>div{border-left:none!important;border-top:1px solid rgba(0,0,0,.08)}
  .g6>div:first-child{border-top:none}
  section{padding-left:18px!important;padding-right:18px!important}
@@ -220,35 +223,42 @@ function V5SvcAnim({ i }) {
   );
 }
 
-function V5Nav({ lang, setLang }) {
+function V5Nav({ lang, setLang, view, setView }) {
   const L = lang === 'es';
   const [active, setActive] = React.useState('');
   React.useEffect(() => {
-    const ids = ['kaizen', 'servicios', 'formacion', 'plataforma', 'diagnostico'];
+    const ids = view === 'servicios' ? ['kaizen', 'servicios', 'formacion'] : ['plataforma', 'software'];
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
     }, { rootMargin: '-30% 0px -60% 0px' });
     ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
     return () => obs.disconnect();
-  }, []);
-  const links = L
-    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Método'],['Nuestra Historia.html','Perfil'],['#form-contacto','Contacto']]
-    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Method'],['Nuestra Historia.html','Profile'],['#form-contacto','Contact']];
+  }, [view]);
+  const links = view === 'servicios'
+    ? (L ? [['#servicios','Servicios'],['#formacion','Formación'],['Nuestra Historia.html','Perfil'],['#form-contacto','Contacto']]
+         : [['#servicios','Services'],['#formacion','Training'],['Nuestra Historia.html','Profile'],['#form-contacto','Contact']])
+    : (L ? [['#software','Módulos'],['#plataforma','Método'],['#form-contacto','Contacto']]
+         : [['#software','Modules'],['#plataforma','Method'],['#form-contacto','Contact']]);
   return (
     <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px 12px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, cursor: 'pointer' }} onClick={() => setView('servicios')}>
           <div style={{ width: 34, height: 34, borderRadius: 8, background: `linear-gradient(135deg, ${v4S.primary}, ${v4S.primaryDark})`, display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 14, letterSpacing: -0.3 }}>IxT</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             <div style={{ fontWeight: 700, fontSize: 16, color: v4S.ink, letterSpacing: -0.3, lineHeight: 1 }}>IxT-QMS</div>
             <div style={{ fontWeight: 600, fontSize: 10, color: v4S.muted, letterSpacing: 0.5, textTransform: 'uppercase', lineHeight: 1 }}>Inspect. Then Trust.</div>
           </div>
         </div>
-        <div className="v5nav-links" style={{ display: 'flex', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}>
+        <div className="v5nav-links" style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}>
           {links.map(([href, label]) => {
             const isActive = href === '#' + active;
             return <a key={href} href={href} style={{ color: isActive ? v4S.primary : 'inherit', textDecoration: 'none', fontWeight: isActive ? 700 : 500, borderBottom: isActive ? `2px solid ${v4S.primary}` : '2px solid transparent', paddingBottom: 2, transition: 'color 0.2s, border-color 0.2s' }}>{label}</a>;
           })}
+          <button onClick={() => setView(view === 'plataforma' ? 'servicios' : 'plataforma')} style={{
+            padding: '7px 14px', borderRadius: 7, border: `1px solid ${view === 'plataforma' ? v4S.primary : v4S.line}`,
+            background: view === 'plataforma' ? v4S.primary : 'transparent', color: view === 'plataforma' ? 'white' : v4S.ink,
+            fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
+          }}>{view === 'plataforma' ? (L ? '← Servicios' : '← Services') : 'Plataforma QMS'}</button>
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
@@ -547,7 +557,7 @@ function V5Platform({ lang }) {
   const L = lang === 'es';
   const t = L ? {
     eyebrow: 'ASÍ TRABAJAMOS', title: 'Nuestro método sigue cada pieza, no cada documento.',
-    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la herramienta con la que trabajamos. No se vende por separado: se incluye en los programas y se instala en el servidor del cliente.',
+    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la plataforma con la que trabajamos y que también instalamos para nuestros clientes.',
     flowH: 'EL CICLO DE VIDA DE LA PIEZA',
     flow: ['Inspección', 'Declaración de defecto', 'Reparación', 'Validación', 'MRB / Hospital de defectos', 'Reinspección', 'Liberación o scrap autorizado'],
     flowNote: 'El documento es el resultado. El flujo operativo es el valor.',
@@ -556,17 +566,10 @@ function V5Platform({ lang }) {
       ['Opera sin internet', 'La operación crítica funciona aunque se caiga el enlace.'],
       ['Se incluye en el programa', 'No estamos tomando instalaciones nuevas este trimestre. Trabajamos con un número limitado de socios iniciales mientras se cierra funcionalidad.'],
     ],
-    shotsH: 'Evidencia: cuatro módulos en operación',
-    shots: [
-      ['8d-dashboard.png', '8D · resolución de problemas', 'Tablero de reportes 8D con estado, responsable y avance por disciplina.'],
-      ['alerta-qar.png', 'Alertas QAR', 'Alerta de calidad emitida con evidencia, área responsable y seguimiento.'],
-      ['hospital-defectos.png', 'Hospital de defectos', 'Registro de unidades retenidas con defecto, disposición y liberación.'],
-      ['mrb-dashboard.png', 'MRB · control de material', 'Control de material no conforme con ubicación física y disposición.'],
-    ],
     note: 'Requisitos técnicos para el departamento de TI del cliente disponibles a solicitud: sistema operativo, recursos de servidor, base de datos, puertos, respaldos y autenticación.',
   } : {
     eyebrow: 'HOW WE WORK', title: 'Our method follows every part, not every document.',
-    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the tool we work with. It is not sold separately: it is included in the programs and installed on the customer server.',
+    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the platform we work with and also install for our customers.',
     flowH: 'THE LIFECYCLE OF THE PART',
     flow: ['Inspection', 'Defect declaration', 'Repair', 'Validation', 'MRB / Defect hospital', 'Reinspection', 'Release or authorized scrap'],
     flowNote: 'The document is the result. The operational workflow is the value.',
@@ -574,13 +577,6 @@ function V5Platform({ lang }) {
       ['Installed on your server', 'No shared database with anyone, no external vendor to audit.'],
       ['Runs without internet', 'Critical operation keeps working even if the link goes down.'],
       ['Included in the program', 'We are not taking new installations this quarter. We work with a limited number of early partners while functionality is finalized.'],
-    ],
-    shotsH: 'Evidence: four modules in operation',
-    shots: [
-      ['8d-dashboard.png', '8D · problem solving', '8D report board with status, owner and progress per discipline.'],
-      ['alerta-qar.png', 'QAR alerts', 'Quality alert issued with evidence, responsible area and follow-up.'],
-      ['hospital-defectos.png', 'Defect hospital', 'Log of units held with a defect, disposition and release.'],
-      ['mrb-dashboard.png', 'MRB · material control', 'Non-conforming material control with physical location and disposition.'],
     ],
     note: "Technical requirements for the customer's IT department available on request: operating system, server resources, database, ports, backups and authentication.",
   };
@@ -614,23 +610,171 @@ function V5Platform({ lang }) {
             </div>
           ))}
         </div>
-        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: '#94A6C7', textTransform: 'uppercase', marginBottom: 18 }}>{t.shotsH}</div>
-        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22, marginBottom: 26 }}>
-          {t.shots.map(([src, h, alt], i) => (
-            <figure key={i} style={{ margin: 0, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, overflow: 'hidden' }}>
-              <img src={'screenshots/' + src} alt={alt} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.1)' }}/>
-              <figcaption style={{ padding: '14px 18px 16px' }}>
-                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 5 }}>{h}</div>
-                <div style={{ fontSize: 12.5, color: '#94A6C7', lineHeight: 1.5 }}>{alt}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
         <div style={{ fontSize: 12.5, color: '#7B8AA8', fontStyle: 'italic' }}>{t.note}</div>
       </div>
     </section>
   );
 }
+
+function V5PlatformHero({ lang }) {
+  const L = lang === 'es';
+  const t = L ? {
+    eyebrow: 'PLATAFORMA QMS',
+    title: 'Un motor de aprobaciones configurable, no una app rígida de calidad.',
+    sub: 'IxT-QMS digitaliza once procesos de calidad sobre el mismo motor de flujos: 8D, ECR, auditorías, MRB, calibración, instrucciones de trabajo y más comparten roles, plazos de respuesta y niveles de aprobación configurables — sin depender de que alguien reprograme el sistema cada vez que cambia su estructura organizacional. Sirve igual para una planta automotriz Tier-2 que para cualquier operación de manufactura con necesidad real de trazabilidad.',
+    cta1: 'Solicitar demo de la plataforma', cta2: 'Ver módulos',
+  } : {
+    eyebrow: 'QMS PLATFORM',
+    title: 'A configurable approval engine, not a rigid quality app.',
+    sub: 'IxT-QMS digitalizes eleven quality processes on the same workflow engine: 8D, ECR, audits, MRB, calibration, work instructions and more share configurable roles, response times and approval levels — without depending on someone reprogramming the system every time your structure changes. It works the same for a Tier-2 automotive plant as for any manufacturing operation with a real traceability need.',
+    cta1: 'Request a platform demo', cta2: 'View modules',
+  };
+  return (
+    <section style={{ padding: '96px 56px 64px', background: `linear-gradient(180deg, ${v4S.bgCool} 0%, white 100%)` }}>
+      <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
+        <h1 style={{ fontSize: 44, lineHeight: 1.12, fontWeight: 700, color: v4S.ink, margin: '0 0 20px', letterSpacing: -1, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h1>
+        <p style={{ fontSize: 17, color: v4S.ink2, margin: '0 auto 30px', maxWidth: 760, lineHeight: 1.65 }}>{t.sub}</p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="#form-contacto" style={{ padding: '13px 26px', borderRadius: 9, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta1}</a>
+          <a href="#software" style={{ padding: '13px 26px', borderRadius: 9, border: `1px solid ${v4S.line}`, color: v4S.ink, fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta2}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function V5Software({ lang }) {
+  const [zoom, setZoom] = React.useState(null);
+  React.useEffect(() => {
+    if (!zoom) return;
+    const onKey = e => { if (e.key === 'Escape') setZoom(null); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [zoom]);
+  const L = lang === 'es';
+  const t = L ? {
+    eyebrow: 'LA PLATAFORMA', title: 'Un motor de aprobaciones configurable, no una app rígida de calidad.',
+    sub: 'IxT-QMS digitaliza once procesos de calidad sobre el mismo motor de flujos: 8D, ECR, auditorías, MRB, calibración, instrucciones de trabajo y más comparten roles, plazos de respuesta y niveles de aprobación configurables — sin depender de que alguien reprograme el sistema cada vez que cambia su estructura organizacional. Sirve igual para una planta automotriz Tier-2 que para cualquier operación de manufactura con necesidad real de trazabilidad.',
+    engineH: 'EL DIFERENCIADOR', engineT: 'Un motor, no un módulo por proceso',
+    engineB: 'La mayoría de los sistemas de calidad tratan cada proceso como un módulo aislado, con su flujo fijo de fábrica. En IxT-QMS los pasos de aprobación, los roles y los plazos de respuesta se configuran una vez y se reutilizan en 8D, ECR, auditorías y órdenes de trabajo por igual — sin consultoría de reconfiguración cada vez que cambia su organización.',
+    flagH: 'MÓDULOS CON MAYOR EVIDENCIA',
+    home: { h: 'Todo converge en un solo Home', b: 'Pendientes del día, carga de trabajo y open items de 8D, QAR y ECR en una sola pantalla al iniciar sesión — con acceso directo a los 11 módulos. No es un menú: es el punto donde el sistema le dice a cada persona qué le toca hoy.', img: 'home-dashboard.png' },
+    flag: [
+      { h: 'Inspección de especificaciones', b: 'Cada spec se evalúa como cualitativa (OK/NOK/N-A) o cuantitativa (medición contra tolerancia) — configurado por parte, no capturado a mano.', img: 'spec-inspeccion.png' },
+      { h: 'QAR — alerta automática', b: 'Al marcar un spec crítico como NOK, el sistema ofrece emitir el QAR ahí mismo, con severidad y specs afectadas ya cargados. El dashboard da SLA de respuesta y cierre en vivo, por departamento y cliente.', img: 'qar-auto.png' },
+      { h: 'Hospital de defectos', b: 'Cada pieza retenida con su tiempo abierto en vivo y tres salidas posibles: reparar, cuarentena o scrap — con historial de quién, dónde y cuándo.', img: 'hospital-reparacion.png' },
+      { h: 'MRB', b: 'Yield, PPM, costo de scrap y mano de obra por campaña, mes y departamento — inspección uno a uno o masiva con tally sheet por severidad y disposición.', img: 'mrb-dashboard-yield.png' },
+      { h: '8D', b: 'Costo total, SLA de D4, % vencidos y % sin causa raíz, con top causas raíz por frecuencia y distribución de avance por reporte.', img: '8d-dashboard-kpi.png' },
+      { h: 'ECR', b: 'Balance neto por scrap, inversión y ahorro; matriz de riesgo severidad x ocurrencia, y funnel de adopción ECR-1 a ECR-4 por cliente.', img: 'ecr-dashboard.png' },
+      { h: 'Calibración', b: 'Vencimientos por equipo con trazabilidad citada por cláusula — ISO 9001 §7.1.5.2 e IATF 16949 §7.1.5.2.1 — lista para auditoría.', img: 'calibracion-equipos.png' },
+      { h: 'Skills & Training', b: 'Radar de habilidades por persona (técnicas, operativas, soft skills) y curva de desarrollo por evaluación — no solo asistencia a cursos, sino nivel real alcanzado.', img: 'skills-mi-equipo.png' },
+      { h: 'Auditorías', b: 'Calendario anual por programa (IATF, 5S, proceso) con auditor líder, co-auditores y estado — y checklist de validación con juicio, evidencia y ronda de seguimiento por hallazgo.', img: 'auditorias-calendario2.png' },
+      { h: 'Instrucciones de trabajo', b: 'Revisión controlada por parte y proyecto, con certificaciones ILUO y risk assessment ligados a la misma instrucción — no solo el documento, el expediente completo.', img: 'work-instructions-overview.png' },
+    ],
+    modsH: 'RESTO DE MÓDULOS',
+    mods: [],
+    note: 'Licencia cotizada por número de plantas y usuarios, según alcance.',
+    cta: 'Solicitar demo de la plataforma →',
+    secH: 'CONTROL DE ACCESO', secT: 'Permisos por rol, no por usuario suelto',
+    secB: 'Cada rol —de Inspector a Gerente de Calidad— tiene un nivel de acceso y un alcance de módulo definido de fábrica: quién puede capturar, quién puede aprobar y quién solo puede consultar. Se configura una vez, sin depender de que alguien recuerde revocar accesos manualmente.',
+  } : {
+    eyebrow: 'THE PLATFORM', title: 'A configurable approval engine, not a rigid quality app.',
+    sub: 'IxT-QMS digitalizes eleven quality processes on the same workflow engine: 8D, ECR, audits, MRB, calibration, work instructions and more share configurable roles, response times and approval levels — without depending on someone reprogramming the system every time your structure changes. It works the same for a Tier-2 automotive plant as for any manufacturing operation with a real traceability need.',
+    engineH: 'THE DIFFERENTIATOR', engineT: 'One engine, not one module per process',
+    engineB: 'Most quality systems treat each process as an isolated module, with a fixed factory workflow. In IxT-QMS, approval steps, roles and response times are configured once and reused across 8D, ECR, audits and work orders alike — no reconfiguration consulting every time your organization changes.',
+    flagH: 'MODULES WITH THE STRONGEST EVIDENCE',
+    home: { h: 'It all converges in one Home', b: 'Daily reminders, workload and open items from 8D, QAR and ECR on a single screen at login — with direct access to all 11 modules. It is not a menu: it is where the system tells each person what is theirs to do today.', img: 'home-dashboard.png' },
+    flag: [
+      { h: 'Spec inspection', b: 'Each spec is evaluated as qualitative (OK/NOK/N-A) or quantitative (measurement against tolerance) — configured per part, not captured by hand.', img: 'spec-inspeccion.png' },
+      { h: 'QAR — automatic alert', b: 'When a critical spec is marked NOK, the system offers to issue the QAR right there, with severity and affected specs already filled in. The dashboard gives live response and closure SLA, by department and customer.', img: 'qar-auto.png' },
+      { h: 'Defect hospital', b: 'Every held part with its live open time and three possible exits: repair, quarantine or scrap — with a history of who, where and when.', img: 'hospital-reparacion.png' },
+      { h: 'MRB', b: 'Yield, PPM, scrap and labor cost by campaign, month and department — one-by-one or mass inspection with a tally sheet by severity and disposition.', img: 'mrb-dashboard-yield.png' },
+      { h: '8D', b: 'Total cost, D4 SLA, % overdue and % without root cause, with top root causes by frequency and progress distribution across reports.', img: '8d-dashboard-kpi.png' },
+      { h: 'ECR', b: 'Net balance from scrap, investment and savings; severity x occurrence risk matrix, and ECR-1 to ECR-4 adoption funnel by customer.', img: 'ecr-dashboard.png' },
+      { h: 'Calibration', b: 'Equipment due dates with traceability cited by clause — ISO 9001 §7.1.5.2 and IATF 16949 §7.1.5.2.1 — audit-ready.', img: 'calibracion-equipos.png' },
+      { h: 'Skills & Training', b: 'Per-person skill radar (technical, operational, soft skills) and development curve by evaluation — not just course attendance, but actual level reached.', img: 'skills-mi-equipo.png' },
+      { h: 'Audits', b: 'Annual calendar by program (IATF, 5S, process) with lead auditor, co-auditors and status — plus a validation checklist with judgment, evidence and follow-up round per finding.', img: 'auditorias-calendario2.png' },
+      { h: 'Work instructions', b: 'Controlled revision by part and project, with ILUO certifications and risk assessment tied to the same instruction — not just the document, the full record.', img: 'work-instructions-overview.png' },
+    ],
+    modsH: 'REMAINING MODULES',
+    mods: [],
+    note: 'License quoted by number of plants and users, according to scope.',
+    cta: 'Request a platform demo →',
+    secH: 'ACCESS CONTROL', secT: 'Permissions by role, not by loose user',
+    secB: 'Every role — from Inspector to Quality Manager — has a defined access level and module scope out of the box: who can capture, who can approve, and who can only view. Configured once, without depending on someone remembering to revoke access manually.',
+  };
+  return (
+    <section id="software" style={{ padding: '40px 56px 88px', background: 'white', borderTop: `1px solid ${v4S.line}` }}>
+      <div style={{ maxWidth: 1140, margin: '0 auto' }}>
+        <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', marginBottom: 40, padding: '24px 28px', borderLeft: `3px solid ${v4S.primary}`, background: v4S.bgCool, borderRadius: '0 12px 12px 0' }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 10.5, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 8 }}>{t.engineH}</div>
+            <h3 style={{ fontFamily: '"Source Serif 4", Georgia, serif', fontSize: 21, fontWeight: 700, color: v4S.ink, margin: '0 0 8px', letterSpacing: -0.4 }}>{t.engineT}</h3>
+            <p style={{ fontSize: 14.5, color: v4S.ink, margin: 0, lineHeight: 1.6 }}>{t.engineB}</p>
+          </div>
+        </div>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: v4S.muted, textTransform: 'uppercase', marginBottom: 16 }}>{t.flagH}</div>
+        <figure style={{ margin: '0 0 24px', background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, overflow: 'hidden', display: 'flex', flexWrap: 'wrap' }}>
+          <img src={'screenshots/' + t.home.img} alt={t.home.h} loading="lazy" style={{ flex: '1 1 420px', minWidth: 280, maxWidth: '100%', display: 'block', borderRight: `1px solid ${v4S.line}` }}/>
+          <figcaption style={{ flex: '1 1 260px', padding: '26px 28px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: v4S.ink, marginBottom: 8, letterSpacing: -0.3 }}>{t.home.h}</div>
+            <div style={{ fontSize: 13.5, color: v4S.ink2, lineHeight: 1.6 }}>{t.home.b}</div>
+          </figcaption>
+        </figure>
+        <div className="g10" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 18, marginBottom: 40 }}>
+          {t.flag.map((f, i) => (
+            <figure key={i} className="flagshot" style={{ margin: 0, background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+              <div style={{ overflow: 'hidden', borderRadius: '12px 12px 0 0', cursor: 'zoom-in' }} onClick={() => setZoom(f)}>
+                <img src={'screenshots/' + f.img} alt={f.h} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: `1px solid ${v4S.line}` }}/>
+              </div>
+              <figcaption style={{ padding: '14px 16px 16px' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, color: v4S.ink, marginBottom: 5, letterSpacing: -0.2 }}>{f.h}</div>
+                <div style={{ fontSize: 12, color: v4S.muted, lineHeight: 1.5 }}>{f.b}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        {t.mods.length > 0 && <React.Fragment>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: v4S.muted, textTransform: 'uppercase', marginBottom: 16 }}>{t.modsH}</div>
+        <div className="g5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 14, marginBottom: 30 }}>
+          {t.mods.map(([h, b], i) => (
+            <div key={i} style={{ border: `1px solid ${v4S.line}`, borderRadius: 12, padding: '16px 16px 14px' }}>
+              <div style={{ fontSize: 13.5, fontWeight: 700, color: v4S.ink, marginBottom: 5, letterSpacing: -0.2 }}>{h}</div>
+              <div style={{ fontSize: 11.5, color: v4S.ink2, lineHeight: 1.45 }}>{b}</div>
+            </div>
+          ))}
+        </div>
+        </React.Fragment>}
+        <div style={{ display: 'flex', gap: 24, alignItems: 'center', marginBottom: 40, padding: '24px 28px', border: `1px solid ${v4S.line}`, borderRadius: 12 }}>
+          <img src="screenshots/roles-config.png" alt={t.secT} loading="lazy" style={{ width: '46%', borderRadius: 8, border: `1px solid ${v4S.line}` }}/>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 10.5, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 8 }}>{t.secH}</div>
+            <h3 style={{ fontFamily: '"Source Serif 4", Georgia, serif', fontSize: 21, fontWeight: 700, color: v4S.ink, margin: '0 0 8px', letterSpacing: -0.4 }}>{t.secT}</h3>
+            <p style={{ fontSize: 14.5, color: v4S.ink2, margin: 0, lineHeight: 1.6 }}>{t.secB}</p>
+          </div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: 13, color: v4S.muted, margin: '0 0 18px', fontStyle: 'italic' }}>{t.note}</p>
+          <a href="#form-contacto" style={{ display: 'inline-block', padding: '13px 26px', borderRadius: 9, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta}</a>
+        </div>
+      </div>
+      {zoom && (
+        <div onClick={() => setZoom(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(6,10,20,0.82)', zIndex: 1000, display: 'grid', placeItems: 'center', padding: 32, cursor: 'zoom-out' }}>
+          <div style={{ maxWidth: '92vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }} onClick={e => e.stopPropagation()}>
+            <img src={'screenshots/' + zoom.img} alt={zoom.h} style={{ maxWidth: '92vw', maxHeight: '78vh', borderRadius: 10, boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}/>
+            <div style={{ color: 'white', textAlign: 'center', maxWidth: 700 }}>
+              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{zoom.h}</div>
+              <div style={{ fontSize: 13, color: '#B9C4DA' }}>{zoom.b}</div>
+            </div>
+            <button onClick={() => setZoom(null)} style={{ position: 'absolute', top: -8, right: -8, width: 32, height: 32, borderRadius: 999, border: 'none', background: 'white', color: v4S.ink, fontWeight: 700, cursor: 'pointer' }}>×</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 function V5Diagnostico({ lang }) {
   const L = lang === 'es';
   const t = L ? {
@@ -776,7 +920,7 @@ function V5Form({ L }) {
     h: 'Agendar reunión de descubrimiento', sub: 'Respondemos en menos de 24 horas hábiles con propuesta de agenda.',
     name: 'Nombre', company: 'Empresa', role: 'Puesto', email: 'Correo corporativo', phone: 'Teléfono (opcional)',
     tier: 'Tipo de organización', tierOpts: ['OEM', 'Tier 1', 'Tier 2', 'Tier 3', 'Otro'],
-    svc: 'Servicio de interés', svcOpts: ['Lanzamiento de nuevos modelos', 'Representación técnica en planta del cliente', 'Trazabilidad de inspección y contención', 'Auditoría y seguimiento a proveedores', 'Formación en planta', 'No estoy seguro'],
+    svc: 'Servicio de interés', svcOpts: ['Lanzamiento de nuevos modelos', 'Representación técnica en planta del cliente', 'Trazabilidad de inspección y contención', 'Auditoría y seguimiento a proveedores', 'Formación en planta', 'Plataforma IxT-QMS (demo)', 'No estoy seguro'],
     msg: 'Contexto del proyecto', msgPh: 'Lanzamiento próximo, problema de calidad abierto, alcance estimado, plantas involucradas…',
     link: 'Enlace a documentación (opcional)', linkPh: 'Drive, SharePoint o WeTransfer con presentación, planos o reporte del problema',
     send: 'Enviar solicitud', sending: 'Enviando…',
@@ -788,7 +932,7 @@ function V5Form({ L }) {
     h: 'Schedule a discovery meeting', sub: 'We reply within one business day with proposed times.',
     name: 'Name', company: 'Company', role: 'Job title', email: 'Work email', phone: 'Phone (optional)',
     tier: 'Organization type', tierOpts: ['OEM', 'Tier 1', 'Tier 2', 'Tier 3', 'Other'],
-    svc: 'Service of interest', svcOpts: ['New model launch', 'Technical representation at your customer plant', 'Inspection traceability and containment', 'Supplier audits and follow-up', 'In-plant training', 'Not sure yet'],
+    svc: 'Service of interest', svcOpts: ['New model launch', 'Technical representation at your customer plant', 'Inspection traceability and containment', 'Supplier audits and follow-up', 'In-plant training', 'IxT-QMS platform (demo)', 'Not sure yet'],
     msg: 'Project context', msgPh: 'Upcoming launch, open quality issue, estimated scope, plants involved…',
     link: 'Link to documentation (optional)', linkPh: 'Drive, SharePoint or WeTransfer with a deck, drawings or issue report',
     send: 'Send request', sending: 'Sending…',
@@ -870,6 +1014,8 @@ function V5Intro({ onDone, L }) {
     const t = setTimeout(finish, 2000);
     return () => clearTimeout(t);
   }, [finish]);
+  // nota: la barra de progreso visual (animation: iBar) está definida a 9.6s en el CSS v5CSS,
+  // pero este componente cierra a los 2s. Ajustamos el CSS para que coincida (ver v5CSS: iBar 2s).
   const mods = L
     ? ['8D', 'Alertas QAR', 'Auditorías', 'BOM de cliente', 'Hospital de defectos', 'Inspección de defectos', 'MRB · material', 'Matriz de habilidades', 'Carga de trabajo']
     : ['8D', 'QAR alerts', 'Audits', 'Customer BOM', 'Defect hospital', 'Defect inspection', 'MRB · material', 'Skills matrix', 'Workload'];
@@ -919,7 +1065,7 @@ function V5Intro({ onDone, L }) {
         </div>
       </div>
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(255,255,255,0.08)' }}>
-        <div style={{ height: '100%', background: 'linear-gradient(90deg,#1D4FD7,#7DB7FF)', transformOrigin: 'left', animation: 'iBar 9.6s linear both' }}></div>
+        <div style={{ height: '100%', background: 'linear-gradient(90deg,#1D4FD7,#7DB7FF)', transformOrigin: 'left', animation: 'iBar 2s linear both' }}></div>
       </div>
       <button className="skip" onClick={finish}>{tI.skip}</button>
     </div>
@@ -932,6 +1078,7 @@ try { sessionStorage.setItem('ixSeenAnim', '1'); } catch (e) {}
 const IX_SKIP = IX_SEEN || !!location.hash;
 
 function HomeLanding() {
+  const [view, setView] = React.useState('servicios');
   const [lang, setLang] = React.useState(() => {
     const n = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
     return /^es/i.test(n) ? 'es' : 'en';
@@ -971,14 +1118,21 @@ function HomeLanding() {
     <div style={{ background: 'white', color: v4S.ink, fontFamily: '"Inter", system-ui, sans-serif' }}>
       <style>{v5CSS}</style>
       {intro && <V5Intro L={lang === 'es'} onDone={() => setIntro(false)}/>}
-      <V5Nav lang={lang} setLang={setLang}/>
-      <V5Hero lang={lang}/>
-      <V5Creds lang={lang}/>
-      <V5Services lang={lang}/>
-      <V5Training lang={lang}/>
-      <V5Platform lang={lang}/>
-      <V5Kaizen lang={lang}/>
-      <V4AuditSim lang={lang}/>
+      <V5Nav lang={lang} setLang={setLang} view={view} setView={setView}/>
+      {view === 'servicios' && <React.Fragment>
+        <V5Hero lang={lang}/>
+        <V5Creds lang={lang}/>
+        <V5Services lang={lang}/>
+        <V5Training lang={lang}/>
+        <V5Kaizen lang={lang}/>
+      </React.Fragment>}
+      {view === 'plataforma' && <React.Fragment>
+        <V5PlatformHero lang={lang}/>
+        <V5Software lang={lang}/>
+        <V5Platform lang={lang}/>
+        <V4AuditSim lang={lang}/>
+        <V4Deployment lang={lang}/>
+      </React.Fragment>}
       <V5Diagnostico lang={lang}/>
       <V4Footer lang={lang}/>
       <a className="ixmobcta" href="#form-contacto">{lang === 'es' ? 'Agendar reunión de descubrimiento' : 'Book a discovery call'}</a>
