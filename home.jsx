@@ -62,6 +62,8 @@ const v5CSS = `
 }
 @media(max-width:900px){.gsplit{grid-template-columns:1fr!important;gap:26px!important}}
 @media(max-width:720px){
+ .rolesbox{flex-direction:column!important}
+ .rolesimg{width:100%!important}
  .g6,.g5,.g4,.g3,.g2,.gform,.g8,.g10{grid-template-columns:1fr!important}
  .g6>div{border-left:none!important;border-top:1px solid rgba(0,0,0,.08)}
  .g6>div:first-child{border-top:none}
@@ -242,7 +244,7 @@ function V5Nav({ lang, setLang, view, setView }) {
   return (
     <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px 12px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, cursor: 'pointer' }} onClick={() => setView('servicios')}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, cursor: 'pointer' }} onClick={() => setView('plataforma')}>
           <div style={{ width: 34, height: 34, borderRadius: 8, background: `linear-gradient(135deg, ${v4S.primary}, ${v4S.primaryDark})`, display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 14, letterSpacing: -0.3 }}>IxT</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             <div style={{ fontWeight: 700, fontSize: 16, color: v4S.ink, letterSpacing: -0.3, lineHeight: 1 }}>IxT-QMS</div>
@@ -250,15 +252,22 @@ function V5Nav({ lang, setLang, view, setView }) {
           </div>
         </div>
         <div className="v5nav-links" style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button onClick={() => setView('plataforma')} style={{
+              padding: '7px 14px', borderRadius: 7, border: `1px solid ${view === 'plataforma' ? v4S.primary : v4S.line}`,
+              background: view === 'plataforma' ? v4S.primary : 'transparent', color: view === 'plataforma' ? 'white' : v4S.ink,
+              fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
+            }}>Plataforma QMS</button>
+            <button onClick={() => setView('servicios')} style={{
+              padding: '7px 14px', borderRadius: 7, border: `1px solid ${view === 'servicios' ? v4S.primary : v4S.line}`,
+              background: view === 'servicios' ? v4S.primary : 'transparent', color: view === 'servicios' ? 'white' : v4S.ink,
+              fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
+            }}>{L ? 'Servicios' : 'Services'}</button>
+          </div>
           {links.map(([href, label]) => {
             const isActive = href === '#' + active;
             return <a key={href} href={href} style={{ color: isActive ? v4S.primary : 'inherit', textDecoration: 'none', fontWeight: isActive ? 700 : 500, borderBottom: isActive ? `2px solid ${v4S.primary}` : '2px solid transparent', paddingBottom: 2, transition: 'color 0.2s, border-color 0.2s' }}>{label}</a>;
           })}
-          <button onClick={() => setView(view === 'plataforma' ? 'servicios' : 'plataforma')} style={{
-            padding: '7px 14px', borderRadius: 7, border: `1px solid ${view === 'plataforma' ? v4S.primary : v4S.line}`,
-            background: view === 'plataforma' ? v4S.primary : 'transparent', color: view === 'plataforma' ? 'white' : v4S.ink,
-            fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
-          }}>{view === 'plataforma' ? (L ? '← Servicios' : '← Services') : 'Plataforma QMS'}</button>
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
@@ -279,14 +288,14 @@ function V5Hero({ lang }) {
     sub: 'Representación técnica, apoyo en lanzamientos, cambios de ingeniería y formación de equipos. Todo respaldado por una metodología propia de control de proceso y trazabilidad.',
     quote: '14 años en manufactura, entre operaciones que están construyendo su sistema de calidad y plantas auditadas con criterio severo. Conocemos los dos lados de la mesa: el criterio con el que el OEM juzga su paquete de aprobación, y la presión del proveedor dentro de la planta de su cliente. No importa de qué lado esté: recibe el beneficio de ambos.',
     cta1: 'Agendar reunión de descubrimiento', cta2: 'Ver líneas de servicio',
-    proof: 'Respaldo: instrucción en Universidad Nissan · desarrollo de hojas de operación estándar y evaluación de personal de planta',
+    proof: 'Respaldo: instrucción en Universidad OEM · desarrollo de hojas de operación estándar y evaluación de personal de planta',
   } : {
     eyebrow: 'TECHNICAL REPRESENTATION · CONSULTING · TRAINING',
     title: 'What works in plants held to demanding standards, adapted to the reality of yours.',
     sub: 'On-site technical representation, support on launches and engineering changes, and training for your teams — backed by our own methodology for process control and traceability.',
     quote: '14 years in manufacturing, across operations still building their quality system and plants audited to severe criteria. We know both sides of the table: the criteria the OEM uses to judge your approval package, and the supplier\'s pressure inside their customer\'s plant. Whichever side you are on, you get the benefit of both.',
     cta1: 'Schedule discovery meeting', cta2: 'View service lines',
-    proof: 'Backed by: instruction at Nissan University · standard operation sheet development and plant staff assessment',
+    proof: 'Backed by: instruction at OEM University · standard operation sheet development and plant staff assessment',
   };
   return (
     <section style={{ padding: '96px 56px 64px', background: `linear-gradient(180deg, ${v4S.bgCool} 0%, white 100%)` }}>
@@ -322,8 +331,8 @@ function V5Creds({ lang }) {
     ? ['Aguascalientes, México', 'Cobertura en planta: Bajío, Norte y Centro del país. Proyectos internacionales bajo acuerdo.']
     : ['Aguascalientes, Mexico', 'On-site coverage: Bajío, Northern and Central Mexico. International projects by agreement.'];
   const kz = L
-    ? 'Dos kaizen registrados en la base global de mejores prácticas de Nissan'
-    : "Two kaizen registered in Nissan's global best practices database";
+    ? 'Dos kaizen registrados en la base global de mejores prácticas del OEM'
+    : "Two kaizen registered in the OEM's global best practices database";
   return (
     <section style={{ padding: '0 56px 72px', background: 'white' }}>
       <div className="g6" style={{ maxWidth: 1140, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 0, border: `1px solid ${v4S.line}`, borderRadius: 14, overflow: 'hidden' }}>
@@ -357,9 +366,9 @@ function V5Creds({ lang }) {
 function V5Kaizen({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'DOS KAIZEN REGISTRADOS EN NISSAN',
+    eyebrow: 'DOS KAIZEN REGISTRADOS EN EL OEM',
     title: 'Resultados medidos, no promesas.',
-    sub: 'Registrados en la base global de mejores prácticas de Nissan.',
+    sub: 'Registrados en la base global de mejores prácticas del OEM.',
     lp: 'PROBLEMA', lm: 'MÉTODO', lr: 'RESULTADO',
     items: [
       { h: 'Método de Confirmación Virtual ECR → BOM 360 (Q, MFG, R&D)',
@@ -369,9 +378,9 @@ function V5Kaizen({ lang }) {
     ],
     close: 'Los módulos de BOM de cliente, auditorías, inspección de defectos y control de material de la plataforma son los nodos que correlacionan el dibujo, la especificación y la hoja de operación. La plataforma no es un producto aparte: es este kaizen automatizado.',
   } : {
-    eyebrow: 'TWO KAIZEN REGISTERED AT NISSAN',
+    eyebrow: 'TWO KAIZEN REGISTERED AT THE OEM',
     title: 'Measured results, not promises.',
-    sub: "Registered in Nissan's global best practices database.",
+    sub: "Registered in the OEM's global best practices database.",
     lp: 'PROBLEM', lm: 'METHOD', lr: 'RESULT',
     items: [
       { h: 'Virtual Confirmation Method ECR → BOM 360 (Q, MFG, R&D)',
@@ -716,7 +725,9 @@ function V5Software({ lang }) {
         </div>
         <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: v4S.muted, textTransform: 'uppercase', marginBottom: 16 }}>{t.flagH}</div>
         <figure style={{ margin: '0 0 24px', background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, overflow: 'hidden', display: 'flex', flexWrap: 'wrap' }}>
-          <img src={'screenshots/' + t.home.img} alt={t.home.h} loading="lazy" style={{ flex: '1 1 420px', minWidth: 280, maxWidth: '100%', display: 'block', borderRight: `1px solid ${v4S.line}` }}/>
+          <div style={{ flex: '1 1 420px', minWidth: 280, maxWidth: '100%', overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setZoom(t.home)}>
+            <img src={'screenshots/' + t.home.img} alt={t.home.h} loading="lazy" style={{ width: '100%', display: 'block', borderRight: `1px solid ${v4S.line}` }}/>
+          </div>
           <figcaption style={{ flex: '1 1 260px', padding: '26px 28px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div style={{ fontSize: 18, fontWeight: 700, color: v4S.ink, marginBottom: 8, letterSpacing: -0.3 }}>{t.home.h}</div>
             <div style={{ fontSize: 13.5, color: v4S.ink2, lineHeight: 1.6 }}>{t.home.b}</div>
@@ -746,8 +757,8 @@ function V5Software({ lang }) {
           ))}
         </div>
         </React.Fragment>}
-        <div style={{ display: 'flex', gap: 24, alignItems: 'center', marginBottom: 40, padding: '24px 28px', border: `1px solid ${v4S.line}`, borderRadius: 12 }}>
-          <img src="screenshots/roles-config.png" alt={t.secT} loading="lazy" style={{ width: '46%', borderRadius: 8, border: `1px solid ${v4S.line}` }}/>
+        <div className="rolesbox" style={{ display: 'flex', gap: 24, alignItems: 'center', marginBottom: 40, padding: '24px 28px', border: `1px solid ${v4S.line}`, borderRadius: 12 }}>
+          <img className="rolesimg" src="screenshots/roles-config.png" alt={t.secT} loading="lazy" onClick={() => setZoom({ img: 'roles-config.png', h: t.secT, b: '' })} style={{ width: '46%', borderRadius: 8, border: `1px solid ${v4S.line}`, cursor: 'zoom-in' }}/>
           <div style={{ flex: 1 }}>
             <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 10.5, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 8 }}>{t.secH}</div>
             <h3 style={{ fontFamily: '"Source Serif 4", Georgia, serif', fontSize: 21, fontWeight: 700, color: v4S.ink, margin: '0 0 8px', letterSpacing: -0.4 }}>{t.secT}</h3>
@@ -1078,7 +1089,7 @@ try { sessionStorage.setItem('ixSeenAnim', '1'); } catch (e) {}
 const IX_SKIP = IX_SEEN || !!location.hash;
 
 function HomeLanding() {
-  const [view, setView] = React.useState('servicios');
+  const [view, setView] = React.useState('plataforma');
   const [lang, setLang] = React.useState(() => {
     const n = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
     return /^es/i.test(n) ? 'es' : 'en';
