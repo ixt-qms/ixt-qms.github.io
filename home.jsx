@@ -625,6 +625,74 @@ function V5Platform({ lang }) {
   );
 }
 
+function V5Workload({ lang }) {
+  const [zoom, setZoom] = React.useState(null);
+  React.useEffect(() => {
+    if (!zoom) return;
+    const onKey = e => { if (e.key === 'Escape') setZoom(null); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [zoom]);
+  const L = lang === 'es';
+  const t = L ? {
+    eyebrow: 'WORKLOAD MANAGER',
+    title: '¿Volarías un avión sin instrumentos?',
+    sub: 'Entonces, ¿por qué asumir que su equipo de trabajo va a rendir bien sin indicadores en tiempo real de carga, desempeño y avance? Workload Manager es el panel de instrumentos: los reportes se generan en tiempo real, alimentados por el propio equipo, con evidencia adjunta a cada actividad — no en reportes armados a mano. Eso convierte el feedback y la evaluación de personal en datos objetivos, no en percepción.',
+    shots: [
+      ['workload-summary.png', 'Resumen ejecutivo', 'Índice de riesgo del equipo, desbalance de carga y status de tareas críticas de un vistazo.'],
+      ['workload-detail.png', 'Carga por persona', 'Horas asignadas vs. disponibles y % de utilización individual — identifica sobrecarga y subutilización antes de que sea un problema.'],
+      ['workload-objectives.png', 'Objetivos QTPCS', 'Avance de objetivos del periodo por categoría — Quality, Time, People, Cost, Safety — con responsables asignados.'],
+      ['workload-gantt.png', 'Gantt de actividades', 'Planeación y seguimiento de actividades por persona, con recurrencia y exportación a Excel.'],
+    ],
+  } : {
+    eyebrow: 'WORKLOAD MANAGER',
+    title: 'Would you fly a plane with no instruments?',
+    sub: "Then why assume your team will perform well without real-time indicators of workload, performance and progress? Workload Manager is the instrument panel: reports are generated in real time, fed by the team itself, with evidence attached to every activity — not hand-built reports. That turns feedback and staff evaluation into objective data, not perception.",
+    shots: [
+      ['workload-summary.png', 'Executive summary', "Team risk index, workload imbalance and critical task status at a glance."],
+      ['workload-detail.png', 'Load per person', 'Assigned vs. available hours and individual utilization % — spot overload and underutilization before it becomes a problem.'],
+      ['workload-objectives.png', 'QTPCS objectives', 'Period objective progress by category — Quality, Time, People, Cost, Safety — with assigned owners.'],
+      ['workload-gantt.png', 'Activity Gantt', 'Planning and tracking of activities per person, with recurrence and Excel export.'],
+    ],
+  };
+  return (
+    <section style={{ padding: '88px 56px', background: v4S.bgCool, borderTop: `1px solid ${v4S.line}` }}>
+      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 44 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
+          <h2 style={{ fontSize: 34, fontWeight: 700, color: v4S.ink, margin: '0 0 16px', letterSpacing: -0.7, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
+          <p style={{ fontSize: 16, color: v4S.ink2, margin: '0 auto', maxWidth: 720, lineHeight: 1.65 }}>{t.sub}</p>
+        </div>
+        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22 }}>
+          {t.shots.map((f, i) => (
+            <figure key={i} style={{ margin: 0, background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, overflow: 'hidden' }}>
+              <div style={{ overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setZoom({ img: f[0], h: f[1], b: f[2] })}>
+                <img src={'screenshots/' + f[0]} alt={f[1]} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: `1px solid ${v4S.line}` }}/>
+              </div>
+              <figcaption style={{ padding: '16px 20px' }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: v4S.ink, marginBottom: 5 }}>{f[1]}</div>
+                <div style={{ fontSize: 13, color: v4S.ink2, lineHeight: 1.5 }}>{f[2]}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+      {zoom && (
+        <div onClick={() => setZoom(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(6,10,20,0.82)', zIndex: 1000, display: 'grid', placeItems: 'center', padding: 32, cursor: 'zoom-out' }}>
+          <div style={{ maxWidth: '92vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }} onClick={e => e.stopPropagation()}>
+            <img src={'screenshots/' + zoom.img} alt={zoom.h} style={{ maxWidth: '92vw', maxHeight: '78vh', borderRadius: 10, boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}/>
+            <div style={{ color: 'white', textAlign: 'center', maxWidth: 700 }}>
+              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{zoom.h}</div>
+              <div style={{ fontSize: 13, color: '#B9C4DA' }}>{zoom.b}</div>
+            </div>
+            <button onClick={() => setZoom(null)} style={{ position: 'absolute', top: -8, right: -8, width: 32, height: 32, borderRadius: 999, border: 'none', background: 'white', color: v4S.ink, fontWeight: 700, cursor: 'pointer' }}>×</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 function V5PlatformHero({ lang }) {
   const L = lang === 'es';
   const t = L ? {
@@ -1139,6 +1207,7 @@ function HomeLanding() {
       </React.Fragment>}
       {view === 'plataforma' && <React.Fragment>
         <V5PlatformHero lang={lang}/>
+        <V5Workload lang={lang}/>
         <V5Software lang={lang}/>
         <V5Platform lang={lang}/>
         <V4AuditSim lang={lang}/>
