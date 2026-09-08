@@ -431,7 +431,7 @@ function V5Services({ lang }) {
     cards: [
       { k: 'Lanzamiento de nuevos modelos', h: 'Que el arranque no se detenga por un cambio de ingeniería', sc: 'El cambio estaba liberado en el sistema, pero el documento que viajó con la unidad traía la versión anterior. Se descubre en la línea de pruebas, con la unidad ya armada.', d: 'Acompañamos el arranque desde la planeación hasta la producción estable: llevamos el control de los cambios de ingeniería, dejamos definidos los estándares de inspección y el plan de contención antes del primer embarque.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque', 'Programa de evaluaciones del evento: ajuste y acabado, apariencia, NVH, hermeticidad y ADAS', 'Consolidación de los reportes de prueba en el formato que su cliente va a pedir'], badge: 'Respaldo: 52 programas vehiculares lanzados, y programas de desarrollo de Mercedes-Benz y Volkswagen en IDIADA Applus.', link: ['Preparacion de Lanzamiento.html', 'Ver qué cubre una preparación de lanzamiento →'] },
       { k: 'Representación técnica en planta del cliente', h: 'Reaccionar dentro del plazo, y con la contramedida correcta', sc: 'Su contrato le da 24 horas para responder un reclamo. La aprobación del viaje tarda otras 24. Cuando alguien suyo llega, el cliente ya montó la contención, se la está cobrando, y de su lado nadie vio la pieza.', d: 'Ponemos un ingeniero en la planta de su cliente que describe técnicamente lo que está pasando el mismo día. Con eso reacciona al problema real y no al que se supone — y tiene con qué disputar lo que no le corresponde.', items: ['Respuesta dentro de la ventana contractual, sin depender de un viaje autorizado', 'Descripción técnica del modo de falla real, con evidencia de la pieza en sitio', 'Dirección de la contramedida al problema correcto: reaccionar mal mantiene el defecto en camino y sube el scrap', 'Soporte técnico para disputar cargos: qué es atribuible al proveedor y qué no', 'Contención, clasificación y retrabajo en sitio bajo autorización del cliente', 'Gestión de RMA y disposición de material no conforme', 'Canal técnico entre OEM y proveedor, con juntas y documentación en inglés', 'Respuesta durante crisis de calidad'] },
-      { k: 'Trazabilidad de inspección y contención', h: 'Que cada pieza salga de planta con su acta de nacimiento', sc: 'Su cliente pide el alcance de afectación de un lote. La contención se montó con un formato en papel, y la sospecha es incómoda: no hay forma de saber si el inspector confirmó pieza por pieza o solo pegó la hoja a la caja.', d: 'Acompañamos el diseño del flujo de inspección, contención, reparación y liberación en piso, y lo digitalizamos: cada pieza queda con su registro de quién la revisó, contra qué criterio y con qué resultado — configurable a lo que su cliente exige.', items: ['Diseño del flujo de inspección, retención, reparación, revalidación y liberación', 'Definición del criterio de retención y de quién autoriza la liberación o el desecho', 'Trazabilidad por pieza, lote y número de serie, con evidencia adjunta al registro', 'Registro de reparación: causa, responsable, reinspección y confirmación de efectividad', 'Respuesta a solicitudes de alcance de afectación: qué piezas, qué lotes, qué embarques', 'Formación del inspector en el criterio de juicio, no solo en el llenado del formato', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de Nissan, y el diseño del flujo de hospital de defectos que opera hoy en la plataforma.' },
+      { k: 'Trazabilidad de inspección y contención', h: 'Que cada pieza salga de planta con su acta de nacimiento', sc: 'Su cliente pide el alcance de afectación de un lote. La contención se montó con un formato en papel, y la sospecha es incómoda: no hay forma de saber si el inspector confirmó pieza por pieza o solo pegó la hoja a la caja.', d: 'Acompañamos el diseño del flujo de inspección, contención, reparación y liberación en piso, y lo digitalizamos: cada pieza queda con su registro de quién la revisó, contra qué criterio y con qué resultado — configurable a lo que su cliente exige.', items: ['Diseño del flujo de inspección, retención, reparación, revalidación y liberación', 'Definición del criterio de retención y de quién autoriza la liberación o el desecho', 'Trazabilidad por pieza, lote y número de serie, con evidencia adjunta al registro', 'Registro de reparación: causa, responsable, reinspección y confirmación de efectividad', 'Respuesta a solicitudes de alcance de afectación: qué piezas, qué lotes, qué embarques', 'Formación del inspector en el criterio de juicio, no solo en el llenado del formato', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas del OEM, y el diseño del flujo de hospital de defectos que opera hoy en la plataforma.' },
       { k: 'Auditoría y seguimiento a proveedores', h: 'Verificar en el piso lo que el 8D dice que ya está resuelto', sc: 'Un SQE lleva decenas de proveedores repartidos en varios países. El 8D regresó cerrado, con fotos y firma. Nadie fue a confirmar que el dispositivo esté instalado, dado de alta y funcionando — y el siguiente embarque trae el mismo defecto.', d: 'Trabajamos como extensión de su equipo de calidad de proveedores: vamos a la planta en su nombre, damos seguimiento al APQP y validamos físicamente que lo declarado en el 8D exista y funcione. Entendemos automotriz, así que también resolvemos las dudas técnicas del proveedor en sitio.', items: ['Seguimiento de APQP a petición del OEM: entregables, fechas y evidencia por fase', 'Validación física de las contramedidas declaradas en el 8D: que existan en el piso y que funcionen', 'Verificación de contención: cobertura real, criterio del inspector y registro', 'Auditoría de proceso y de estándar de inspección con criterio de OEM', 'Auditoría de preparación del proveedor para lanzamiento o incremento de volumen', 'Auditoría del manejo, empaque y uso del producto', 'Resolución de dudas técnicas del proveedor en sitio, sin esperar a la siguiente visita del SQE', 'Seguimiento del plan de acción con responsable y fecha comprometida'], note: 'No incluye auditoría de certificación de tercera parte.' },
     ],
   } : {
@@ -440,7 +440,7 @@ function V5Services({ lang }) {
     cards: [
       { k: 'New model launch', h: 'A ramp-up that is not stopped by an engineering change', sc: 'The change was released in the system, but the document that travelled with the unit carried the previous version. It surfaces on the test line, with the unit already built.', d: 'We support the ramp-up from planning through stable production: controlling engineering changes and defining inspection standards and the containment plan before the first shipment.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards', 'Event evaluation program: fit and finish, appearance, NVH, water tightness and ADAS', 'Consolidation of test reports in the format your customer will ask for'], badge: 'Backed by: 52 vehicle programs launched, and Mercedes-Benz and Volkswagen development programs at IDIADA Applus.', link: ['Preparacion de Lanzamiento.html', 'See what a launch preparation covers →'] },
       { k: 'Technical representation at your customer plant', h: 'Reacting inside the window — and with the right countermeasure', sc: 'Your contract gives you 24 hours to answer a claim. Travel approval takes another 24. By the time someone of yours arrives, the customer has already set up containment, is charging you for it, and nobody on your side has seen the part.', d: 'We put an engineer inside your customer plant who describes technically what is happening the same day. With that you react to the real problem instead of the assumed one — and you have grounds to dispute what is not yours.', items: ['Response inside the contractual window, without depending on an approved trip', 'Technical description of the real failure mode, with evidence from the part on site', 'Countermeasure aimed at the right problem: reacting wrong keeps the defect shipping and raises scrap', 'Technical support to dispute chargebacks: what is attributable to the supplier and what is not', 'On-site containment, sorting and rework under customer authorization', 'RMA management and disposition of non-conforming material', 'Technical channel between OEM and supplier, with meetings and documentation in English', 'Response during quality crises'] },
-      { k: 'Inspection traceability and containment', h: 'Every part leaves the plant with its birth certificate', sc: 'Your customer asks for the affected scope of a lot. Containment was set up on a paper form, and the suspicion is uncomfortable: there is no way to know whether the inspector confirmed part by part or just taped the sheet to the box.', d: 'We support the design of the inspection, containment, repair and release flow on the floor, and digitalize it: every part carries a record of who checked it, against which criteria and with what result — configurable to what your customer demands.', items: ['Design of the inspection, hold, repair, revalidation and release flow', 'Definition of hold criteria and who authorizes release or scrap', 'Traceability by part, lot and serial number, with evidence attached to the record', 'Repair record: cause, owner, reinspection and effectiveness confirmation', 'Response to affected-scope requests: which parts, which lots, which shipments', 'Inspector training on judgement criteria, not just on filling in the form', 'Correlation between drawing, BOM specification, inspection standard and operation sheet'], badge: "Backed by: the two kaizen registered in Nissan's global best practices database, and the design of the defect hospital flow running in the platform today." },
+      { k: 'Inspection traceability and containment', h: 'Every part leaves the plant with its birth certificate', sc: 'Your customer asks for the affected scope of a lot. Containment was set up on a paper form, and the suspicion is uncomfortable: there is no way to know whether the inspector confirmed part by part or just taped the sheet to the box.', d: 'We support the design of the inspection, containment, repair and release flow on the floor, and digitalize it: every part carries a record of who checked it, against which criteria and with what result — configurable to what your customer demands.', items: ['Design of the inspection, hold, repair, revalidation and release flow', 'Definition of hold criteria and who authorizes release or scrap', 'Traceability by part, lot and serial number, with evidence attached to the record', 'Repair record: cause, owner, reinspection and effectiveness confirmation', 'Response to affected-scope requests: which parts, which lots, which shipments', 'Inspector training on judgement criteria, not just on filling in the form', 'Correlation between drawing, BOM specification, inspection standard and operation sheet'], badge: "Backed by: the two kaizen registered in the OEM's global best practices database, and the design of the defect hospital flow running in the platform today." },
       { k: 'Supplier audits and follow-up', h: 'Verify on the floor what the 8D says is already solved', sc: 'An SQE carries dozens of suppliers spread across several countries. The 8D came back closed, with photos and a signature. Nobody went to confirm the device is installed, set up and working — and the next shipment brings the same defect.', d: 'We work as an extension of your supplier quality team: we go to the plant on your behalf, follow up APQP and physically validate that what the 8D declares exists and works. We know automotive, so we also resolve the supplier technical questions on site.', items: ['APQP follow-up at OEM request: deliverables, dates and evidence by phase', 'Physical validation of the countermeasures declared in the 8D: that they exist on the floor and work', 'Containment verification: real coverage, inspector judgement and record', 'Process and inspection standard audit with OEM judgement', 'Supplier readiness audit for launch or volume increase', 'Audit of product handling, packaging and use', 'On-site resolution of supplier technical questions, without waiting for the next SQE visit', 'Action plan follow-up with owner and committed date'], note: 'Does not include third-party certification audits.' },
     ],
   };
@@ -721,6 +721,82 @@ function V5PlatformHero({ lang }) {
   );
 }
 
+function V5Pricing({ lang }) {
+  const L = lang === 'es';
+  const t = L ? {
+    badge: 'PRECIO FUNDADOR · CUPO LIMITADO',
+    title: 'Dos formas de tener la plataforma.',
+    sub: 'Precios de lanzamiento para los primeros clientes. Aumentan conforme se llenan los cupos de instalación.',
+    tiers: [
+      { name: 'On-Premise', period: '/ año, con mantenimiento', rows: [
+        ['Hasta 20 usuarios', 'desde $5,000 USD'],
+        ['21 a 50 usuarios', 'desde $7,000 USD'],
+        ['Más de 50 usuarios', 'desde $10,000 USD'],
+      ], note: 'Incluye actualizaciones, soporte y alojamiento en su servidor.' },
+      { name: 'Buyout / White-Label', period: 'pago único, sin mantenimiento', rows: [
+        ['Hasta 20 usuarios', 'desde $20,000 USD'],
+        ['21 a 50 usuarios', 'desde $30,000 USD'],
+        ['Más de 50 usuarios', 'desde $50,000 USD'],
+      ], note: 'Código fuente completo. Sin renta anual ni dependencia de nosotros.' },
+    ],
+    custom: 'Los precios varían según personalización, integraciones y número de plantas. Cotización final tras una llamada de alcance.',
+    build: 'Construirlo internamente: un año de desarrollo con un equipo de 4 personas (consultor experto en manufactura para mapeo y levantamiento, $10,000 USD; más 1 desarrollador backend, 1 frontend, 1 UI/UX y 1 QA, $2,000 USD al mes cada uno) — sin garantía de cubrir todo lo que ya necesita, y arranca hasta que esté listo. Con IxT-QMS, implementación al día siguiente.',
+    cta: 'Solicitar cotización',
+  } : {
+    badge: 'FOUNDERS PRICING · LIMITED SLOTS',
+    title: 'Two ways to own the platform.',
+    sub: 'Launch pricing for our first customers. Prices rise as installation slots fill up.',
+    tiers: [
+      { name: 'On-Premise', period: '/ year, with maintenance', rows: [
+        ['Up to 20 users', 'from $5,000 USD'],
+        ['21 to 50 users', 'from $7,000 USD'],
+        ['Over 50 users', 'from $10,000 USD'],
+      ], note: 'Includes updates, support and hosting on your server.' },
+      { name: 'Buyout / White-Label', period: 'one-time, no maintenance', rows: [
+        ['Up to 20 users', 'from $20,000 USD'],
+        ['21 to 50 users', 'from $30,000 USD'],
+        ['Over 50 users', 'from $50,000 USD'],
+      ], note: 'Full source code. No annual fee, no dependency on us.' },
+    ],
+    custom: 'Prices vary based on customization, integrations and number of plants. Final quote after a scoping call.',
+    build: "Building it in-house: one year of development with a 4-person team (manufacturing expert consultant for mapping and discovery, $10,000 USD; plus 1 backend developer, 1 frontend, 1 UI/UX and 1 QA, $2,000 USD per month each) — no guarantee it covers everything you already need, and it starts working only once it's done. With IxT-QMS, implementation next day.",
+    cta: 'Request a quote',
+  };
+  return (
+    <section id="precios" style={{ padding: '80px 56px', background: 'white', borderTop: `1px solid ${v4S.line}` }}>
+      <div style={{ maxWidth: 980, margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: 44 }}>
+          <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: 0.8, color: v4S.primary, background: v4S.bgCool, padding: '6px 14px', borderRadius: 999, marginBottom: 16 }}>{t.badge}</div>
+          <h2 style={{ fontSize: 32, fontWeight: 700, color: v4S.ink, margin: '0 0 12px', letterSpacing: -0.6, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
+          <p style={{ fontSize: 15.5, color: v4S.ink2, margin: 0 }}>{t.sub}</p>
+        </div>
+        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, marginBottom: 24 }}>
+          {t.tiers.map((tier, i) => (
+            <div key={i} style={{ border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '28px 26px', background: i === 0 ? v4S.bgCool : 'white' }}>
+              <div style={{ fontSize: 18, fontWeight: 700, color: v4S.ink, marginBottom: 2 }}>{tier.name}</div>
+              <div style={{ fontSize: 12.5, color: v4S.muted, marginBottom: 18 }}>{tier.period}</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 18 }}>
+                {tier.rows.map(([label, price], j) => (
+                  <div key={j} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, borderBottom: j < tier.rows.length - 1 ? `1px solid ${v4S.line}` : 'none', paddingBottom: 8 }}>
+                    <span style={{ color: v4S.ink2 }}>{label}</span>
+                    <span style={{ fontWeight: 700, color: v4S.ink }}>{price}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontSize: 12.5, color: v4S.muted, fontStyle: 'italic' }}>{tier.note}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: 13, color: v4S.muted, textAlign: 'center', maxWidth: 620, margin: '0 auto 10px', lineHeight: 1.6 }}>{t.custom}</p>
+        <p style={{ fontSize: 13, color: v4S.ink2, textAlign: 'center', maxWidth: 620, margin: '0 auto 24px', lineHeight: 1.6, fontStyle: 'italic' }}>{t.build}</p>
+        <div style={{ textAlign: 'center' }}>
+          <a href="#form-contacto" style={{ display: 'inline-block', padding: '13px 28px', borderRadius: 9, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function V5Software({ lang }) {
   const [zoom, setZoom] = React.useState(null);
   React.useEffect(() => {
@@ -863,13 +939,13 @@ function V5Diagnostico({ lang }) {
       { n: '0', h: 'Primer contacto', tag: 'Sin costo', tagC: '#0E9F6E',
         items: ['Llamada de calificación de 30 minutos', 'Demostración de la plataforma con datos ficticios', 'White papers de metodología'] },
       { n: '1', h: 'Quick Assessment', tag: 'Remoto', tagC: '#1D4FD7',
-        items: ['Evaluación de procesos de calidad y principales riesgos operativos', 'Identificación de oportunidades de mejora y prioridades', 'Reporte ejecutivo con recomendaciones y siguientes pasos'],
+        items: ['Evaluación de procesos de calidad y principales riesgos operativos', 'Reporte ejecutivo con recomendaciones y siguientes pasos'],
         foot: 'Se realiza de forma remota. Si se requiere visita a planta fuera de Aguascalientes, pasa a Nivel 2.' },
       { n: '2', h: 'Diagnóstico en planta', tag: 'Con cotización', tagC: '#1D4FD7',
         items: ['Visita a planta con alcance y entregable definidos', 'Propuesta técnica detallada', 'Índice detallado de formación'],
         foot: 'Acreditable contra el programa si se contrata dentro de 30 días.' },
-      { n: '3', h: 'Programa', tag: 'Contrato anual', tagC: '#0B2545',
-        items: ['Implementación, formación privada, representación técnica o digitalización', 'Acceso a la plataforma IxT-QMS incluido, instalada en su servidor', 'Seguimiento continuo con entregables por periodo'] },
+      { n: '3', h: 'Implementación de proyectos', tag: 'Contrato anual', tagC: '#0B2545',
+        items: ['Implementación, formación privada, representación técnica o digitalización', 'Seguimiento continuo con entregables por periodo'] },
     ],
     costH: 'ANTES DE ESCRIBIR',
     costT: 'Ponga números a lo que ya está pagando.',
@@ -896,13 +972,13 @@ function V5Diagnostico({ lang }) {
       { n: '0', h: 'First contact', tag: 'No cost', tagC: '#0E9F6E',
         items: ['30-minute qualification call', 'Platform demo with sample data', 'Methodology white papers'] },
       { n: '1', h: 'Quick Assessment', tag: 'Remote', tagC: '#1D4FD7',
-        items: ['Review of quality processes and main operational risks', 'Identification of improvement opportunities and priorities', 'Executive report with recommendations and next steps'],
+        items: ['Review of quality processes and main operational risks', 'Executive report with recommendations and next steps'],
         foot: 'Delivered remotely. If a plant visit outside Aguascalientes is required, it moves to Level 2.' },
       { n: '2', h: 'On-site assessment', tag: 'Quoted', tagC: '#1D4FD7',
         items: ['Plant visit with defined scope and deliverable', 'Detailed technical proposal', 'Detailed training syllabus'],
         foot: 'Creditable against the program if contracted within 30 days.' },
-      { n: '3', h: 'Program', tag: 'Annual contract', tagC: '#0B2545',
-        items: ['Implementation, private training, technical representation or digitalization', 'IxT-QMS platform included, installed on your server', 'Ongoing follow-up with deliverables per period'] },
+      { n: '3', h: 'Project implementation', tag: 'Annual contract', tagC: '#0B2545',
+        items: ['Implementation, private training, technical representation or digitalization', 'Ongoing follow-up with deliverables per period'] },
     ],
     costH: 'BEFORE YOU WRITE',
     costT: 'Put numbers on what you are already paying.',
@@ -1209,11 +1285,12 @@ function HomeLanding() {
         <V5PlatformHero lang={lang}/>
         <V5Workload lang={lang}/>
         <V5Software lang={lang}/>
+        <V5Pricing lang={lang}/>
         <V5Platform lang={lang}/>
         <V4AuditSim lang={lang}/>
         <V4Deployment lang={lang}/>
       </React.Fragment>}
-      <V5Diagnostico lang={lang}/>
+      {view === 'servicios' && <V5Diagnostico lang={lang}/>}
       <V4Footer lang={lang}/>
       <a className="ixmobcta" href="#form-contacto">{lang === 'es' ? 'Agendar reunión de descubrimiento' : 'Book a discovery call'}</a>
     </div>
