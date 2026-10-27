@@ -50,21 +50,16 @@ const v5CSS = `
 @media(max-width:1120px){.v5nav-links{gap:12px!important;font-size:12.5px!important}}
 @media(max-width:720px){.v5nav-links{width:100%;order:3;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.v5nav-links::-webkit-scrollbar{display:none}}
 @media(max-width:1024px){
- .g10{grid-template-columns:repeat(4,1fr)!important}
- .g8{grid-template-columns:repeat(3,1fr)!important}
  .g6{grid-template-columns:repeat(3,1fr)!important}
  .g5{grid-template-columns:repeat(3,1fr)!important}
  .g4{grid-template-columns:repeat(2,1fr)!important}
- .g5{grid-template-columns:repeat(3,1fr)!important}
  .g3{grid-template-columns:repeat(2,1fr)!important}
  .g2{grid-template-columns:1fr!important;gap:26px!important}
  section{padding-left:32px!important;padding-right:32px!important}
 }
 @media(max-width:900px){.gsplit{grid-template-columns:1fr!important;gap:26px!important}}
 @media(max-width:720px){
- .rolesbox{flex-direction:column!important}
- .rolesimg{width:100%!important}
- .g6,.g5,.g4,.g3,.g2,.gform,.g8,.g10{grid-template-columns:1fr!important}
+ .g6,.g5,.g4,.g3,.g2,.gform{grid-template-columns:1fr!important}
  .g6>div{border-left:none!important;border-top:1px solid rgba(0,0,0,.08)}
  .g6>div:first-child{border-top:none}
  section{padding-left:18px!important;padding-right:18px!important}
@@ -225,45 +220,31 @@ function V5SvcAnim({ i }) {
   );
 }
 
-function V5Nav({ lang, setLang, view, setView }) {
+function V5Nav({ lang, setLang }) {
   const L = lang === 'es';
   const [active, setActive] = React.useState('');
   React.useEffect(() => {
-    const ids = view === 'servicios' ? ['kaizen', 'servicios', 'formacion'] : ['plataforma', 'software'];
+    const ids = ['kaizen', 'servicios', 'formacion', 'plataforma', 'diagnostico'];
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
     }, { rootMargin: '-30% 0px -60% 0px' });
     ids.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
     return () => obs.disconnect();
-  }, [view]);
-  const links = view === 'servicios'
-    ? (L ? [['#servicios','Servicios'],['#formacion','Formación'],['Nuestra Historia.html','Perfil'],['#form-contacto','Contacto']]
-         : [['#servicios','Services'],['#formacion','Training'],['Nuestra Historia.html','Profile'],['#form-contacto','Contact']])
-    : (L ? [['#software','Módulos'],['#plataforma','Método'],['#form-contacto','Contacto']]
-         : [['#software','Modules'],['#plataforma','Method'],['#form-contacto','Contact']]);
+  }, []);
+  const links = L
+    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Método'],['Nuestra Historia.html','Perfil'],['#form-contacto','Contacto']]
+    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Method'],['Nuestra Historia.html','Profile'],['#form-contacto','Contact']];
   return (
     <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px 12px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0, cursor: 'pointer' }} onClick={() => setView('plataforma')}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
           <div style={{ width: 34, height: 34, borderRadius: 8, background: `linear-gradient(135deg, ${v4S.primary}, ${v4S.primaryDark})`, display: 'grid', placeItems: 'center', color: 'white', fontWeight: 800, fontSize: 14, letterSpacing: -0.3 }}>IxT</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             <div style={{ fontWeight: 700, fontSize: 16, color: v4S.ink, letterSpacing: -0.3, lineHeight: 1 }}>IxT-QMS</div>
             <div style={{ fontWeight: 600, fontSize: 10, color: v4S.muted, letterSpacing: 0.5, textTransform: 'uppercase', lineHeight: 1 }}>Inspect. Then Trust.</div>
           </div>
         </div>
-        <div className="v5nav-links" style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button onClick={() => setView('plataforma')} style={{
-              padding: '7px 14px', borderRadius: 7, border: `1px solid ${view === 'plataforma' ? v4S.primary : v4S.line}`,
-              background: view === 'plataforma' ? v4S.primary : 'transparent', color: view === 'plataforma' ? 'white' : v4S.ink,
-              fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
-            }}>Plataforma QMS</button>
-            <button onClick={() => setView('servicios')} style={{
-              padding: '7px 14px', borderRadius: 7, border: `1px solid ${view === 'servicios' ? v4S.primary : v4S.line}`,
-              background: view === 'servicios' ? v4S.primary : 'transparent', color: view === 'servicios' ? 'white' : v4S.ink,
-              fontWeight: 700, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit',
-            }}>{L ? 'Servicios' : 'Services'}</button>
-          </div>
+        <div className="v5nav-links" style={{ display: 'flex', gap: 16, fontSize: 13, color: v4S.ink2, fontWeight: 500, whiteSpace: 'nowrap', flexShrink: 0 }}>
           {links.map(([href, label]) => {
             const isActive = href === '#' + active;
             return <a key={href} href={href} style={{ color: isActive ? v4S.primary : 'inherit', textDecoration: 'none', fontWeight: isActive ? 700 : 500, borderBottom: isActive ? `2px solid ${v4S.primary}` : '2px solid transparent', paddingBottom: 2, transition: 'color 0.2s, border-color 0.2s' }}>{label}</a>;
@@ -288,14 +269,14 @@ function V5Hero({ lang }) {
     sub: 'Representación técnica, apoyo en lanzamientos, cambios de ingeniería y formación de equipos. Todo respaldado por una metodología propia de control de proceso y trazabilidad.',
     quote: '14 años en manufactura, entre operaciones que están construyendo su sistema de calidad y plantas auditadas con criterio severo. Conocemos los dos lados de la mesa: el criterio con el que el OEM juzga su paquete de aprobación, y la presión del proveedor dentro de la planta de su cliente. No importa de qué lado esté: recibe el beneficio de ambos.',
     cta1: 'Agendar reunión de descubrimiento', cta2: 'Ver líneas de servicio',
-    proof: 'Respaldo: instrucción en Universidad OEM · desarrollo de hojas de operación estándar y evaluación de personal de planta',
+    proof: 'Respaldo: instrucción en Universidad Nissan · desarrollo de hojas de operación estándar y evaluación de personal de planta',
   } : {
     eyebrow: 'TECHNICAL REPRESENTATION · CONSULTING · TRAINING',
     title: 'What works in plants held to demanding standards, adapted to the reality of yours.',
     sub: 'On-site technical representation, support on launches and engineering changes, and training for your teams — backed by our own methodology for process control and traceability.',
     quote: '14 years in manufacturing, across operations still building their quality system and plants audited to severe criteria. We know both sides of the table: the criteria the OEM uses to judge your approval package, and the supplier\'s pressure inside their customer\'s plant. Whichever side you are on, you get the benefit of both.',
     cta1: 'Schedule discovery meeting', cta2: 'View service lines',
-    proof: 'Backed by: instruction at OEM University · standard operation sheet development and plant staff assessment',
+    proof: 'Backed by: instruction at Nissan University · standard operation sheet development and plant staff assessment',
   };
   return (
     <section style={{ padding: '96px 56px 64px', background: `linear-gradient(180deg, ${v4S.bgCool} 0%, white 100%)` }}>
@@ -331,8 +312,8 @@ function V5Creds({ lang }) {
     ? ['Aguascalientes, México', 'Cobertura en planta: Bajío, Norte y Centro del país. Proyectos internacionales bajo acuerdo.']
     : ['Aguascalientes, Mexico', 'On-site coverage: Bajío, Northern and Central Mexico. International projects by agreement.'];
   const kz = L
-    ? 'Dos kaizen registrados en la base global de mejores prácticas del OEM'
-    : "Two kaizen registered in the OEM's global best practices database";
+    ? 'Dos kaizen registrados en la base global de mejores prácticas de Nissan'
+    : "Two kaizen registered in Nissan's global best practices database";
   return (
     <section style={{ padding: '0 56px 72px', background: 'white' }}>
       <div className="g6" style={{ maxWidth: 1140, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 0, border: `1px solid ${v4S.line}`, borderRadius: 14, overflow: 'hidden' }}>
@@ -366,9 +347,9 @@ function V5Creds({ lang }) {
 function V5Kaizen({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'DOS KAIZEN REGISTRADOS EN EL OEM',
+    eyebrow: 'DOS KAIZEN REGISTRADOS EN NISSAN',
     title: 'Resultados medidos, no promesas.',
-    sub: 'Registrados en la base global de mejores prácticas del OEM.',
+    sub: 'Registrados en la base global de mejores prácticas de Nissan.',
     lp: 'PROBLEMA', lm: 'MÉTODO', lr: 'RESULTADO',
     items: [
       { h: 'Método de Confirmación Virtual ECR → BOM 360 (Q, MFG, R&D)',
@@ -378,9 +359,9 @@ function V5Kaizen({ lang }) {
     ],
     close: 'Los módulos de BOM de cliente, auditorías, inspección de defectos y control de material de la plataforma son los nodos que correlacionan el dibujo, la especificación y la hoja de operación. La plataforma no es un producto aparte: es este kaizen automatizado.',
   } : {
-    eyebrow: 'TWO KAIZEN REGISTERED AT THE OEM',
+    eyebrow: 'TWO KAIZEN REGISTERED AT NISSAN',
     title: 'Measured results, not promises.',
-    sub: "Registered in the OEM's global best practices database.",
+    sub: "Registered in Nissan's global best practices database.",
     lp: 'PROBLEM', lm: 'METHOD', lr: 'RESULT',
     items: [
       { h: 'Virtual Confirmation Method ECR → BOM 360 (Q, MFG, R&D)',
@@ -431,7 +412,7 @@ function V5Services({ lang }) {
     cards: [
       { k: 'Lanzamiento de nuevos modelos', h: 'Que el arranque no se detenga por un cambio de ingeniería', sc: 'El cambio estaba liberado en el sistema, pero el documento que viajó con la unidad traía la versión anterior. Se descubre en la línea de pruebas, con la unidad ya armada.', d: 'Acompañamos el arranque desde la planeación hasta la producción estable: llevamos el control de los cambios de ingeniería, dejamos definidos los estándares de inspección y el plan de contención antes del primer embarque.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque', 'Programa de evaluaciones del evento: ajuste y acabado, apariencia, NVH, hermeticidad y ADAS', 'Consolidación de los reportes de prueba en el formato que su cliente va a pedir'], badge: 'Respaldo: 52 programas vehiculares lanzados, y programas de desarrollo de Mercedes-Benz y Volkswagen en IDIADA Applus.', link: ['Preparacion de Lanzamiento.html', 'Ver qué cubre una preparación de lanzamiento →'] },
       { k: 'Representación técnica en planta del cliente', h: 'Reaccionar dentro del plazo, y con la contramedida correcta', sc: 'Su contrato le da 24 horas para responder un reclamo. La aprobación del viaje tarda otras 24. Cuando alguien suyo llega, el cliente ya montó la contención, se la está cobrando, y de su lado nadie vio la pieza.', d: 'Ponemos un ingeniero en la planta de su cliente que describe técnicamente lo que está pasando el mismo día. Con eso reacciona al problema real y no al que se supone — y tiene con qué disputar lo que no le corresponde.', items: ['Respuesta dentro de la ventana contractual, sin depender de un viaje autorizado', 'Descripción técnica del modo de falla real, con evidencia de la pieza en sitio', 'Dirección de la contramedida al problema correcto: reaccionar mal mantiene el defecto en camino y sube el scrap', 'Soporte técnico para disputar cargos: qué es atribuible al proveedor y qué no', 'Contención, clasificación y retrabajo en sitio bajo autorización del cliente', 'Gestión de RMA y disposición de material no conforme', 'Canal técnico entre OEM y proveedor, con juntas y documentación en inglés', 'Respuesta durante crisis de calidad'] },
-      { k: 'Trazabilidad de inspección y contención', h: 'Que cada pieza salga de planta con su acta de nacimiento', sc: 'Su cliente pide el alcance de afectación de un lote. La contención se montó con un formato en papel, y la sospecha es incómoda: no hay forma de saber si el inspector confirmó pieza por pieza o solo pegó la hoja a la caja.', d: 'Acompañamos el diseño del flujo de inspección, contención, reparación y liberación en piso, y lo digitalizamos: cada pieza queda con su registro de quién la revisó, contra qué criterio y con qué resultado — configurable a lo que su cliente exige.', items: ['Diseño del flujo de inspección, retención, reparación, revalidación y liberación', 'Definición del criterio de retención y de quién autoriza la liberación o el desecho', 'Trazabilidad por pieza, lote y número de serie, con evidencia adjunta al registro', 'Registro de reparación: causa, responsable, reinspección y confirmación de efectividad', 'Respuesta a solicitudes de alcance de afectación: qué piezas, qué lotes, qué embarques', 'Formación del inspector en el criterio de juicio, no solo en el llenado del formato', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas del OEM, y el diseño del flujo de hospital de defectos que opera hoy en la plataforma.' },
+      { k: 'Trazabilidad de inspección y contención', h: 'Que cada pieza salga de planta con su acta de nacimiento', sc: 'Su cliente pide el alcance de afectación de un lote. La contención se montó con un formato en papel, y la sospecha es incómoda: no hay forma de saber si el inspector confirmó pieza por pieza o solo pegó la hoja a la caja.', d: 'Acompañamos el diseño del flujo de inspección, contención, reparación y liberación en piso, y lo digitalizamos: cada pieza queda con su registro de quién la revisó, contra qué criterio y con qué resultado — configurable a lo que su cliente exige.', items: ['Diseño del flujo de inspección, retención, reparación, revalidación y liberación', 'Definición del criterio de retención y de quién autoriza la liberación o el desecho', 'Trazabilidad por pieza, lote y número de serie, con evidencia adjunta al registro', 'Registro de reparación: causa, responsable, reinspección y confirmación de efectividad', 'Respuesta a solicitudes de alcance de afectación: qué piezas, qué lotes, qué embarques', 'Formación del inspector en el criterio de juicio, no solo en el llenado del formato', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de Nissan, y el diseño del flujo de hospital de defectos que opera hoy en la plataforma.' },
       { k: 'Auditoría y seguimiento a proveedores', h: 'Verificar en el piso lo que el 8D dice que ya está resuelto', sc: 'Un SQE lleva decenas de proveedores repartidos en varios países. El 8D regresó cerrado, con fotos y firma. Nadie fue a confirmar que el dispositivo esté instalado, dado de alta y funcionando — y el siguiente embarque trae el mismo defecto.', d: 'Trabajamos como extensión de su equipo de calidad de proveedores: vamos a la planta en su nombre, damos seguimiento al APQP y validamos físicamente que lo declarado en el 8D exista y funcione. Entendemos automotriz, así que también resolvemos las dudas técnicas del proveedor en sitio.', items: ['Seguimiento de APQP a petición del OEM: entregables, fechas y evidencia por fase', 'Validación física de las contramedidas declaradas en el 8D: que existan en el piso y que funcionen', 'Verificación de contención: cobertura real, criterio del inspector y registro', 'Auditoría de proceso y de estándar de inspección con criterio de OEM', 'Auditoría de preparación del proveedor para lanzamiento o incremento de volumen', 'Auditoría del manejo, empaque y uso del producto', 'Resolución de dudas técnicas del proveedor en sitio, sin esperar a la siguiente visita del SQE', 'Seguimiento del plan de acción con responsable y fecha comprometida'], note: 'No incluye auditoría de certificación de tercera parte.' },
     ],
   } : {
@@ -440,7 +421,7 @@ function V5Services({ lang }) {
     cards: [
       { k: 'New model launch', h: 'A ramp-up that is not stopped by an engineering change', sc: 'The change was released in the system, but the document that travelled with the unit carried the previous version. It surfaces on the test line, with the unit already built.', d: 'We support the ramp-up from planning through stable production: controlling engineering changes and defining inspection standards and the containment plan before the first shipment.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards', 'Event evaluation program: fit and finish, appearance, NVH, water tightness and ADAS', 'Consolidation of test reports in the format your customer will ask for'], badge: 'Backed by: 52 vehicle programs launched, and Mercedes-Benz and Volkswagen development programs at IDIADA Applus.', link: ['Preparacion de Lanzamiento.html', 'See what a launch preparation covers →'] },
       { k: 'Technical representation at your customer plant', h: 'Reacting inside the window — and with the right countermeasure', sc: 'Your contract gives you 24 hours to answer a claim. Travel approval takes another 24. By the time someone of yours arrives, the customer has already set up containment, is charging you for it, and nobody on your side has seen the part.', d: 'We put an engineer inside your customer plant who describes technically what is happening the same day. With that you react to the real problem instead of the assumed one — and you have grounds to dispute what is not yours.', items: ['Response inside the contractual window, without depending on an approved trip', 'Technical description of the real failure mode, with evidence from the part on site', 'Countermeasure aimed at the right problem: reacting wrong keeps the defect shipping and raises scrap', 'Technical support to dispute chargebacks: what is attributable to the supplier and what is not', 'On-site containment, sorting and rework under customer authorization', 'RMA management and disposition of non-conforming material', 'Technical channel between OEM and supplier, with meetings and documentation in English', 'Response during quality crises'] },
-      { k: 'Inspection traceability and containment', h: 'Every part leaves the plant with its birth certificate', sc: 'Your customer asks for the affected scope of a lot. Containment was set up on a paper form, and the suspicion is uncomfortable: there is no way to know whether the inspector confirmed part by part or just taped the sheet to the box.', d: 'We support the design of the inspection, containment, repair and release flow on the floor, and digitalize it: every part carries a record of who checked it, against which criteria and with what result — configurable to what your customer demands.', items: ['Design of the inspection, hold, repair, revalidation and release flow', 'Definition of hold criteria and who authorizes release or scrap', 'Traceability by part, lot and serial number, with evidence attached to the record', 'Repair record: cause, owner, reinspection and effectiveness confirmation', 'Response to affected-scope requests: which parts, which lots, which shipments', 'Inspector training on judgement criteria, not just on filling in the form', 'Correlation between drawing, BOM specification, inspection standard and operation sheet'], badge: "Backed by: the two kaizen registered in the OEM's global best practices database, and the design of the defect hospital flow running in the platform today." },
+      { k: 'Inspection traceability and containment', h: 'Every part leaves the plant with its birth certificate', sc: 'Your customer asks for the affected scope of a lot. Containment was set up on a paper form, and the suspicion is uncomfortable: there is no way to know whether the inspector confirmed part by part or just taped the sheet to the box.', d: 'We support the design of the inspection, containment, repair and release flow on the floor, and digitalize it: every part carries a record of who checked it, against which criteria and with what result — configurable to what your customer demands.', items: ['Design of the inspection, hold, repair, revalidation and release flow', 'Definition of hold criteria and who authorizes release or scrap', 'Traceability by part, lot and serial number, with evidence attached to the record', 'Repair record: cause, owner, reinspection and effectiveness confirmation', 'Response to affected-scope requests: which parts, which lots, which shipments', 'Inspector training on judgement criteria, not just on filling in the form', 'Correlation between drawing, BOM specification, inspection standard and operation sheet'], badge: "Backed by: the two kaizen registered in Nissan's global best practices database, and the design of the defect hospital flow running in the platform today." },
       { k: 'Supplier audits and follow-up', h: 'Verify on the floor what the 8D says is already solved', sc: 'An SQE carries dozens of suppliers spread across several countries. The 8D came back closed, with photos and a signature. Nobody went to confirm the device is installed, set up and working — and the next shipment brings the same defect.', d: 'We work as an extension of your supplier quality team: we go to the plant on your behalf, follow up APQP and physically validate that what the 8D declares exists and works. We know automotive, so we also resolve the supplier technical questions on site.', items: ['APQP follow-up at OEM request: deliverables, dates and evidence by phase', 'Physical validation of the countermeasures declared in the 8D: that they exist on the floor and work', 'Containment verification: real coverage, inspector judgement and record', 'Process and inspection standard audit with OEM judgement', 'Supplier readiness audit for launch or volume increase', 'Audit of product handling, packaging and use', 'On-site resolution of supplier technical questions, without waiting for the next SQE visit', 'Action plan follow-up with owner and committed date'], note: 'Does not include third-party certification audits.' },
     ],
   };
@@ -502,26 +483,28 @@ function V5Training({ lang }) {
   const L = lang === 'es';
   const t = L ? {
     eyebrow: 'FORMACIÓN', title: 'Dos formatos: aula y piso.',
-    sub: 'Los títulos de módulo se publican aquí; el índice detallado se envía por correo al prospecto interesado. Sin versión en línea ni material descargable.',
+    sub: 'Dos formatos de impartición y un catálogo de 28 cursos, desde habilidades de liderazgo hasta ingeniería de manufactura avanzada.',
     flagship: 'PROGRAMA INSIGNIA',
     programs: [
       { h: 'Formación teórica', tag: 'AULA', d: 'Marco conceptual y método, en su sala de juntas o en sede.', mods: ['Sistema de producción ideal y condición ideal de producción', 'Just in Time (JIT)', 'Los 7 desperdicios', 'Fundamentos de Kaizen y principios de economía de movimientos', 'Liderazgo y gestión de equipos', 'Selección de personal de proyecto y job allocation', 'Estandarización de proceso'] },
       { h: 'Formación en planta', tag: 'PRÁCTICA', flag: true, d: 'Se imparte sobre el proceso real, con la línea y las piezas del cliente.', mods: ['Control intensivo de arranque y Safe Launch', 'Control de campo', 'Capacitación del personal', 'Confirmación de equipo e instalaciones', 'Flujo y áreas de trabajo para Kaizen', 'Práctica con maqueta', 'Gestión de equipos en piso'] },
     ],
-    extraH: 'Cursos adicionales del catálogo',
-    extra: 'Resolución de problemas 8D y QA · QC Story · Quality Control & SPC · técnicas de confirmación de calidad · poka-yoke · formación de instructores y desarrollo de hojas de operación estándar',
+    extraH: 'Catálogo completo · 28 cursos · 324 h',
+    extra: [['Habilidades', 7, '#7C5CC4'], ['Diseño y lanzamiento', 5, '#1D4FD7'], ['Calidad y problemas', 4, '#C2410C'], ['Estándar, puesto y equipo', 7, '#0F766E'], ['Ingeniería de manufactura', 5, '#0A1F3D']],
+    extraLink: 'Ver el catálogo de formación →',
     delivery: 'La formación teórica puede impartirse en su sede o en la nuestra; la formación en planta se imparte sobre el proceso del cliente. El índice detallado se envía por correo.',
     cta: 'Solicitar propuesta de formación',
   } : {
     eyebrow: 'TRAINING', title: 'Two formats: classroom and shop floor.',
-    sub: 'Module titles are published here; the detailed index is emailed to interested prospects. No online version, no downloadable material.',
+    sub: 'Two delivery formats and a catalog of 28 courses, from leadership skills to advanced manufacturing engineering.',
     flagship: 'FLAGSHIP PROGRAM',
     programs: [
       { h: 'Classroom training', tag: 'CLASSROOM', d: 'Concepts and method, in your meeting room or at our venue.', mods: ['Ideal production system and ideal production condition', 'Just in Time (JIT)', 'The 7 wastes', 'Kaizen fundamentals and motion economy principles', 'Leadership and team management', 'Project staff selection and job allocation', 'Process standardization'] },
       { h: 'In-plant training', tag: 'HANDS-ON', flag: true, d: 'Delivered on the real process, with the customer\'s line and parts.', mods: ['Intensive ramp-up control and Safe Launch', 'Field control', 'Staff training', 'Equipment and facilities confirmation', 'Work areas and flow for Kaizen', 'Hands-on mockup practice', 'Team management on the floor'] },
     ],
-    extraH: 'Additional catalog courses',
-    extra: '8D and QA problem solving · QC Story · Quality Control & SPC · quality confirmation techniques · poka-yoke · train-the-trainer and standard operation sheet development',
+    extraH: 'Full catalog · 28 courses · 324 h',
+    extra: [['Skills', 7, '#7C5CC4'], ['Design and launch', 5, '#1D4FD7'], ['Quality and problems', 4, '#C2410C'], ['Standard, workstation and equipment', 7, '#0F766E'], ['Manufacturing engineering', 5, '#0A1F3D']],
+    extraLink: 'See the training catalog →',
     delivery: "Classroom training can be delivered at your site or ours; in-plant training is delivered on the customer's process. The detailed syllabus is sent by email.",
     cta: 'Request training proposal',
   };
@@ -551,7 +534,16 @@ function V5Training({ lang }) {
         </div>
         <div style={{ border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '24px 30px', marginBottom: 26 }}>
           <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: v4S.muted, textTransform: 'uppercase', marginBottom: 8 }}>{t.extraH}</div>
-          <p style={{ margin: 0, fontSize: 14, color: v4S.ink2, lineHeight: 1.7 }}>{t.extra}</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {t.extra.map(([n, c, col], i) => (
+                <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: v4S.ink2, border: `1px solid ${v4S.line}`, borderRadius: 999, padding: '6px 13px' }}>
+                  <span style={{ width: 8, height: 8, borderRadius: 99, background: col }}></span>{n}<span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 11, color: v4S.muted }}>{c}</span>
+                </span>
+              ))}
+            </div>
+            <a href="Catalogo de Formacion.html" style={{ fontSize: 13.5, fontWeight: 700, color: v4S.primary, border: `1px solid ${v4S.primary}`, borderRadius: 8, padding: '8px 15px', textDecoration: 'none', whiteSpace: 'nowrap' }}>{t.extraLink}</a>
+          </div>
         </div>
         <div style={{ textAlign: 'center' }}>
           <p style={{ fontSize: 13, color: v4S.muted, margin: '0 0 18px', fontStyle: 'italic' }}>{t.delivery}</p>
@@ -566,7 +558,7 @@ function V5Platform({ lang }) {
   const L = lang === 'es';
   const t = L ? {
     eyebrow: 'ASÍ TRABAJAMOS', title: 'Nuestro método sigue cada pieza, no cada documento.',
-    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la plataforma con la que trabajamos y que también instalamos para nuestros clientes.',
+    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la herramienta con la que trabajamos. No se vende por separado: se incluye en los programas y se instala en el servidor del cliente.',
     flowH: 'EL CICLO DE VIDA DE LA PIEZA',
     flow: ['Inspección', 'Declaración de defecto', 'Reparación', 'Validación', 'MRB / Hospital de defectos', 'Reinspección', 'Liberación o scrap autorizado'],
     flowNote: 'El documento es el resultado. El flujo operativo es el valor.',
@@ -575,10 +567,17 @@ function V5Platform({ lang }) {
       ['Opera sin internet', 'La operación crítica funciona aunque se caiga el enlace.'],
       ['Se incluye en el programa', 'No estamos tomando instalaciones nuevas este trimestre. Trabajamos con un número limitado de socios iniciales mientras se cierra funcionalidad.'],
     ],
+    shotsH: 'Evidencia: cuatro módulos en operación',
+    shots: [
+      ['8d-dashboard.png', '8D · resolución de problemas', 'Tablero de reportes 8D con estado, responsable y avance por disciplina.'],
+      ['alerta-qar.png', 'Alertas QAR', 'Alerta de calidad emitida con evidencia, área responsable y seguimiento.'],
+      ['hospital-defectos.png', 'Hospital de defectos', 'Registro de unidades retenidas con defecto, disposición y liberación.'],
+      ['mrb-dashboard.png', 'MRB · control de material', 'Control de material no conforme con ubicación física y disposición.'],
+    ],
     note: 'Requisitos técnicos para el departamento de TI del cliente disponibles a solicitud: sistema operativo, recursos de servidor, base de datos, puertos, respaldos y autenticación.',
   } : {
     eyebrow: 'HOW WE WORK', title: 'Our method follows every part, not every document.',
-    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the platform we work with and also install for our customers.',
+    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the tool we work with. It is not sold separately: it is included in the programs and installed on the customer server.',
     flowH: 'THE LIFECYCLE OF THE PART',
     flow: ['Inspection', 'Defect declaration', 'Repair', 'Validation', 'MRB / Defect hospital', 'Reinspection', 'Release or authorized scrap'],
     flowNote: 'The document is the result. The operational workflow is the value.',
@@ -586,6 +585,13 @@ function V5Platform({ lang }) {
       ['Installed on your server', 'No shared database with anyone, no external vendor to audit.'],
       ['Runs without internet', 'Critical operation keeps working even if the link goes down.'],
       ['Included in the program', 'We are not taking new installations this quarter. We work with a limited number of early partners while functionality is finalized.'],
+    ],
+    shotsH: 'Evidence: four modules in operation',
+    shots: [
+      ['8d-dashboard.png', '8D · problem solving', '8D report board with status, owner and progress per discipline.'],
+      ['alerta-qar.png', 'QAR alerts', 'Quality alert issued with evidence, responsible area and follow-up.'],
+      ['hospital-defectos.png', 'Defect hospital', 'Log of units held with a defect, disposition and release.'],
+      ['mrb-dashboard.png', 'MRB · material control', 'Non-conforming material control with physical location and disposition.'],
     ],
     note: "Technical requirements for the customer's IT department available on request: operating system, server resources, database, ports, backups and authentication.",
   };
@@ -619,317 +625,23 @@ function V5Platform({ lang }) {
             </div>
           ))}
         </div>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: '#94A6C7', textTransform: 'uppercase', marginBottom: 18 }}>{t.shotsH}</div>
+        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22, marginBottom: 26 }}>
+          {t.shots.map(([src, h, alt], i) => (
+            <figure key={i} style={{ margin: 0, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, overflow: 'hidden' }}>
+              <img src={'screenshots/' + src} alt={alt} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.1)' }}/>
+              <figcaption style={{ padding: '14px 18px 16px' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 5 }}>{h}</div>
+                <div style={{ fontSize: 12.5, color: '#94A6C7', lineHeight: 1.5 }}>{alt}</div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
         <div style={{ fontSize: 12.5, color: '#7B8AA8', fontStyle: 'italic' }}>{t.note}</div>
       </div>
     </section>
   );
 }
-
-function V5Workload({ lang }) {
-  const [zoom, setZoom] = React.useState(null);
-  React.useEffect(() => {
-    if (!zoom) return;
-    const onKey = e => { if (e.key === 'Escape') setZoom(null); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [zoom]);
-  const L = lang === 'es';
-  const t = L ? {
-    eyebrow: 'WORKLOAD MANAGER',
-    title: '¿Volarías un avión sin instrumentos?',
-    sub: 'Entonces, ¿por qué asumir que su equipo de trabajo va a rendir bien sin indicadores en tiempo real de carga, desempeño y avance? Workload Manager es el panel de instrumentos: los reportes se generan en tiempo real, alimentados por el propio equipo, con evidencia adjunta a cada actividad — no en reportes armados a mano. Eso convierte el feedback y la evaluación de personal en datos objetivos, no en percepción.',
-    shots: [
-      ['workload-summary.png', 'Resumen ejecutivo', 'Índice de riesgo del equipo, desbalance de carga y status de tareas críticas de un vistazo.'],
-      ['workload-detail.png', 'Carga por persona', 'Horas asignadas vs. disponibles y % de utilización individual — identifica sobrecarga y subutilización antes de que sea un problema.'],
-      ['workload-objectives.png', 'Objetivos QTPCS', 'Avance de objetivos del periodo por categoría — Quality, Time, People, Cost, Safety — con responsables asignados.'],
-      ['workload-gantt.png', 'Gantt de actividades', 'Planeación y seguimiento de actividades por persona, con recurrencia y exportación a Excel.'],
-    ],
-  } : {
-    eyebrow: 'WORKLOAD MANAGER',
-    title: 'Would you fly a plane with no instruments?',
-    sub: "Then why assume your team will perform well without real-time indicators of workload, performance and progress? Workload Manager is the instrument panel: reports are generated in real time, fed by the team itself, with evidence attached to every activity — not hand-built reports. That turns feedback and staff evaluation into objective data, not perception.",
-    shots: [
-      ['workload-summary.png', 'Executive summary', "Team risk index, workload imbalance and critical task status at a glance."],
-      ['workload-detail.png', 'Load per person', 'Assigned vs. available hours and individual utilization % — spot overload and underutilization before it becomes a problem.'],
-      ['workload-objectives.png', 'QTPCS objectives', 'Period objective progress by category — Quality, Time, People, Cost, Safety — with assigned owners.'],
-      ['workload-gantt.png', 'Activity Gantt', 'Planning and tracking of activities per person, with recurrence and Excel export.'],
-    ],
-  };
-  return (
-    <section style={{ padding: '88px 56px', background: v4S.bgCool, borderTop: `1px solid ${v4S.line}` }}>
-      <div style={{ maxWidth: 1080, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 44 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
-          <h2 style={{ fontSize: 34, fontWeight: 700, color: v4S.ink, margin: '0 0 16px', letterSpacing: -0.7, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
-          <p style={{ fontSize: 16, color: v4S.ink2, margin: '0 auto', maxWidth: 720, lineHeight: 1.65 }}>{t.sub}</p>
-        </div>
-        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22 }}>
-          {t.shots.map((f, i) => (
-            <figure key={i} style={{ margin: 0, background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, overflow: 'hidden' }}>
-              <div style={{ overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setZoom({ img: f[0], h: f[1], b: f[2] })}>
-                <img src={'screenshots/' + f[0]} alt={f[1]} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: `1px solid ${v4S.line}` }}/>
-              </div>
-              <figcaption style={{ padding: '16px 20px' }}>
-                <div style={{ fontSize: 15, fontWeight: 700, color: v4S.ink, marginBottom: 5 }}>{f[1]}</div>
-                <div style={{ fontSize: 13, color: v4S.ink2, lineHeight: 1.5 }}>{f[2]}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-      {zoom && (
-        <div onClick={() => setZoom(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(6,10,20,0.82)', zIndex: 1000, display: 'grid', placeItems: 'center', padding: 32, cursor: 'zoom-out' }}>
-          <div style={{ maxWidth: '92vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }} onClick={e => e.stopPropagation()}>
-            <img src={'screenshots/' + zoom.img} alt={zoom.h} style={{ maxWidth: '92vw', maxHeight: '78vh', borderRadius: 10, boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}/>
-            <div style={{ color: 'white', textAlign: 'center', maxWidth: 700 }}>
-              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{zoom.h}</div>
-              <div style={{ fontSize: 13, color: '#B9C4DA' }}>{zoom.b}</div>
-            </div>
-            <button onClick={() => setZoom(null)} style={{ position: 'absolute', top: -8, right: -8, width: 32, height: 32, borderRadius: 999, border: 'none', background: 'white', color: v4S.ink, fontWeight: 700, cursor: 'pointer' }}>×</button>
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function V5PlatformHero({ lang }) {
-  const L = lang === 'es';
-  const t = L ? {
-    eyebrow: 'PLATAFORMA QMS',
-    title: 'Un motor de aprobaciones configurable, no una app rígida de calidad.',
-    sub: 'IxT-QMS digitaliza once procesos de calidad sobre el mismo motor de flujos: 8D, ECR, auditorías, MRB, calibración, instrucciones de trabajo y más comparten roles, plazos de respuesta y niveles de aprobación configurables — sin depender de que alguien reprograme el sistema cada vez que cambia su estructura organizacional. Sirve igual para una planta automotriz Tier-2 que para cualquier operación de manufactura con necesidad real de trazabilidad.',
-    cta1: 'Solicitar demo de la plataforma', cta2: 'Ver módulos',
-  } : {
-    eyebrow: 'QMS PLATFORM',
-    title: 'A configurable approval engine, not a rigid quality app.',
-    sub: 'IxT-QMS digitalizes eleven quality processes on the same workflow engine: 8D, ECR, audits, MRB, calibration, work instructions and more share configurable roles, response times and approval levels — without depending on someone reprogramming the system every time your structure changes. It works the same for a Tier-2 automotive plant as for any manufacturing operation with a real traceability need.',
-    cta1: 'Request a platform demo', cta2: 'View modules',
-  };
-  return (
-    <section style={{ padding: '96px 56px 64px', background: `linear-gradient(180deg, ${v4S.bgCool} 0%, white 100%)` }}>
-      <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 14 }}>{t.eyebrow}</div>
-        <h1 style={{ fontSize: 44, lineHeight: 1.12, fontWeight: 700, color: v4S.ink, margin: '0 0 20px', letterSpacing: -1, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h1>
-        <p style={{ fontSize: 17, color: v4S.ink2, margin: '0 auto 30px', maxWidth: 760, lineHeight: 1.65 }}>{t.sub}</p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="#form-contacto" style={{ padding: '13px 26px', borderRadius: 9, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta1}</a>
-          <a href="#software" style={{ padding: '13px 26px', borderRadius: 9, border: `1px solid ${v4S.line}`, color: v4S.ink, fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta2}</a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function V5Pricing({ lang }) {
-  const L = lang === 'es';
-  const t = L ? {
-    badge: 'PRECIO FUNDADOR · CUPO LIMITADO',
-    title: 'Dos formas de tener la plataforma.',
-    sub: 'Precios de lanzamiento para los primeros clientes. Aumentan conforme se llenan los cupos de instalación.',
-    tiers: [
-      { name: 'On-Premise', period: '/ año, con mantenimiento', rows: [
-        ['Hasta 20 usuarios', 'desde $5,000 USD'],
-        ['21 a 50 usuarios', 'desde $7,000 USD'],
-        ['Más de 50 usuarios', 'desde $10,000 USD'],
-      ], note: 'Incluye actualizaciones, soporte y alojamiento en su servidor.' },
-      { name: 'Buyout / White-Label', period: 'pago único, sin mantenimiento', rows: [
-        ['Hasta 20 usuarios', 'desde $20,000 USD'],
-        ['21 a 50 usuarios', 'desde $30,000 USD'],
-        ['Más de 50 usuarios', 'desde $50,000 USD'],
-      ], note: 'Código fuente completo. Sin renta anual ni dependencia de nosotros.' },
-    ],
-    custom: 'Los precios varían según personalización, integraciones y número de plantas. Cotización final tras una llamada de alcance.',
-    build: 'Construirlo internamente: un año de desarrollo con un equipo de 4 personas (consultor experto en manufactura para mapeo y levantamiento, $10,000 USD; más 1 desarrollador backend, 1 frontend, 1 UI/UX y 1 QA, $2,000 USD al mes cada uno) — sin garantía de cubrir todo lo que ya necesita, y arranca hasta que esté listo. Con IxT-QMS, implementación al día siguiente.',
-    cta: 'Solicitar cotización',
-  } : {
-    badge: 'FOUNDERS PRICING · LIMITED SLOTS',
-    title: 'Two ways to own the platform.',
-    sub: 'Launch pricing for our first customers. Prices rise as installation slots fill up.',
-    tiers: [
-      { name: 'On-Premise', period: '/ year, with maintenance', rows: [
-        ['Up to 20 users', 'from $5,000 USD'],
-        ['21 to 50 users', 'from $7,000 USD'],
-        ['Over 50 users', 'from $10,000 USD'],
-      ], note: 'Includes updates, support and hosting on your server.' },
-      { name: 'Buyout / White-Label', period: 'one-time, no maintenance', rows: [
-        ['Up to 20 users', 'from $20,000 USD'],
-        ['21 to 50 users', 'from $30,000 USD'],
-        ['Over 50 users', 'from $50,000 USD'],
-      ], note: 'Full source code. No annual fee, no dependency on us.' },
-    ],
-    custom: 'Prices vary based on customization, integrations and number of plants. Final quote after a scoping call.',
-    build: "Building it in-house: one year of development with a 4-person team (manufacturing expert consultant for mapping and discovery, $10,000 USD; plus 1 backend developer, 1 frontend, 1 UI/UX and 1 QA, $2,000 USD per month each) — no guarantee it covers everything you already need, and it starts working only once it's done. With IxT-QMS, implementation next day.",
-    cta: 'Request a quote',
-  };
-  return (
-    <section id="precios" style={{ padding: '80px 56px', background: 'white', borderTop: `1px solid ${v4S.line}` }}>
-      <div style={{ maxWidth: 980, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 44 }}>
-          <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: 0.8, color: v4S.primary, background: v4S.bgCool, padding: '6px 14px', borderRadius: 999, marginBottom: 16 }}>{t.badge}</div>
-          <h2 style={{ fontSize: 32, fontWeight: 700, color: v4S.ink, margin: '0 0 12px', letterSpacing: -0.6, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
-          <p style={{ fontSize: 15.5, color: v4S.ink2, margin: 0 }}>{t.sub}</p>
-        </div>
-        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, marginBottom: 24 }}>
-          {t.tiers.map((tier, i) => (
-            <div key={i} style={{ border: `1px solid ${v4S.line}`, borderRadius: 14, padding: '28px 26px', background: i === 0 ? v4S.bgCool : 'white' }}>
-              <div style={{ fontSize: 18, fontWeight: 700, color: v4S.ink, marginBottom: 2 }}>{tier.name}</div>
-              <div style={{ fontSize: 12.5, color: v4S.muted, marginBottom: 18 }}>{tier.period}</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 18 }}>
-                {tier.rows.map(([label, price], j) => (
-                  <div key={j} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, borderBottom: j < tier.rows.length - 1 ? `1px solid ${v4S.line}` : 'none', paddingBottom: 8 }}>
-                    <span style={{ color: v4S.ink2 }}>{label}</span>
-                    <span style={{ fontWeight: 700, color: v4S.ink }}>{price}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ fontSize: 12.5, color: v4S.muted, fontStyle: 'italic' }}>{tier.note}</div>
-            </div>
-          ))}
-        </div>
-        <p style={{ fontSize: 13, color: v4S.muted, textAlign: 'center', maxWidth: 620, margin: '0 auto 10px', lineHeight: 1.6 }}>{t.custom}</p>
-        <p style={{ fontSize: 13, color: v4S.ink2, textAlign: 'center', maxWidth: 620, margin: '0 auto 24px', lineHeight: 1.6, fontStyle: 'italic' }}>{t.build}</p>
-        <div style={{ textAlign: 'center' }}>
-          <a href="#form-contacto" style={{ display: 'inline-block', padding: '13px 28px', borderRadius: 9, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta}</a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function V5Software({ lang }) {
-  const [zoom, setZoom] = React.useState(null);
-  React.useEffect(() => {
-    if (!zoom) return;
-    const onKey = e => { if (e.key === 'Escape') setZoom(null); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [zoom]);
-  const L = lang === 'es';
-  const t = L ? {
-    eyebrow: 'LA PLATAFORMA', title: 'Un motor de aprobaciones configurable, no una app rígida de calidad.',
-    sub: 'IxT-QMS digitaliza once procesos de calidad sobre el mismo motor de flujos: 8D, ECR, auditorías, MRB, calibración, instrucciones de trabajo y más comparten roles, plazos de respuesta y niveles de aprobación configurables — sin depender de que alguien reprograme el sistema cada vez que cambia su estructura organizacional. Sirve igual para una planta automotriz Tier-2 que para cualquier operación de manufactura con necesidad real de trazabilidad.',
-    engineH: 'EL DIFERENCIADOR', engineT: 'Un motor, no un módulo por proceso',
-    engineB: 'La mayoría de los sistemas de calidad tratan cada proceso como un módulo aislado, con su flujo fijo de fábrica. En IxT-QMS los pasos de aprobación, los roles y los plazos de respuesta se configuran una vez y se reutilizan en 8D, ECR, auditorías y órdenes de trabajo por igual — sin consultoría de reconfiguración cada vez que cambia su organización.',
-    flagH: 'MÓDULOS CON MAYOR EVIDENCIA',
-    home: { h: 'Todo converge en un solo Home', b: 'Pendientes del día, carga de trabajo y open items de 8D, QAR y ECR en una sola pantalla al iniciar sesión — con acceso directo a los 11 módulos. No es un menú: es el punto donde el sistema le dice a cada persona qué le toca hoy.', img: 'home-dashboard.png' },
-    flag: [
-      { h: 'Inspección de especificaciones', b: 'Cada spec se evalúa como cualitativa (OK/NOK/N-A) o cuantitativa (medición contra tolerancia) — configurado por parte, no capturado a mano.', img: 'spec-inspeccion.png' },
-      { h: 'QAR — alerta automática', b: 'Al marcar un spec crítico como NOK, el sistema ofrece emitir el QAR ahí mismo, con severidad y specs afectadas ya cargados. El dashboard da SLA de respuesta y cierre en vivo, por departamento y cliente.', img: 'qar-auto.png' },
-      { h: 'Hospital de defectos', b: 'Cada pieza retenida con su tiempo abierto en vivo y tres salidas posibles: reparar, cuarentena o scrap. Mientras esté retenida, el sistema la excluye del flujo normal de producción — no depende de que alguien la separe físicamente.', img: 'hospital-reparacion.png' },
-      { h: 'MRB', b: 'Yield, PPM, costo de scrap y mano de obra por campaña, mes y departamento — inspección uno a uno o masiva con tally sheet por severidad y disposición. Permite cargar seriales afectados y ponerlos en cuarentena, evitando fugas o entregas fuera de clean point al cliente.', img: 'mrb-dashboard-yield.png' },
-      { h: '8D', b: 'Costo total, SLA de D4, % vencidos y % sin causa raíz, con top causas raíz por frecuencia — y aprobación escalonada por fase (D3 a D6), no una sola firma al cierre.', img: '8d-dashboard-kpi.png' },
-      { h: 'ECR', b: 'Balance neto por scrap, inversión y ahorro; matriz de riesgo severidad x ocurrencia, y funnel de adopción ECR-1 a ECR-4 por cliente.', img: 'ecr-dashboard.png' },
-      { h: 'Calibración', b: 'Vencimientos por equipo con alertas por antelación configurable, historial de certificados y costo por calibración — lista para auditoría.', img: 'calibracion-equipos.png' },
-      { h: 'Skills & Training', b: 'Radar de habilidades por persona (técnicas, operativas, soft skills) y curva de desarrollo por evaluación — no solo asistencia a cursos, sino nivel real alcanzado.', img: 'skills-mi-equipo.png' },
-      { h: 'Auditorías', b: 'Calendario anual por programa configurable — seguridad, 5S, contramedidas o el que usted defina — con agendado recurrente, auditor líder, co-auditores y estado; checklist de validación con juicio, evidencia y ronda de seguimiento por hallazgo.', img: 'auditorias-calendario2.png' },
-      { h: 'Instrucciones de trabajo', b: 'Revisión controlada por parte y proyecto, con certificaciones ILUO y risk assessment ligados a la misma instrucción — no solo el documento, el expediente completo.', img: 'work-instructions-overview.png' },
-    ],
-    modsH: 'RESTO DE MÓDULOS',
-    mods: [],
-    note: 'Licencia cotizada por número de plantas y usuarios, según alcance.',
-    cta: 'Solicitar demo de la plataforma →',
-    secH: 'CONTROL DE ACCESO', secT: 'Permisos por rol, no por usuario suelto',
-    secB: 'Cada rol —de Inspector a Gerente de Calidad— tiene un nivel de acceso y un alcance de módulo definido de fábrica: quién puede capturar, quién puede aprobar y quién solo puede consultar. Se configura una vez, sin depender de que alguien recuerde revocar accesos manualmente.',
-  } : {
-    eyebrow: 'THE PLATFORM', title: 'A configurable approval engine, not a rigid quality app.',
-    sub: 'IxT-QMS digitalizes eleven quality processes on the same workflow engine: 8D, ECR, audits, MRB, calibration, work instructions and more share configurable roles, response times and approval levels — without depending on someone reprogramming the system every time your structure changes. It works the same for a Tier-2 automotive plant as for any manufacturing operation with a real traceability need.',
-    engineH: 'THE DIFFERENTIATOR', engineT: 'One engine, not one module per process',
-    engineB: 'Most quality systems treat each process as an isolated module, with a fixed factory workflow. In IxT-QMS, approval steps, roles and response times are configured once and reused across 8D, ECR, audits and work orders alike — no reconfiguration consulting every time your organization changes.',
-    flagH: 'MODULES WITH THE STRONGEST EVIDENCE',
-    home: { h: 'It all converges in one Home', b: 'Daily reminders, workload and open items from 8D, QAR and ECR on a single screen at login — with direct access to all 11 modules. It is not a menu: it is where the system tells each person what is theirs to do today.', img: 'home-dashboard.png' },
-    flag: [
-      { h: 'Spec inspection', b: 'Each spec is evaluated as qualitative (OK/NOK/N-A) or quantitative (measurement against tolerance) — configured per part, not captured by hand.', img: 'spec-inspeccion.png' },
-      { h: 'QAR — automatic alert', b: 'When a critical spec is marked NOK, the system offers to issue the QAR right there, with severity and affected specs already filled in. The dashboard gives live response and closure SLA, by department and customer.', img: 'qar-auto.png' },
-      { h: 'Defect hospital', b: 'Every held part with its live open time and three possible exits: repair, quarantine or scrap. While it stays held, the system excludes it from the normal production flow — it does not depend on someone physically setting it aside.', img: 'hospital-reparacion.png' },
-      { h: 'MRB', b: 'Yield, PPM, scrap and labor cost by campaign, month and department — one-by-one or mass inspection with a tally sheet by severity and disposition. Affected serials can be logged and quarantined, preventing leaks or shipments outside the customer clean point.', img: 'mrb-dashboard-yield.png' },
-      { h: '8D', b: 'Total cost, D4 SLA, % overdue and % without root cause, with top root causes by frequency — and staged approval by phase (D3 to D6), not a single sign-off at closure.', img: '8d-dashboard-kpi.png' },
-      { h: 'ECR', b: 'Net balance from scrap, investment and savings; severity x occurrence risk matrix, and ECR-1 to ECR-4 adoption funnel by customer.', img: 'ecr-dashboard.png' },
-      { h: 'Calibration', b: 'Equipment due dates with configurable advance alerts, certificate history and cost per calibration — audit-ready.', img: 'calibracion-equipos.png' },
-      { h: 'Skills & Training', b: 'Per-person skill radar (technical, operational, soft skills) and development curve by evaluation — not just course attendance, but actual level reached.', img: 'skills-mi-equipo.png' },
-      { h: 'Audits', b: 'Configurable annual calendar by program — safety, 5S, countermeasures or whatever you define — with recurring scheduling, lead auditor, co-auditors and status; validation checklist with judgment, evidence and follow-up round per finding.', img: 'auditorias-calendario2.png' },
-      { h: 'Work instructions', b: 'Controlled revision by part and project, with ILUO certifications and risk assessment tied to the same instruction — not just the document, the full record.', img: 'work-instructions-overview.png' },
-    ],
-    modsH: 'REMAINING MODULES',
-    mods: [],
-    note: 'License quoted by number of plants and users, according to scope.',
-    cta: 'Request a platform demo →',
-    secH: 'ACCESS CONTROL', secT: 'Permissions by role, not by loose user',
-    secB: 'Every role — from Inspector to Quality Manager — has a defined access level and module scope out of the box: who can capture, who can approve, and who can only view. Configured once, without depending on someone remembering to revoke access manually.',
-  };
-  return (
-    <section id="software" style={{ padding: '40px 56px 88px', background: 'white', borderTop: `1px solid ${v4S.line}` }}>
-      <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', marginBottom: 40, padding: '24px 28px', borderLeft: `3px solid ${v4S.primary}`, background: v4S.bgCool, borderRadius: '0 12px 12px 0' }}>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 10.5, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 8 }}>{t.engineH}</div>
-            <h3 style={{ fontFamily: '"Source Serif 4", Georgia, serif', fontSize: 21, fontWeight: 700, color: v4S.ink, margin: '0 0 8px', letterSpacing: -0.4 }}>{t.engineT}</h3>
-            <p style={{ fontSize: 14.5, color: v4S.ink, margin: 0, lineHeight: 1.6 }}>{t.engineB}</p>
-          </div>
-        </div>
-        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: v4S.muted, textTransform: 'uppercase', marginBottom: 16 }}>{t.flagH}</div>
-        <figure style={{ margin: '0 0 24px', background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, overflow: 'hidden', display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1 1 420px', minWidth: 280, maxWidth: '100%', overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setZoom(t.home)}>
-            <img src={'screenshots/' + t.home.img} alt={t.home.h} loading="lazy" style={{ width: '100%', display: 'block', borderRight: `1px solid ${v4S.line}` }}/>
-          </div>
-          <figcaption style={{ flex: '1 1 260px', padding: '26px 28px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div style={{ fontSize: 18, fontWeight: 700, color: v4S.ink, marginBottom: 8, letterSpacing: -0.3 }}>{t.home.h}</div>
-            <div style={{ fontSize: 13.5, color: v4S.ink2, lineHeight: 1.6 }}>{t.home.b}</div>
-          </figcaption>
-        </figure>
-        <div className="g10" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 18, marginBottom: 40 }}>
-          {t.flag.map((f, i) => (
-            <figure key={i} className="flagshot" style={{ margin: 0, background: 'white', border: `1px solid ${v4S.line}`, borderRadius: 12, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-              <div style={{ overflow: 'hidden', borderRadius: '12px 12px 0 0', cursor: 'zoom-in' }} onClick={() => setZoom(f)}>
-                <img src={'screenshots/' + f.img} alt={f.h} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: `1px solid ${v4S.line}` }}/>
-              </div>
-              <figcaption style={{ padding: '14px 16px 16px' }}>
-                <div style={{ fontSize: 14.5, fontWeight: 700, color: v4S.ink, marginBottom: 5, letterSpacing: -0.2 }}>{f.h}</div>
-                <div style={{ fontSize: 12, color: v4S.muted, lineHeight: 1.5 }}>{f.b}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        {t.mods.length > 0 && <React.Fragment>
-        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: v4S.muted, textTransform: 'uppercase', marginBottom: 16 }}>{t.modsH}</div>
-        <div className="g5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 14, marginBottom: 30 }}>
-          {t.mods.map(([h, b], i) => (
-            <div key={i} style={{ border: `1px solid ${v4S.line}`, borderRadius: 12, padding: '16px 16px 14px' }}>
-              <div style={{ fontSize: 13.5, fontWeight: 700, color: v4S.ink, marginBottom: 5, letterSpacing: -0.2 }}>{h}</div>
-              <div style={{ fontSize: 11.5, color: v4S.ink2, lineHeight: 1.45 }}>{b}</div>
-            </div>
-          ))}
-        </div>
-        </React.Fragment>}
-        <div className="rolesbox" style={{ display: 'flex', gap: 24, alignItems: 'center', marginBottom: 40, padding: '24px 28px', border: `1px solid ${v4S.line}`, borderRadius: 12 }}>
-          <img className="rolesimg" src="screenshots/roles-config.png" alt={t.secT} loading="lazy" onClick={() => setZoom({ img: 'roles-config.png', h: t.secT, b: '' })} style={{ width: '46%', borderRadius: 8, border: `1px solid ${v4S.line}`, cursor: 'zoom-in' }}/>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 10.5, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 8 }}>{t.secH}</div>
-            <h3 style={{ fontFamily: '"Source Serif 4", Georgia, serif', fontSize: 21, fontWeight: 700, color: v4S.ink, margin: '0 0 8px', letterSpacing: -0.4 }}>{t.secT}</h3>
-            <p style={{ fontSize: 14.5, color: v4S.ink2, margin: 0, lineHeight: 1.6 }}>{t.secB}</p>
-          </div>
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: 13, color: v4S.muted, margin: '0 0 18px', fontStyle: 'italic' }}>{t.note}</p>
-          <a href="#form-contacto" style={{ display: 'inline-block', padding: '13px 26px', borderRadius: 9, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta}</a>
-        </div>
-      </div>
-      {zoom && (
-        <div onClick={() => setZoom(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(6,10,20,0.82)', zIndex: 1000, display: 'grid', placeItems: 'center', padding: 32, cursor: 'zoom-out' }}>
-          <div style={{ maxWidth: '92vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }} onClick={e => e.stopPropagation()}>
-            <img src={'screenshots/' + zoom.img} alt={zoom.h} style={{ maxWidth: '92vw', maxHeight: '78vh', borderRadius: 10, boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}/>
-            <div style={{ color: 'white', textAlign: 'center', maxWidth: 700 }}>
-              <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{zoom.h}</div>
-              <div style={{ fontSize: 13, color: '#B9C4DA' }}>{zoom.b}</div>
-            </div>
-            <button onClick={() => setZoom(null)} style={{ position: 'absolute', top: -8, right: -8, width: 32, height: 32, borderRadius: 999, border: 'none', background: 'white', color: v4S.ink, fontWeight: 700, cursor: 'pointer' }}>×</button>
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
-
 function V5Diagnostico({ lang }) {
   const L = lang === 'es';
   const t = L ? {
@@ -939,13 +651,13 @@ function V5Diagnostico({ lang }) {
       { n: '0', h: 'Primer contacto', tag: 'Sin costo', tagC: '#0E9F6E',
         items: ['Llamada de calificación de 30 minutos', 'Demostración de la plataforma con datos ficticios', 'White papers de metodología'] },
       { n: '1', h: 'Quick Assessment', tag: 'Remoto', tagC: '#1D4FD7',
-        items: ['Evaluación de procesos de calidad y principales riesgos operativos', 'Reporte ejecutivo con recomendaciones y siguientes pasos'],
+        items: ['Evaluación de procesos de calidad y principales riesgos operativos', 'Identificación de oportunidades de mejora y prioridades', 'Reporte ejecutivo con recomendaciones y siguientes pasos'],
         foot: 'Se realiza de forma remota. Si se requiere visita a planta fuera de Aguascalientes, pasa a Nivel 2.' },
       { n: '2', h: 'Diagnóstico en planta', tag: 'Con cotización', tagC: '#1D4FD7',
         items: ['Visita a planta con alcance y entregable definidos', 'Propuesta técnica detallada', 'Índice detallado de formación'],
         foot: 'Acreditable contra el programa si se contrata dentro de 30 días.' },
-      { n: '3', h: 'Implementación de proyectos', tag: 'Contrato anual', tagC: '#0B2545',
-        items: ['Implementación, formación privada, representación técnica o digitalización', 'Seguimiento continuo con entregables por periodo'] },
+      { n: '3', h: 'Programa', tag: 'Contrato anual', tagC: '#0B2545',
+        items: ['Implementación, formación privada, representación técnica o digitalización', 'Acceso a la plataforma IxT-QMS incluido, instalada en su servidor', 'Seguimiento continuo con entregables por periodo'] },
     ],
     costH: 'ANTES DE ESCRIBIR',
     costT: 'Ponga números a lo que ya está pagando.',
@@ -972,13 +684,13 @@ function V5Diagnostico({ lang }) {
       { n: '0', h: 'First contact', tag: 'No cost', tagC: '#0E9F6E',
         items: ['30-minute qualification call', 'Platform demo with sample data', 'Methodology white papers'] },
       { n: '1', h: 'Quick Assessment', tag: 'Remote', tagC: '#1D4FD7',
-        items: ['Review of quality processes and main operational risks', 'Executive report with recommendations and next steps'],
+        items: ['Review of quality processes and main operational risks', 'Identification of improvement opportunities and priorities', 'Executive report with recommendations and next steps'],
         foot: 'Delivered remotely. If a plant visit outside Aguascalientes is required, it moves to Level 2.' },
       { n: '2', h: 'On-site assessment', tag: 'Quoted', tagC: '#1D4FD7',
         items: ['Plant visit with defined scope and deliverable', 'Detailed technical proposal', 'Detailed training syllabus'],
         foot: 'Creditable against the program if contracted within 30 days.' },
-      { n: '3', h: 'Project implementation', tag: 'Annual contract', tagC: '#0B2545',
-        items: ['Implementation, private training, technical representation or digitalization', 'Ongoing follow-up with deliverables per period'] },
+      { n: '3', h: 'Program', tag: 'Annual contract', tagC: '#0B2545',
+        items: ['Implementation, private training, technical representation or digitalization', 'IxT-QMS platform included, installed on your server', 'Ongoing follow-up with deliverables per period'] },
     ],
     costH: 'BEFORE YOU WRITE',
     costT: 'Put numbers on what you are already paying.',
@@ -1075,7 +787,7 @@ function V5Form({ L }) {
     h: 'Agendar reunión de descubrimiento', sub: 'Respondemos en menos de 24 horas hábiles con propuesta de agenda.',
     name: 'Nombre', company: 'Empresa', role: 'Puesto', email: 'Correo corporativo', phone: 'Teléfono (opcional)',
     tier: 'Tipo de organización', tierOpts: ['OEM', 'Tier 1', 'Tier 2', 'Tier 3', 'Otro'],
-    svc: 'Servicio de interés', svcOpts: ['Lanzamiento de nuevos modelos', 'Representación técnica en planta del cliente', 'Trazabilidad de inspección y contención', 'Auditoría y seguimiento a proveedores', 'Formación en planta', 'Plataforma IxT-QMS (demo)', 'No estoy seguro'],
+    svc: 'Servicio de interés', svcOpts: ['Lanzamiento de nuevos modelos', 'Representación técnica en planta del cliente', 'Trazabilidad de inspección y contención', 'Auditoría y seguimiento a proveedores', 'Formación en planta', 'No estoy seguro'],
     msg: 'Contexto del proyecto', msgPh: 'Lanzamiento próximo, problema de calidad abierto, alcance estimado, plantas involucradas…',
     link: 'Enlace a documentación (opcional)', linkPh: 'Drive, SharePoint o WeTransfer con presentación, planos o reporte del problema',
     send: 'Enviar solicitud', sending: 'Enviando…',
@@ -1087,7 +799,7 @@ function V5Form({ L }) {
     h: 'Schedule a discovery meeting', sub: 'We reply within one business day with proposed times.',
     name: 'Name', company: 'Company', role: 'Job title', email: 'Work email', phone: 'Phone (optional)',
     tier: 'Organization type', tierOpts: ['OEM', 'Tier 1', 'Tier 2', 'Tier 3', 'Other'],
-    svc: 'Service of interest', svcOpts: ['New model launch', 'Technical representation at your customer plant', 'Inspection traceability and containment', 'Supplier audits and follow-up', 'In-plant training', 'IxT-QMS platform (demo)', 'Not sure yet'],
+    svc: 'Service of interest', svcOpts: ['New model launch', 'Technical representation at your customer plant', 'Inspection traceability and containment', 'Supplier audits and follow-up', 'In-plant training', 'Not sure yet'],
     msg: 'Project context', msgPh: 'Upcoming launch, open quality issue, estimated scope, plants involved…',
     link: 'Link to documentation (optional)', linkPh: 'Drive, SharePoint or WeTransfer with a deck, drawings or issue report',
     send: 'Send request', sending: 'Sending…',
@@ -1169,8 +881,6 @@ function V5Intro({ onDone, L }) {
     const t = setTimeout(finish, 2000);
     return () => clearTimeout(t);
   }, [finish]);
-  // nota: la barra de progreso visual (animation: iBar) está definida a 9.6s en el CSS v5CSS,
-  // pero este componente cierra a los 2s. Ajustamos el CSS para que coincida (ver v5CSS: iBar 2s).
   const mods = L
     ? ['8D', 'Alertas QAR', 'Auditorías', 'BOM de cliente', 'Hospital de defectos', 'Inspección de defectos', 'MRB · material', 'Matriz de habilidades', 'Carga de trabajo']
     : ['8D', 'QAR alerts', 'Audits', 'Customer BOM', 'Defect hospital', 'Defect inspection', 'MRB · material', 'Skills matrix', 'Workload'];
@@ -1220,7 +930,7 @@ function V5Intro({ onDone, L }) {
         </div>
       </div>
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'rgba(255,255,255,0.08)' }}>
-        <div style={{ height: '100%', background: 'linear-gradient(90deg,#1D4FD7,#7DB7FF)', transformOrigin: 'left', animation: 'iBar 2s linear both' }}></div>
+        <div style={{ height: '100%', background: 'linear-gradient(90deg,#1D4FD7,#7DB7FF)', transformOrigin: 'left', animation: 'iBar 9.6s linear both' }}></div>
       </div>
       <button className="skip" onClick={finish}>{tI.skip}</button>
     </div>
@@ -1233,7 +943,6 @@ try { sessionStorage.setItem('ixSeenAnim', '1'); } catch (e) {}
 const IX_SKIP = IX_SEEN || !!location.hash;
 
 function HomeLanding() {
-  const [view, setView] = React.useState('plataforma');
   const [lang, setLang] = React.useState(() => {
     const n = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
     return /^es/i.test(n) ? 'es' : 'en';
@@ -1273,24 +982,15 @@ function HomeLanding() {
     <div style={{ background: 'white', color: v4S.ink, fontFamily: '"Inter", system-ui, sans-serif' }}>
       <style>{v5CSS}</style>
       {intro && <V5Intro L={lang === 'es'} onDone={() => setIntro(false)}/>}
-      <V5Nav lang={lang} setLang={setLang} view={view} setView={setView}/>
-      {view === 'servicios' && <React.Fragment>
-        <V5Hero lang={lang}/>
-        <V5Creds lang={lang}/>
-        <V5Services lang={lang}/>
-        <V5Training lang={lang}/>
-        <V5Kaizen lang={lang}/>
-      </React.Fragment>}
-      {view === 'plataforma' && <React.Fragment>
-        <V5PlatformHero lang={lang}/>
-        <V5Workload lang={lang}/>
-        <V5Software lang={lang}/>
-        <V5Pricing lang={lang}/>
-        <V5Platform lang={lang}/>
-        <V4AuditSim lang={lang}/>
-        <V4Deployment lang={lang}/>
-      </React.Fragment>}
-      {view === 'servicios' && <V5Diagnostico lang={lang}/>}
+      <V5Nav lang={lang} setLang={setLang}/>
+      <V5Hero lang={lang}/>
+      <V5Creds lang={lang}/>
+      <V5Services lang={lang}/>
+      <V5Training lang={lang}/>
+      <V5Platform lang={lang}/>
+      <V5Kaizen lang={lang}/>
+      <V4AuditSim lang={lang}/>
+      <V5Diagnostico lang={lang}/>
       <V4Footer lang={lang}/>
       <a className="ixmobcta" href="#form-contacto">{lang === 'es' ? 'Agendar reunión de descubrimiento' : 'Book a discovery call'}</a>
     </div>

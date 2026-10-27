@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IxT-QMS — Catálogo de formación para manufactura</title>
+<meta name="description" content="28 cursos para manufactura: habilidades de liderazgo, diseño y lanzamiento, calidad, estándar de trabajo e ingeniería de manufactura. Aula y piso, con seguimiento a 30 y 90 días."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet"/>
+<style>
+html,body{margin:0;padding:0}
+body{font-family:"Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif}
+*{box-sizing:border-box}
+button,a{font-family:inherit}
+a{text-decoration:none;color:#1D4FD7}
+a:hover{color:#0B3AAB}
+.ixr{opacity:0;transform:translateY(30px) scale(.985);filter:blur(7px);transition:opacity .9s cubic-bezier(.16,.84,.3,1),transform .9s cubic-bezier(.16,.84,.3,1),filter .9s ease}
+.ixr.on{opacity:1;transform:none;filter:none}
+.ccard{transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+.ccard:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(11,37,69,.10);border-color:#C9D6EA}
+.chip{transition:background .2s ease,color .2s ease,border-color .2s ease}
+@keyframes ixdr{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.ixr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}.ccard{transition:none}}
+@media(max-width:900px){.pg2{grid-template-columns:1fr!important;gap:22px!important}.pg4{grid-template-columns:repeat(2,1fr)!important}.pg3{grid-template-columns:repeat(2,1fr)!important}nav{padding:12px 18px!important}section{padding-left:20px!important;padding-right:20px!important}h1{font-size:32px!important}h2{font-size:25px!important}.hidem{display:none!important}}
+@media(max-width:560px){.pg4,.pg3{grid-template-columns:1fr!important}}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const S={ink:'#0A1F3D',ink2:'#1F3A5F',muted:'#5A6B82',line:'#E2E8F0',bg:'#F6F8FB',bgCool:'#EEF3FA',primary:'#1D4FD7',primaryDark:'#0B3AAB'};
+const serif={fontFamily:'"Source Serif 4", Georgia, serif'};
+const mono={fontFamily:'"JetBrains Mono", monospace'};
+
+const FAMS={
+  hab:{c:'#7C5CC4',es:['Habilidades','Liderazgo en manufactura'],en:['Skills','Leadership in manufacturing']},
+  dis:{c:'#1D4FD7',es:['Diseño y lanzamiento','Producto y proceso nuevo'],en:['Design and launch','New product and process']},
+  cal:{c:'#C2410C',es:['Calidad y problemas','Datos y solución de problemas'],en:['Quality and problems','Data and problem solving']},
+  est:{c:'#0F766E',es:['Estándar, puesto y equipo','Supervisión y trabajo estándar'],en:['Standard, workstation and equipment','Supervision and standard work']},
+  ing:{c:'#0A1F3D',es:['Ingeniería de manufactura','Serie avanzada'],en:['Manufacturing engineering','Advanced series']},
+};
+// [código, familia, horas, título ES, línea ES, título EN, línea EN, prerrequisitos]
+const C=[
+  ['01','hab',8,'Metas y gestión del tiempo','Metas que se cumplen y tiempo protegido','Goals and time management','Goals that get met and protected time',[]],
+  ['02','hab',8,'Juntas de alto impacto','Presentar con claridad y salir con acuerdos','High-impact meetings','Present clearly and leave with agreements',[]],
+  ['03','hab',8,'Feedback y manejo de conflictos','Decir, escuchar y resolver roces','Feedback and conflict management','Say it, listen and resolve friction',[]],
+  ['04','hab',8,'Equipos de alto desempeño','Indicadores, tablero y desarrollo del equipo','High-performance teams','Indicators, board and team development',['03']],
+  ['05','hab',8,'Decisiones de alto impacto','Encontrar la causa y elegir con método','High-impact decisions','Find the cause and choose with method',['02']],
+  ['06','hab',16,'Proyectos de mejora','Mejoras justificadas y entregadas','Improvement projects','Improvements justified and delivered',['05']],
+  ['07','hab',16,'Profesional de alto valor','Integridad, cliente y plan de carrera','High-value professional','Integrity, customer and career plan',['03']],
+  ['101','dis',16,'GD&T fundamentos','Marco de control, bonus, forma y datos','GD&T fundamentals','Feature control frame, bonus, form and datums',[]],
+  ['102','dis',16,'GD&T avanzado','Posición, cabeceo y perfil','GD&T advanced','Position, runout and profile',['101']],
+  ['201','dis',16,'Lanzamiento de nuevos modelos','Del programa al Safe Launch','New model launch','From the program to Safe Launch',[]],
+  ['202','dis',8,'Evaluación de preparación del proceso','¿Cada área está lista para arrancar?','Process readiness assessment','Is every area ready to start?',['201']],
+  ['203','dis',8,'Cambios de 4M e ingeniería','Cambios controlados, sin sorpresas','4M and engineering changes','Controlled changes, no surprises',['201']],
+  ['204','cal',20,'Control de calidad','Pareto, histograma, capacidad y cartas','Quality control','Pareto, histogram, capability and charts',[]],
+  ['213','cal',8,'FAST: respuesta rápida a problemas','De la llamada de ayuda a la causa raíz','FAST: rapid problem response','From the help call to the root cause',[]],
+  ['208','cal',8,'Solución de problemas 8D','De la queja a la causa raíz','8D problem solving','From the complaint to the root cause',['213']],
+  ['209','cal',24,'Método Taguchi','Procesos robustos al ruido','Taguchi method','Processes robust to noise',['204']],
+  ['206','est',8,'Rol del supervisor en piso','Metas, estándar y gente del turno','Supervisor role on the floor','Goals, standard and the people on shift',[]],
+  ['207','est',16,'Operación estándar e instrucción','Hoja estándar, balanceo e instrucción','Standard operation and instruction','Standard sheet, balancing and instruction',[]],
+  ['210','est',8,'Entrenador en piso','Explicar, demostrar y verificar','Floor trainer','Explain, demonstrate and verify',['207']],
+  ['214','est',8,'Observación de operaciones','La realidad contra el estándar','Operations observation','Reality against the standard',['207']],
+  ['205','est',8,'Control de torque y uniones','La unión, la herramienta y la auditoría','Torque and joint control','The joint, the tool and the audit',[]],
+  ['211','est',8,'5S','Un puesto donde lo anormal se ve','5S','A workstation where the abnormal is visible',[]],
+  ['212','est',8,'TPM y automantenimiento','Automantenimiento, OEE y seis pérdidas','TPM and autonomous maintenance','Autonomous maintenance, OEE and six losses',['211']],
+  ['301','ing',8,'Tiempo estándar y productividad','Tiempo estándar, takt, capacidad y personal','Standard time and productivity','Standard time, takt, capacity and staffing',['207','214']],
+  ['302','ing',8,'Valor agregado','Lo que el cliente sí paga','Value added','What the customer actually pays for',['301']],
+  ['303','ing',16,'Mejora de procesos y balanceo','ECRS, celdas en U y balanceo','Process improvement and balancing','ECRS, U-cells and balancing',['302']],
+  ['304','ing',16,'Flujo y producción sincronizada','Kanban, mapa de flujo y SMED','Flow and synchronized production','Kanban, flow mapping and SMED',['302']],
+  ['305','ing',16,'Blitz Kaizen','Mejora de una estación crítica en dos días','Blitz Kaizen','Improving a critical station in two days',['301','302']],
+];
+const ROUTES={
+  es:[['Supervisor',['206','207','210','214','211','212']],['Ingeniería de procesos',['207','214','301','302','303','304','305']],['Calidad',['204','213','208','209']]],
+  en:[['Supervisor',['206','207','210','214','211','212']],['Process engineering',['207','214','301','302','303','304','305']],['Quality',['204','213','208','209']]],
+};
+const T={
+  es:{navHome:'Inicio',navSvc:'Servicios',navHere:'Formación',navCta:'Agendar reunión',
+    eyebrow:'FORMACIÓN · AULA + PISO',title:'Catálogo de formación para manufactura.',
+    sub:'Habilidades de liderazgo, técnica de base e ingeniería de manufactura avanzada. Cada curso se imparte con casos de planta, práctica en el piso y seguimiento en el área.',
+    stats:[['28','cursos'],['324','horas de programa'],['5','familias'],['30 · 90','días de seguimiento en el área']],
+    gainH:'QUÉ GANA LA EMPRESA',gains:['Líderes que dirigen y deciden','Menos defectos y quejas del cliente','El mismo estándar en todos los turnos','Más productividad, y mejoras que se sostienen'],
+    catH:'LOS CURSOS',catT:'Veintiocho cursos, cinco familias.',all:'Todos',hours:'h',pre:'Antes:',courses:'cursos',see:'Ver temario',whyA:'LO QUE PASA',whyB:'LO QUE SE NOTA',dObj:'Objetivo',dMod:'Módulos',dBen:'Beneficio para la empresa',dEnt:'Lo que entrega el participante',dPre:'Se recomienda tomar antes',dCta:'Solicitar este curso',dClose:'Cerrar',
+    routesH:'RUTAS SUGERIDAS POR PUESTO',routesT:'Por dónde empezar, según quién se forma.',routesS:'Cada curso puede tomarse solo. Las rutas ordenan los prerrequisitos para que cada curso construya sobre el anterior.',
+    howH:'CÓMO TRABAJAMOS',howT:'Del diagnóstico al seguimiento.',
+    how:[['01','Diagnóstico','Una visita a la planta: qué duele y a quién formar.'],['02','Adaptación','Casos y formatos con datos de su operación.'],['03','Impartición','Aula y piso, con cuadernillo, formatos en Excel y examen.'],['04','Seguimiento','Revisión en el área a 30 y 90 días.']],
+    incH:'CADA CURSO INCLUYE',inc:['Casos tomados de planta','Una dinámica práctica por módulo','Formatos en Excel, sin macros','Cuadernillo por participante','Examen y constancia'],
+    note:'La duración indicada es la del programa base. Se ajusta al nivel del grupo y a lo que se encuentre en el diagnóstico.',
+    ctaT:'¿Quiere formar a su equipo?',ctaS:'En la reunión de descubrimiento revisamos a quién conviene formar primero y armamos la ruta para su planta.',ctaB:'Agendar reunión de descubrimiento',back:'Ver las líneas de servicio',
+    foot:'Aguascalientes, México · Cobertura en planta: Bajío, Norte y Centro del país',rights:'Todos los derechos reservados',priv:'Aviso de privacidad'},
+  en:{navHome:'Home',navSvc:'Services',navHere:'Training',navCta:'Book a call',
+    eyebrow:'TRAINING · CLASSROOM + FLOOR',title:'Training catalog for manufacturing.',
+    sub:'Leadership skills, core technical skills and advanced manufacturing engineering. Every course is delivered with plant cases, practice on the floor and follow-up in the area.',
+    stats:[['28','courses'],['324','program hours'],['5','families'],['30 · 90','days of follow-up in the area']],
+    gainH:'WHAT THE COMPANY GAINS',gains:['Leaders who direct and decide','Fewer defects and customer complaints','The same standard on every shift','More productivity, and improvements that last'],
+    catH:'THE COURSES',catT:'Twenty-eight courses, five families.',all:'All',hours:'h',pre:'Before:',courses:'courses',see:'See syllabus',whyA:'WHAT HAPPENS',whyB:'WHAT YOU NOTICE',dObj:'Objective',dMod:'Modules',dBen:'Benefit for the company',dEnt:'What the participant delivers',dPre:'Recommended beforehand',dCta:'Request this course',dClose:'Close',
+    routesH:'SUGGESTED ROUTES BY ROLE',routesT:'Where to start, depending on who is being trained.',routesS:'Every course can be taken on its own. Routes order the prerequisites so each course builds on the previous one.',
+    howH:'HOW WE WORK',howT:'From diagnosis to follow-up.',
+    how:[['01','Diagnosis','One plant visit: what hurts and who to train.'],['02','Adaptation','Cases and formats with data from your operation.'],['03','Delivery','Classroom and floor, with workbook, Excel formats and exam.'],['04','Follow-up','Review in the area at 30 and 90 days.']],
+    incH:'EVERY COURSE INCLUDES',inc:['Cases taken from the plant','One hands-on exercise per module','Excel formats, no macros','Workbook per participant','Exam and certificate of completion'],
+    note:'Stated duration is for the base program. It is adjusted to the group level and to what the diagnosis finds.',
+    ctaT:'Want to train your team?',ctaS:'In the discovery meeting we review who to train first and build the route for your plant.',ctaB:'Book a discovery meeting',back:'See the service lines',
+    foot:'Aguascalientes, Mexico · On-site coverage: Bajío, Northern and Central Mexico',rights:'All rights reserved',priv:'Privacy notice'},
+};
+const byCode=Object.fromEntries(C.map(c=>[c[0],c]));
+const DET={"101":{"t":"GD&T Fundamentos · ASME Y14.5-2018","o":"Leer e interpretar cualquier marco de control geométrico, calcular la condición virtual y la tolerancia adicional (bonus), y entender los datos de referencia de una pieza real.","m":["Por qué GD&T","Símbolos y marco de control","Tamaño, MMC/LMC y Regla #1","Condición virtual y bonus","Forma I: planitud y rectitud","Forma II: circularidad y cilindricidad","Datos y sistema de referencia","Objetivos de dato y selección"],"b":"Menos piezas rechazadas o aceptadas por una mala lectura del dibujo, menos discusiones con clientes y proveedores, y mediciones que verifican lo que el diseño pide.","e":"La lectura correcta de los marcos de control de un dibujo real, con los cambios de la edición 2018 identificados."},"102":{"t":"GD&T Avanzado · ASME Y14.5-2018","o":"Calcular e interpretar tolerancias de posición, perfil y cabeceo, incluidos el desplazamiento de dato y los patrones compuestos.","m":["Datos de elementos de tamaño","Desplazamiento de dato","Orientación","Posición I: fundamentos y cálculo","Posición II: aplicaciones y sujetadores","Posición compuesta y patrones","Cabeceo, concentricidad y simetría","Perfil"],"b":"Dibujos revisados antes de liberarse, menos problemas de ensamble en el lanzamiento y menos costo por tolerancias más cerradas de lo necesario.","e":"Cálculos de posición con bonus, la fórmula de sujetadores aplicada y la revisión de un dibujo antes de liberarlo."},"201":{"t":"Lanzamiento de Nuevos Modelos: del Programa al Safe Launch","o":"Organizar a la gente, los documentos, el empaque, el trabajo, el entrenamiento y el equipo de un nuevo modelo, y proteger al cliente durante el arranque.","m":["El programa de un nuevo modelo","Equipo y líder del proyecto","Estandarización del proceso","Diseño de empaque","Asignación de trabajo y balanceo","Entrenamiento y certificación","Equipo, instalaciones y pilotajes","Safe Launch y respuesta a problemas"],"b":"Arranques a tiempo y con menos defectos, problemas detectados en los pilotajes y no en el cliente, y una curva de arranque más corta.","e":"El programa con sus eventos, el diseño de empaque, la asignación de trabajo, el plan de entrenamiento y un plan de Safe Launch."},"202":{"t":"Evaluación de Preparación del Proceso","o":"Evaluar con datos si cada área está lista para el siguiente evento del lanzamiento y armar planes de recuperación para lo que no lo está.","m":["Qué es y cuándo se evalúa","Construir la lista de ítems","Calificar y verificar","Plan de recuperación"],"b":"Riesgos del lanzamiento visibles con semanas de anticipación, decisiones de arranque basadas en datos y menos sorpresas el día del inicio de producción.","e":"Una lista de puntos por evaluar con metas por evento, el puntaje de cada área y sus planes de recuperación."},"203":{"t":"Gestión de Cambios de 4M e Ingeniería","o":"Clasificar, evaluar, aprobar e implementar cambios de mano de obra, máquina, material, método e ingeniería, con punto de corte y verificación.","m":["Por qué controlar los cambios","Tipos de cambio","El cambio planeado paso a paso","Cambios no planeados","Task Force y confirmación final","Aplicación en piso"],"b":"Ningún cambio sin aviso al cliente, trazabilidad de cada modificación y menos defectos por cambios no controlados.","e":"Un procedimiento de cambio con punto de corte y verificación, y la lista de confirmación final del grupo de trabajo (Task Force)."},"204":{"t":"Control de Calidad","o":"Usar las herramientas estadísticas básicas para entender y controlar un proceso: estratificación, Pareto, análisis de causas, histograma, capacidad y cartas de control.","m":["Calidad y el cliente","Aseguramiento y control","Datos y variación","Estratificación, verificación y Pareto","Análisis de causas","Histograma","Capacidad del proceso","Cartas de control"],"b":"Decisiones de calidad basadas en datos, menos defectos al atacar las causas principales y capacidad del proceso demostrada ante el cliente.","e":"Un Pareto, un histograma, un estudio de capacidad y una carta de control hechos con datos de su propia planta."},"205":{"t":"Control de Torque y Uniones Atornilladas","o":"Entender cómo se comporta una unión atornillada, especificar y clasificar uniones, elegir la herramienta de apriete correcta y auditar el torque en la línea.","m":["Para qué se aprieta un tornillo","La unión","Especificar y clasificar","Herramientas de apriete","Medir y auditar el torque","La estación y el taller"],"b":"Menos fallas en campo y reclamos por uniones flojas, la herramienta adecuada para cada unión y auditorías de torque que detectan desviaciones a tiempo.","e":"Las uniones de su planta clasificadas, la herramienta correcta para cada una y una auditoría de torque analizada."},"206":{"t":"Rol del Supervisor en Piso","o":"Organizar el trabajo del supervisor en torno a sus tres responsabilidades: lograr las metas, estandarizar y mejorar el trabajo, y desarrollar a su gente.","m":["El rol del supervisor","Lograr las metas","Estandarizar y mejorar","Desarrollar a la gente","El ciclo de control del supervisor"],"b":"Turnos que cumplen sus metas de forma constante, supervisores que controlan su área en lugar de apagar incendios y personal mejor preparado.","e":"Los 20 puntos de control del supervisor organizados en su rutina diaria, semanal y mensual."},"207":{"t":"Operación Estándar e Instrucción en el Puesto","o":"Analizar una operación, escribir su hoja estándar, asignar y balancear el trabajo, y enseñarlo para que cualquier operador lo haga igual.","m":["La operación estándar","Analizar y mejorar el método","Pasos, puntos clave y razones","Tipos de hoja y carpeta de estándares","Asignación de trabajo y balanceo","Combinación hombre-máquina","Instrucción en el puesto","Mantener y mejorar el estándar"],"b":"Calidad y productividad iguales en todos los turnos, entrenamientos más cortos y un estándar que sirve de base para mejorar.","e":"Las hojas de análisis, asignación y combinación de una operación real, y la instrucción practicada en 4 pasos."},"208":{"t":"Solución de Problemas 8D","o":"Resolver una queja del cliente con el método 8D: contener, encontrar y confirmar la causa raíz, corregir y evitar que se repita.","m":["El método: 8D y QC-Story","D0 a D2: preparar, equipo y describir","D3: contención","D4: causa raíz","D5 y D6: acciones y validación","D7 y D8: prevenir y cerrar"],"b":"Quejas cerradas a tiempo y con evidencia, menos problemas que regresan y una mejor calificación ante el cliente.","e":"Un 8D completo de un caso, de la D0 a la D8, y una lista de verificación para evaluar los 8D de su planta."},"209":{"t":"Método Taguchi: procesos robustos","o":"Diseñar y analizar experimentos con arreglos ortogonales y relación señal-ruido, para que un proceso dé el mismo resultado aunque cambien el clima, el material o el desgaste.","m":["Antecedentes y robustez","Función, ruido y control","Relación señal-ruido","Arreglos ortogonales","Las 5 fases y los 9 pasos","El experimento L18 del helicóptero","Características dinámicas","La catapulta y el tiro al blanco"],"b":"Procesos que producen bien a la primera y con menos ajustes, menos desperdicio por variación y mejoras logradas sin invertir en equipo nuevo.","e":"Dos experimentos completos hechos por los participantes y el plan de un experimento para un proceso de su planta."},"210":{"t":"Entrenador en Piso: método de 3 pasos","o":"Preparar e impartir un entrenamiento en el puesto con el método de 3 pasos (explicar, demostrar y verificar) y liberar al operador con criterios claros.","m":["El entrenador en piso","Preparar el entrenamiento","Paso 1: explicar","Paso 2: demostrar y que lo haga","Paso 3: verificar y dar seguimiento","Liberar y certificar"],"b":"Operadores nuevos productivos desde la primera semana, menos defectos causados por personal nuevo y entrenamientos iguales sin importar quién los imparta.","e":"Un plan de entrenamiento, una operación enseñada en 3 pasos y la evaluación del entrenador con criterios obligatorios."},"211":{"t":"5S: un puesto donde lo anormal se ve","o":"Aplicar las 5S en un puesto real: clasificar, ordenar, limpiar, estandarizar y sostener con auditorías.","m":["Por qué 5S","Clasificar","Ordenar","Limpiar","Estandarizar","Sostener y evaluar"],"b":"Menos tiempo perdido en buscar, errores y riesgos de seguridad visibles a simple vista, y áreas listas para la visita del cliente.","e":"El estado de referencia de un puesto, su evaluación con 12 criterios y una lista de auditoría con seguimiento de hallazgos."},"212":{"t":"TPM: equipos que no fallan por descuido","o":"Calcular el OEE con sus 6 grandes pérdidas y arrancar el automantenimiento, del paso 0 al 3, en un equipo real.","m":["Qué es TPM","OEE y las 6 grandes pérdidas","Automantenimiento: los 7 pasos","Pasos 0 y 1: conocer y limpiar","Paso 2: atacar el origen","Paso 3: el estándar","Evaluar el avance por paso"],"b":"Menos paros por descuido, operadores que detectan las fallas antes de que ocurran y un mantenimiento enfocado en lo que realmente le corresponde.","e":"El OEE con sus 6 pérdidas, un registro de anomalías, un estándar de automantenimiento y la evaluación del paso alcanzado."},"213":{"t":"FAST: del help call a la causa raíz","o":"Responder a los problemas en dos ciclos: en minutos en la línea, con la llamada de ayuda, y cada día en la junta, con el método Find, Act, Solve, Track.","m":["Por qué responder rápido","F · Find: detectar y llamar","A · Act: contener en 24 h","S · Solve: la causa con hechos","T · Track: la junta diaria","El reporte FAST de una hoja","Evaluar el sistema"],"b":"Problemas contenidos en horas y no en días, menos defectos que llegan al cliente y una junta diaria que sí cierra problemas.","e":"Los criterios para la llamada de ayuda, un plan de contención, el reporte FAST de una hoja y una junta diaria con sus indicadores."},"214":{"t":"Observación de Operaciones: la realidad frente al estándar","o":"Planear y realizar observaciones de operaciones para comprobar que se trabaja como indica el estándar, y convertir cada diferencia en una mejora con el operador.","m":["Por qué observar","Planear: el programa","Las 6 fases y la preparación","De lejos y con cronómetro","De cerca: puntos clave y piezas","Mejorar y cerrar con el operador","Seguimiento y coaching"],"b":"Estándares que se cumplen en la práctica, desviaciones detectadas antes de que causen defectos y supervisores que entrenan en el piso.","e":"Un programa mensual de observaciones, la hoja de observación de 6 pasos, un plan de acción y la evaluación para el coaching."},"301":{"t":"Tiempo Estándar y Productividad: medir para decidir","o":"Medir el trabajo con cronómetro, calcular el tiempo estándar y usarlo para decidir el takt, la capacidad, el personal y los indicadores.","m":["Productividad: qué medimos y para qué","El tiempo estándar: qué es y cómo se forma","El estudio de tiempos con cronómetro","Leer la variación: lo cíclico y lo que no","Takt, eficiencia y capacidad","Cálculo de personal","Indicadores y tablero de productividad"],"b":"Plantillas calculadas con datos y no por costumbre, capacidad real conocida antes de aceptar un pedido y horas perdidas visibles en el tablero.","e":"Un estudio de tiempos completo, el cálculo de personal y la cascada de horas de su área."},"302":{"t":"Valor Agregado: del proceso completo al movimiento","o":"Distinguir lo que agrega valor de lo que no en todo el flujo: en el proceso, en la operación, en el equipo, en el espacio y en la logística.","m":["Qué es valor agregado","Ver el desperdicio: el recorrido","Visión de águila: el proceso completo","Visión de insecto: la operación con lupa","Valor agregado del equipo y del espacio","Valor agregado en la logística","Del desperdicio a la mejora: dueños y prioridades"],"b":"Menor tiempo de entrega, menos costo oculto en transportes, esperas y movimientos, y una lista de mejoras con responsable.","e":"El tiempo de entrega (lead time) de un flujo, el porcentaje de valor agregado de una operación y la lista de desperdicios con responsable."},"303":{"t":"Mejora de Procesos y Balanceo de Líneas","o":"Eliminar el desperdicio del proceso y de la estación, y balancear la línea al takt respetando las precedencias, con varios modelos y volúmenes.","m":["Mejorar el proceso: ECRS","De islas a celdas en U","Economía de movimientos","Caminado y ciclo hombre-máquina","El material hacia la línea","Balanceo: los números","Precedencias y peso posicional","Principios de distribución","Varios modelos y volúmenes","Implementar y sostener"],"b":"El mismo volumen con menos operadores, líneas que cumplen el takt y una configuración lista para cada cambio de demanda.","e":"Un balanceo con precedencias y principios de distribución, el escenario para cada volumen y el plan de implementación."},"304":{"t":"Flujo y Producción Sincronizada (JIT)","o":"Pasar de producir por lotes a producir en flujo: jalar con kanban, sincronizar el abasto, dibujar el mapa de flujo de valor y reducir los cambios de modelo.","m":["Por qué JIT","Ver con ojos de flujo","Lote contra flujo","Tensar el proceso: práctica de campo","Jalar: kanban","Abasto cíclico y sincronización","Mapa de flujo de valor","Cambios rápidos y lotes chicos"],"b":"Menos inventario y menos días de tiempo de entrega, defectos detectados en la siguiente pieza y no en el siguiente lote, y más flexibilidad para cambiar de modelo.","e":"Un lazo de kanban calculado, el mapa de flujo de valor actual y futuro, y un cambio de modelo reducido."},"305":{"t":"Blitz Kaizen: mejora de una estación en 2 días","o":"Dirigir un evento de mejora de dos días en una estación crítica: preparar, medir, analizar, cambiar, probar, reportar y sostener el resultado.","m":["Qué es kaizen","El método Blitz Kaizen","Encontrar el desperdicio","Analizar la situación actual","Proponer contramedidas","Probar, medir y ajustar","Resultados y reporte","Sostener la mejora"],"b":"Resultados medibles en una estación crítica en solo dos días, con poca o ninguna inversión, y mejoras que se sostienen con estándar y seguimiento.","e":"Un Blitz Kaizen completo con su reporte de una hoja, el plan de seguimiento a 30, 60 y 90 días y el calendario para preparar el siguiente evento."},"01":{"t":"Metas y Gestión del Tiempo","o":"Fijar metas medibles, desplegarlas en tareas con responsable y fecha, y proteger en la agenda el tiempo que esas metas necesitan.","m":["Metas que sí se cumplen: cascada, prioridad y SMART","De la meta al resultado: tareas, obstáculos y dueños","¿A dónde se va mi tiempo? Gasta-tiempos y multitarea","Prioridades y agenda: decir que no y delegar"],"b":"Metas del área que avanzan cada semana, menos urgencias de última hora y supervisores que dedican su tiempo a lo que mueve los indicadores.","e":"Metas en cascada con su plan y su responsable, y una agenda semanal con bloques de tiempo protegidos."},"02":{"t":"Juntas de Alto Impacto","o":"Preparar y presentar un mensaje claro, responder preguntas difíciles y dirigir juntas que terminen con acuerdos, responsables y fechas.","m":["Prepara tu mensaje: objetivo, audiencia y slides claros","Preséntalo con impacto: voz, historias y preguntas","Juntas que sí sirven: propósito, formatos y roles","Dirige la junta: reglas, conductas difíciles y minuta"],"b":"Juntas más cortas y con decisiones, menos temas que regresan cada semana y presentaciones que la dirección entiende a la primera.","e":"Un mensaje resumido en una frase, diapositivas que se entienden sin explicación y una minuta con qué, quién y cuándo."},"03":{"t":"Feedback y Manejo de Conflictos","o":"Dar y recibir retroalimentación con un modelo estructurado, reconocer el propio estilo ante el conflicto y mediar hasta llegar a un acuerdo con plan.","m":["Dar feedback: el modelo SCI y escenas de piso","Recibir y pedir feedback, también hacia arriba","Entender el conflicto: percepciones, intereses y tu estilo","Resolver y crear valor: mediar y acordar un plan"],"b":"Problemas de desempeño atendidos a tiempo, menos conflictos que detienen la línea y un ambiente de trabajo que retiene a la gente buena.","e":"Una retroalimentación preparada con situación, comportamiento e impacto; su estilo ante el conflicto y un plan de cambio acordado."},"04":{"t":"Equipos de Alto Desempeño","o":"Definir los indicadores que importan, leer el tablero para actuar a tiempo y desarrollar a cada persona del equipo con instrucción, coaching y delegación.","m":["Mide lo que importa: del objetivo a la métrica","Lee el tablero y actúa: señal, ruido y trampas","Enseña el trabajo: matriz de habilidades e instrucción","Haz crecer a tu equipo: estilos, coaching y delegación"],"b":"Brechas detectadas antes de que se conviertan en problemas, personal capaz de cubrir varios puestos y un equipo que depende menos del supervisor.","e":"Un tablero con indicadores útiles, una matriz de habilidades, una instrucción de trabajo y un plan de desarrollo con el modelo GROW."},"05":{"t":"Decisiones de Alto Impacto","o":"Encontrar la causa real de un problema, generar alternativas y elegir con criterios ponderados, de forma individual o en equipo.","m":["Encuentra la causa: 5 porqués e Ishikawa","Abre las opciones: de 2 ideas a 30","Elige con método: criterios, matriz y trampas","Decide en equipo, comunica y revisa"],"b":"Decisiones que resuelven el problema a la primera, menos acuerdos que se rehacen y decisiones que se pueden explicar y defender ante la dirección.","e":"Una ruta de decisión de cinco pasos, una matriz de ponderación y una decisión comunicada, con fecha para revisar si funcionó."},"06":{"t":"Proyectos de Mejora: Justificación y Despliegue","o":"Elegir la mejora de mayor impacto, justificarla con un análisis financiero, obtener la aprobación de la dirección y desplegarla con resultados medibles.","m":["Encuentra la mejora que vale la pena","Entiende el proceso","Prioriza y aprende de quien lo hace mejor","Justifícala con números","Consigue el sí","El comité de inversión","Arma el proyecto","Despliega y demuestra"],"b":"Inversiones aprobadas con argumentos sólidos, proyectos que se terminan a tiempo y beneficios verificados, no solo estimados.","e":"Una propuesta de una página con el retorno de la inversión y un escenario conservador; el acta, el Gantt y el control de cambios del proyecto; el beneficio verificado."},"07":{"t":"Profesional de Alto Valor","o":"Actuar con integridad ante dilemas reales, alzar la voz con respeto, medir la satisfacción del cliente interno y construir un plan de carrera.","m":["Dilemas en planta","Alza la voz","Conoce a tu cliente","La lealtad del cliente, con números","Conócete","Tu siguiente paso","Tus relaciones","Tu plan"],"b":"Menos riesgos éticos y de calidad ocultos, mejor servicio entre áreas y talento que crece dentro de la empresa en lugar de irse.","e":"Un método para resolver dilemas, un guion para alzar la voz, una encuesta de satisfacción del cliente interno y un plan de carrera a 18 meses."}};
+const DET_EN={"101":{"t":"GD&T Fundamentals · ASME Y14.5-2018","o":"Read and interpret any feature control frame, calculate virtual condition and bonus tolerance, and understand the datums of a real part.","m":["Why GD&T","Symbols and the feature control frame","Size, MMC/LMC and Rule #1","Virtual condition and bonus","Form I: flatness and straightness","Form II: circularity and cylindricity","Datums and the datum reference frame","Datum targets and selection"],"b":"Fewer parts rejected or accepted because of a misread drawing, fewer disputes with customers and suppliers, and measurements that verify what the design actually requires.","e":"Correct reading of the feature control frames on a real drawing, with the 2018 edition changes identified."},"102":{"t":"GD&T Advanced · ASME Y14.5-2018","o":"Calculate and interpret position, profile and runout tolerances, including datum shift and composite patterns.","m":["Datum features of size","Datum shift","Orientation","Position I: fundamentals and calculation","Position II: applications and fasteners","Composite position and patterns","Runout, concentricity and symmetry","Profile"],"b":"Drawings reviewed before release, fewer assembly problems at launch and lower cost from tolerances tighter than needed.","e":"Position calculations with bonus, the fastener formula applied and the review of a drawing before release."},"201":{"t":"New Model Launch: from the Program to Safe Launch","o":"Organize the people, documents, packaging, work, training and equipment for a new model, and protect the customer during ramp-up.","m":["The new model program","Project team and leader","Process standardization","Packaging design","Work allocation and balancing","Training and certification","Equipment, facilities and pilot runs","Safe Launch and problem response"],"b":"On-time ramp-ups with fewer defects, problems caught in pilot runs instead of at the customer, and a shorter start-up curve.","e":"The program with its events, the packaging design, the work allocation, the training plan and a Safe Launch plan."},"202":{"t":"Process Readiness Assessment","o":"Assess with data whether each area is ready for the next launch event, and build recovery plans for whatever is not.","m":["What it is and when to assess","Building the item list","Scoring and verifying","Recovery plan"],"b":"Launch risks visible weeks in advance, start-up decisions based on data and fewer surprises on start of production day.","e":"A list of items to assess with targets by event, the score of each area and its recovery plans."},"203":{"t":"4M and Engineering Change Management","o":"Classify, evaluate, approve and implement changes in manpower, machine, material, method and engineering, with breakpoint and verification.","m":["Why changes must be controlled","Types of change","The planned change step by step","Unplanned changes","Task force and final confirmation","Application on the floor"],"b":"No change without notifying the customer, traceability for every modification and fewer defects from uncontrolled changes.","e":"A change procedure with breakpoint and verification, and the task force final confirmation checklist."},"204":{"t":"Quality Control","o":"Use the basic statistical tools to understand and control a process: stratification, Pareto, cause analysis, histogram, capability and control charts.","m":["Quality and the customer","Assurance and control","Data and variation","Stratification, check sheets and Pareto","Cause analysis","Histogram","Process capability","Control charts"],"b":"Quality decisions based on data, fewer defects by attacking the main causes and process capability demonstrated to the customer.","e":"A Pareto, a histogram, a capability study and a control chart built with data from your own plant."},"205":{"t":"Torque and Bolted Joint Control","o":"Understand how a bolted joint behaves, specify and classify joints, choose the right tightening tool and audit torque on the line.","m":["Why a bolt is tightened","The joint","Specifying and classifying","Tightening tools","Measuring and auditing torque","The station and the workshop"],"b":"Fewer field failures and claims from loose joints, the right tool for each joint and torque audits that catch deviations in time.","e":"Your plant joints classified, the right tool for each one and an analyzed torque audit."},"206":{"t":"Supervisor Role on the Floor","o":"Organize the supervisor work around three responsibilities: meeting targets, standardizing and improving the work, and developing people.","m":["The supervisor role","Meeting the targets","Standardizing and improving","Developing people","The supervisor control cycle"],"b":"Shifts that meet their targets consistently, supervisors who control their area instead of fighting fires, and better-prepared staff.","e":"The 20 supervisor control points organized into a daily, weekly and monthly routine."},"207":{"t":"Standard Operation and On-the-Job Instruction","o":"Analyze an operation, write its standard sheet, allocate and balance the work, and teach it so any operator does it the same way.","m":["The standard operation","Analyzing and improving the method","Steps, key points and reasons","Sheet types and the standards binder","Work allocation and balancing","Man-machine combination","On-the-job instruction","Maintaining and improving the standard"],"b":"The same quality and productivity on every shift, shorter training and a standard that serves as the baseline for improvement.","e":"The analysis, allocation and combination sheets for a real operation, and instruction practiced in 4 steps."},"208":{"t":"8D Problem Solving","o":"Resolve a customer complaint with the 8D method: contain, find and confirm the root cause, correct it and prevent recurrence.","m":["The method: 8D and QC Story","D0 to D2: prepare, team and describe","D3: containment","D4: root cause","D5 and D6: actions and validation","D7 and D8: prevent and close"],"b":"Complaints closed on time and with evidence, fewer problems that come back and a better rating with the customer.","e":"A complete 8D for a case, from D0 to D8, and a checklist to evaluate the 8Ds in your plant."},"209":{"t":"Taguchi Method: robust processes","o":"Design and analyze experiments with orthogonal arrays and signal-to-noise ratio, so a process gives the same result even when weather, material or wear change.","m":["Background and robustness","Function, noise and control","Signal-to-noise ratio","Orthogonal arrays","The 5 phases and 9 steps","The L18 helicopter experiment","Dynamic characteristics","The catapult and target shooting"],"b":"Processes that produce right the first time with fewer adjustments, less waste from variation and improvements achieved without investing in new equipment.","e":"Two complete experiments run by the participants and an experiment plan for a process in your plant."},"210":{"t":"Floor Trainer: the 3-step method","o":"Prepare and deliver on-the-job training with the 3-step method (explain, demonstrate and verify) and release the operator against clear criteria.","m":["The floor trainer","Preparing the training","Step 1: explain","Step 2: demonstrate and have them do it","Step 3: verify and follow up","Release and certify"],"b":"New operators productive from the first week, fewer defects caused by new staff and the same training regardless of who delivers it.","e":"A training plan, an operation taught in 3 steps and the trainer evaluation with mandatory criteria."},"211":{"t":"5S: a workstation where the abnormal is visible","o":"Apply 5S on a real workstation: sort, set in order, shine, standardize and sustain with audits.","m":["Why 5S","Sort","Set in order","Shine","Standardize","Sustain and evaluate"],"b":"Less time lost searching, errors and safety risks visible at a glance, and areas ready for the customer visit.","e":"The reference state of a workstation, its evaluation against 12 criteria and an audit checklist with finding follow-up."},"212":{"t":"TPM: equipment that does not fail from neglect","o":"Calculate OEE with its 6 big losses and start autonomous maintenance, from step 0 to 3, on a real piece of equipment.","m":["What TPM is","OEE and the 6 big losses","Autonomous maintenance: the 7 steps","Steps 0 and 1: know and clean","Step 2: attack the source","Step 3: the standard","Evaluating progress by step"],"b":"Fewer stoppages from neglect, operators who spot failures before they happen and maintenance focused on what really belongs to it.","e":"OEE with its 6 losses, an anomaly log, an autonomous maintenance standard and the evaluation of the step reached."},"213":{"t":"FAST: from the help call to the root cause","o":"Respond to problems in two cycles: in minutes on the line, with the help call, and every day in the meeting, with the Find, Act, Solve, Track method.","m":["Why respond fast","F · Find: detect and call","A · Act: contain in 24 h","S · Solve: the cause with facts","T · Track: the daily meeting","The one-page FAST report","Evaluating the system"],"b":"Problems contained in hours rather than days, fewer defects reaching the customer and a daily meeting that actually closes problems.","e":"The help call criteria, a containment plan, the one-page FAST report and a daily meeting with its indicators."},"214":{"t":"Operations Observation: reality against the standard","o":"Plan and carry out operation observations to confirm work is done as the standard says, and turn every gap into an improvement with the operator.","m":["Why observe","Planning: the program","The 6 phases and preparation","From a distance and with a stopwatch","Up close: key points and parts","Improving and closing with the operator","Follow-up and coaching"],"b":"Standards that are met in practice, deviations caught before they cause defects and supervisors who coach on the floor.","e":"A monthly observation program, the 6-step observation sheet, an action plan and the evaluation for coaching."},"301":{"t":"Standard Time and Productivity: measure to decide","o":"Measure work with a stopwatch, calculate standard time and use it to decide takt, capacity, staffing and indicators.","m":["Productivity: what we measure and why","Standard time: what it is and how it is built","The stopwatch time study","Reading variation: cyclic and non-cyclic","Takt, efficiency and capacity","Staffing calculation","Productivity indicators and board"],"b":"Headcount calculated with data instead of habit, real capacity known before accepting an order and lost hours visible on the board.","e":"A complete time study, the staffing calculation and the hours cascade for your area."},"302":{"t":"Value Added: from the whole process to the motion","o":"Separate what adds value from what does not across the whole flow: in the process, the operation, the equipment, the space and logistics.","m":["What value added is","Seeing waste: the walk","Eagle view: the whole process","Insect view: the operation under a magnifier","Value added of equipment and space","Value added in logistics","From waste to improvement: owners and priorities"],"b":"Shorter lead time, less hidden cost in transport, waiting and motion, and a list of improvements with owners.","e":"The lead time of a flow, the value-added percentage of an operation and the waste list with owners."},"303":{"t":"Process Improvement and Line Balancing","o":"Remove waste from the process and the station, and balance the line to takt respecting precedences, with several models and volumes.","m":["Improving the process: ECRS","From islands to U-cells","Motion economy","Walking and the man-machine cycle","Material to the line","Balancing: the numbers","Precedences and positional weight","Layout principles","Several models and volumes","Implementing and sustaining"],"b":"The same volume with fewer operators, lines that meet takt and a configuration ready for every change in demand.","e":"A balance with precedences and layout principles, the scenario for each volume and the implementation plan."},"304":{"t":"Flow and Synchronized Production (JIT)","o":"Move from batch production to flow: pull with kanban, synchronize supply, draw the value stream map and reduce changeovers.","m":["Why JIT","Seeing with flow eyes","Batch versus flow","Tightening the process: field practice","Pull: kanban","Cyclic supply and synchronization","Value stream map","Quick changeovers and small lots"],"b":"Less inventory and fewer days of lead time, defects caught at the next part instead of the next lot, and more flexibility to change models.","e":"A calculated kanban loop, the current and future value stream map, and a reduced changeover."},"305":{"t":"Blitz Kaizen: improving a station in 2 days","o":"Lead a two-day improvement event on a critical station: prepare, measure, analyze, change, test, report and sustain the result.","m":["What kaizen is","The Blitz Kaizen method","Finding the waste","Analyzing the current situation","Proposing countermeasures","Test, measure and adjust","Results and report","Sustaining the improvement"],"b":"Measurable results on a critical station in only two days, with little or no investment, and improvements sustained by standard and follow-up.","e":"A complete Blitz Kaizen with its one-page report, the 30, 60 and 90-day follow-up plan and the calendar to prepare the next event."},"01":{"t":"Goals and Time Management","o":"Set measurable goals, break them into tasks with an owner and a date, and protect in the calendar the time those goals need.","m":["Goals that get met: cascade, priority and SMART","From goal to result: tasks, obstacles and owners","Where does my time go? Time wasters and multitasking","Priorities and calendar: saying no and delegating"],"b":"Area goals that move forward every week, fewer last-minute emergencies and supervisors who spend their time on what moves the indicators.","e":"Cascaded goals with their plan and owner, and a weekly calendar with protected time blocks."},"02":{"t":"High-Impact Meetings","o":"Prepare and present a clear message, handle hard questions and run meetings that end with agreements, owners and dates.","m":["Prepare your message: objective, audience and clear slides","Present it with impact: voice, stories and questions","Meetings that work: purpose, formats and roles","Run the meeting: rules, difficult behaviors and minutes"],"b":"Shorter meetings that decide, fewer topics coming back every week and presentations management understands the first time.","e":"A message summarized in one sentence, slides that work without explanation and minutes with what, who and when."},"03":{"t":"Feedback and Conflict Management","o":"Give and receive feedback with a structured model, recognize your own conflict style and mediate to an agreement with a plan.","m":["Giving feedback: the SBI model and floor scenes","Receiving and asking for feedback, upward too","Understanding conflict: perceptions, interests and your style","Resolve and create value: mediate and agree on a plan"],"b":"Performance issues addressed in time, fewer conflicts that stop the line and a work environment that keeps good people.","e":"Feedback prepared with situation, behavior and impact; your conflict style and an agreed change plan."},"04":{"t":"High-Performance Teams","o":"Define the indicators that matter, read the board to act in time and develop every team member through instruction, coaching and delegation.","m":["Measure what matters: from objective to metric","Read the board and act: signal, noise and traps","Teach the work: skills matrix and instruction","Grow your team: styles, coaching and delegation"],"b":"Gaps caught before they become problems, staff able to cover several positions and a team that depends less on the supervisor.","e":"A board with useful indicators, a skills matrix, a work instruction and a development plan using the GROW model."},"05":{"t":"High-Impact Decisions","o":"Find the real cause of a problem, generate alternatives and choose with weighted criteria, individually or as a team.","m":["Find the cause: 5 whys and Ishikawa","Open the options: from 2 ideas to 30","Choose with method: criteria, matrix and traps","Decide as a team, communicate and review"],"b":"Decisions that solve the problem the first time, fewer agreements that get redone and decisions that can be explained and defended to management.","e":"A five-step decision path, a weighting matrix and a communicated decision, with a date to review whether it worked."},"06":{"t":"Improvement Projects: Justification and Deployment","o":"Choose the highest-impact improvement, justify it with financial analysis, win management approval and deploy it with measurable results.","m":["Find the improvement worth doing","Understand the process","Prioritize and learn from whoever does it best","Justify it with numbers","Get the yes","The investment committee","Build the project","Deploy and prove it"],"b":"Investments approved on solid arguments, projects finished on time and benefits verified, not just estimated.","e":"A one-page proposal with return on investment and a conservative scenario; the project charter, Gantt and change control; the verified benefit."},"07":{"t":"High-Value Professional","o":"Act with integrity in real dilemmas, speak up respectfully, measure internal customer satisfaction and build a career plan.","m":["Dilemmas on the plant floor","Speak up","Know your customer","Customer loyalty, in numbers","Know yourself","Your next step","Your relationships","Your plan"],"b":"Fewer hidden ethical and quality risks, better service between areas and talent that grows inside the company instead of leaving.","e":"A method to resolve dilemmas, a script for speaking up, an internal customer satisfaction survey and an 18-month career plan."}};
+const WHY={es:{"soft":{"t":"En planta, a la gente se le promueve por lo técnico","a":"El mejor técnico se convierte en supervisor, pero nadie le enseña a dar retroalimentación, dirigir una junta, desarrollar a su gente ni justificar una inversión.","b":"Juntas sin acuerdos, decisiones que regresan, mejoras que no se aprueban, conflictos que frenan la línea y gente buena que se va."},"tech":{"t":"Las herramientas existen; lo que falta es el método en el piso","a":"Hay hojas de operación, 8D, cartas de control y auditorías 5S, pero se llenan para cumplir. El método depende de quién esté en el turno y se pierde cuando esa persona se va.","b":"Defectos que regresan, lanzamientos con sorpresas, estándares que nadie sigue, equipos que fallan por descuido y entrenamientos de “ve y fíjate”."},"ing":{"t":"Se mejora mucho; se mide y se sostiene poco","a":"El tiempo estándar se tomó hace años. Se balancea sin quitar antes el desperdicio. El inventario esconde los problemas. Las mejoras de un evento se pierden al mes.","b":"Líneas que no llegan al takt, operadores de apoyo permanentes, días de inventario entre procesos y mejoras que no se sostienen."}},en:{"soft":{"t":"In the plant, people get promoted for technical skill","a":"The best technician becomes a supervisor, but nobody teaches them to give feedback, run a meeting, develop their people or justify an investment.","b":"Meetings without agreements, decisions that come back, improvements that never get approved, conflicts that slow the line and good people who leave."},"tech":{"t":"The tools exist; what is missing is the method on the floor","a":"There are operation sheets, 8Ds, control charts and 5S audits, but they are filled in to comply. The method depends on who is on shift and is lost when that person leaves.","b":"Defects that come back, launches with surprises, standards nobody follows, equipment that fails from neglect and “go and watch” training."},"ing":{"t":"Plenty gets improved; little gets measured and sustained","a":"Standard time was taken years ago. Lines are balanced before waste is removed. Inventory hides the problems. Event improvements are lost within a month.","b":"Lines that do not reach takt, permanent support operators, days of inventory between processes and improvements that do not last."}}};
+const FAM_WHY={hab:'soft',dis:'tech',cal:'tech',est:'tech',ing:'ing'};
+
+function Nav({lang,setLang,t}){
+  return (
+    <nav style={{position:'sticky',top:0,zIndex:50,background:'rgba(255,255,255,0.95)',backdropFilter:'blur(12px)',borderBottom:`1px solid ${S.line}`,padding:'14px 56px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:16}}>
+      <div style={{display:'flex',alignItems:'center',gap:36}}>
+        <a href="index.html" style={{display:'flex',alignItems:'center',gap:10}}>
+          <div style={{width:34,height:34,borderRadius:8,background:`linear-gradient(135deg, ${S.primary}, ${S.primaryDark})`,display:'grid',placeItems:'center',color:'white',fontWeight:800,fontSize:13}}>IxT</div>
+          <div style={{fontWeight:700,fontSize:17,color:S.ink,letterSpacing:-0.3}}>IxT-QMS</div>
+        </a>
+        <div className="hidem" style={{display:'flex',gap:26,fontSize:14,fontWeight:500}}>
+          <a href="index.html" style={{color:S.ink2}}>{t.navHome}</a>
+          <a href="index.html#servicios" style={{color:S.ink2}}>{t.navSvc}</a>
+          <span style={{color:S.primary,fontWeight:700}}>{t.navHere}</span>
+        </div>
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <div style={{display:'flex',border:`1px solid ${S.line}`,borderRadius:8,overflow:'hidden',fontSize:12,fontWeight:600}}>
+          <button onClick={()=>setLang('es')} style={{padding:'6px 12px',border:'none',cursor:'pointer',background:lang==='es'?S.ink:'white',color:lang==='es'?'white':S.ink2}}>ES</button>
+          <button onClick={()=>setLang('en')} style={{padding:'6px 12px',border:'none',cursor:'pointer',background:lang==='en'?S.ink:'white',color:lang==='en'?'white':S.ink2}}>EN</button>
+        </div>
+        <a href="index.html#form-contacto" style={{padding:'9px 18px',borderRadius:8,background:S.primary,color:'white',fontWeight:600,fontSize:13.5,whiteSpace:'nowrap'}}>{t.navCta}</a>
+      </div>
+    </nav>
+  );
+}
+
+function Hero({t}){
+  return (
+    <section style={{padding:'80px 56px 56px',background:`linear-gradient(180deg, ${S.bgCool} 0%, white 100%)`}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{maxWidth:780,margin:'0 auto',textAlign:'center'}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.primary,marginBottom:20}}>{t.eyebrow}</div>
+          <h1 style={{...serif,fontSize:46,lineHeight:1.12,fontWeight:700,color:S.ink,letterSpacing:-1,margin:'0 0 22px',textWrap:'pretty'}}>{t.title}</h1>
+          <p style={{fontSize:17,lineHeight:1.65,color:S.muted,margin:0,textWrap:'pretty'}}>{t.sub}</p>
+        </div>
+        <div className="pg4" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:1,background:S.line,border:`1px solid ${S.line}`,borderRadius:14,overflow:'hidden',marginTop:44}}>
+          {t.stats.map(([n,l],i)=>(
+            <div key={i} style={{background:'white',padding:'22px 22px',textAlign:'center'}}>
+              <div style={{...serif,fontSize:32,fontWeight:700,color:S.ink,letterSpacing:-0.8,lineHeight:1}}>{n}</div>
+              <div style={{fontSize:13,color:S.muted,marginTop:8,lineHeight:1.4}}>{l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Gains({t}){
+  return (
+    <section style={{padding:'8px 56px 64px'}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.muted,marginBottom:16,textAlign:'center'}}>{t.gainH}</div>
+        <div className="pg4" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:14}}>
+          {t.gains.map((g,i)=>(
+            <div key={i} style={{borderTop:`2px solid ${S.primary}`,paddingTop:14,fontSize:15.5,fontWeight:600,color:S.ink,lineHeight:1.45,...serif}}>{g}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Catalog({t,lang}){
+  const [f,setF]=React.useState('all');
+  const [open,setOpen]=React.useState(null);
+  const L=lang==='es';
+  React.useEffect(()=>{const k=(e)=>{if(e.key==='Escape')setOpen(null);};window.addEventListener('keydown',k);return ()=>window.removeEventListener('keydown',k);},[]);
+  React.useEffect(()=>{document.body.style.overflow=open?'hidden':'';},[open]);
+  const why=f!=='all'?WHY[lang][FAM_WHY[f]]:null;
+  const list=C.filter(c=>f==='all'||c[1]===f);
+  const famHours=(k)=>C.filter(c=>c[1]===k).reduce((a,c)=>a+c[2],0);
+  return (
+    <section id="cursos" style={{padding:'72px 56px 80px',background:S.bg,borderTop:`1px solid ${S.line}`,borderBottom:`1px solid ${S.line}`}}>
+      <div style={{maxWidth:1100,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:28}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.primary,marginBottom:14}}>{t.catH}</div>
+          <h2 style={{...serif,fontSize:34,fontWeight:700,color:S.ink,letterSpacing:-0.8,margin:0}}>{t.catT}</h2>
+        </div>
+        <div style={{display:'flex',flexWrap:'wrap',gap:8,justifyContent:'center',marginBottom:30}}>
+          {[['all',t.all,'#0A1F3D']].concat(Object.entries(FAMS).map(([k,v])=>[k,v[lang][0],v.c])).map(([k,label,col])=>{
+            const on=f===k;
+            const n=k==='all'?C.length:C.filter(c=>c[1]===k).length;
+            return (
+              <button key={k} className="chip" onClick={()=>setF(k)} style={{display:'inline-flex',alignItems:'center',gap:8,whiteSpace:'nowrap',padding:'8px 15px',borderRadius:999,cursor:'pointer',fontSize:13.5,fontWeight:600,border:`1px solid ${on?col:S.line}`,background:on?col:'white',color:on?'white':S.ink2}}>
+                {k!=='all'&&<span style={{width:8,height:8,borderRadius:99,background:on?'white':col}}></span>}
+                {label}<span style={{...mono,fontSize:11,opacity:.75}}>{n}</span>
+              </button>
+            );
+          })}
+        </div>
+        {f!=='all'&&(
+          <div style={{textAlign:'center',fontSize:14,color:S.muted,margin:'-12px 0 20px'}}>{FAMS[f][lang][1]} · {list.length} {t.courses} · {famHours(f)} {t.hours}</div>
+        )}
+        {why&&(
+          <div style={{background:'white',border:`1px solid ${S.line}`,borderLeft:`3px solid ${FAMS[f].c}`,borderRadius:12,padding:'22px 26px',marginBottom:22}}>
+            <div style={{...serif,fontSize:21,fontWeight:700,color:S.ink,letterSpacing:-0.3,marginBottom:14,lineHeight:1.3}}>{why.t}</div>
+            <div className="pg2" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24}}>
+              <div><div style={{...mono,fontSize:10.5,fontWeight:700,letterSpacing:1,color:S.muted,marginBottom:6}}>{t.whyA}</div><div style={{fontSize:14,color:S.ink2,lineHeight:1.6}}>{why.a}</div></div>
+              <div><div style={{...mono,fontSize:10.5,fontWeight:700,letterSpacing:1,color:S.muted,marginBottom:6}}>{t.whyB}</div><div style={{fontSize:14,color:S.ink2,lineHeight:1.6}}>{why.b}</div></div>
+            </div>
+          </div>
+        )}
+        <div data-noreveal="1" className="pg3" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:14}}>
+          {list.map((c)=>{
+            const fam=FAMS[c[1]];
+            return (
+              <button type="button" key={c[0]} className="ccard" onClick={()=>setOpen(c[0])} style={{textAlign:'left',cursor:'pointer',font:'inherit',background:'white',border:`1px solid ${S.line}`,borderRadius:12,padding:'18px 20px 18px',display:'flex',flexDirection:'column',gap:8,borderTop:`3px solid ${fam.c}`}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:10}}>
+                  <span style={{...mono,fontSize:12,fontWeight:700,color:fam.c,letterSpacing:0.4}}>{c[0]}</span>
+                  <span style={{...mono,fontSize:11.5,fontWeight:700,color:S.ink2,background:S.bgCool,borderRadius:6,padding:'3px 8px'}}>{c[2]} {t.hours}</span>
+                </div>
+                <div style={{fontSize:16,fontWeight:700,color:S.ink,lineHeight:1.3,letterSpacing:-0.2}}>{L?c[3]:c[5]}</div>
+                <div style={{fontSize:13.5,color:S.muted,lineHeight:1.5,flex:1}}>{L?c[4]:c[6]}</div>
+                {c[7].length>0&&(
+                  <div style={{fontSize:12,color:S.ink2,paddingTop:8,borderTop:`1px dashed ${S.line}`,display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
+                    <span style={{color:S.muted}}>{t.pre}</span>
+                    {c[7].map(p=><span key={p} style={{...mono,fontSize:11,fontWeight:700,color:FAMS[byCode[p][1]].c}}>{p}</span>)}
+                  </div>
+                )}
+                <span style={{fontSize:12.5,fontWeight:700,color:fam.c,marginTop:2}}>{t.see} →</span>
+              </button>
+            );
+          })}
+        </div>
+        <p style={{fontSize:13,color:S.muted,textAlign:'center',margin:'24px auto 0',maxWidth:620,lineHeight:1.6,fontStyle:'italic'}}>{t.note}</p>
+      </div>
+      {open&&<Drawer code={open} t={t} lang={lang} onClose={()=>setOpen(null)} onGo={setOpen}/>}
+    </section>
+  );
+}
+
+function Drawer({code,t,lang,onClose,onGo}){
+  const c=byCode[code], L=lang==='es', d=L?DET[code]:(DET_EN[code]||DET[code]), fam=FAMS[c[1]];
+  const lbl={...mono,fontSize:10.5,fontWeight:700,letterSpacing:1,color:S.muted,marginBottom:8,textTransform:'uppercase'};
+  return (
+    <div role="dialog" aria-modal="true" style={{position:'fixed',inset:0,zIndex:100,display:'flex',justifyContent:'flex-end'}}>
+      <div onClick={onClose} style={{position:'absolute',inset:0,background:'rgba(10,31,61,0.42)'}}></div>
+      <div style={{position:'relative',width:'min(560px, 100%)',height:'100%',background:'white',overflowY:'auto',boxShadow:'-20px 0 50px rgba(10,31,61,0.2)',animation:'ixdr .35s cubic-bezier(.16,.84,.3,1)'}}>
+        <div style={{position:'sticky',top:0,background:'white',borderBottom:`1px solid ${S.line}`,padding:'16px 26px',display:'flex',justifyContent:'space-between',alignItems:'center',gap:12,zIndex:1}}>
+          <div style={{display:'flex',gap:10,alignItems:'center'}}>
+            <span style={{...mono,fontSize:12.5,fontWeight:700,color:fam.c}}>{code}</span>
+            <span style={{fontSize:12.5,color:S.muted}}>{fam[lang][0]}</span>
+            <span style={{...mono,fontSize:11.5,fontWeight:700,color:S.ink2,background:S.bgCool,borderRadius:6,padding:'3px 8px'}}>{c[2]} {t.hours}</span>
+          </div>
+          <button onClick={onClose} aria-label={t.dClose} style={{border:`1px solid ${S.line}`,background:'white',borderRadius:8,width:34,height:34,cursor:'pointer',fontSize:17,color:S.ink2}}>×</button>
+        </div>
+        <div style={{padding:'26px 26px 34px',borderTop:`3px solid ${fam.c}`}}>
+          <h3 style={{...serif,fontSize:27,fontWeight:700,color:S.ink,letterSpacing:-0.6,lineHeight:1.2,margin:'0 0 8px',textWrap:'pretty'}}>{d?d.t:(L?c[3]:c[5])}</h3>
+          <p style={{fontSize:14.5,color:S.muted,margin:'0 0 24px'}}>{L?c[4]:c[6]}</p>
+          {d&&(<React.Fragment>
+            <div style={{marginBottom:22}}><div style={lbl}>{t.dObj}</div><p style={{fontSize:15,color:S.ink,lineHeight:1.6,margin:0}}>{d.o}</p></div>
+            <div style={{marginBottom:22}}><div style={lbl}>{t.dMod}</div>
+              <ol style={{margin:0,padding:0,listStyle:'none',display:'grid',gap:1,background:S.line,border:`1px solid ${S.line}`,borderRadius:10,overflow:'hidden'}}>
+                {d.m.map((m,i)=>(<li key={i} style={{display:'flex',gap:12,background:'white',padding:'10px 14px',fontSize:14,color:S.ink2,lineHeight:1.45}}><span style={{...mono,fontSize:11,fontWeight:700,color:fam.c,minWidth:22,paddingTop:2}}>M{i+1}</span>{m}</li>))}
+              </ol>
+            </div>
+            <div style={{marginBottom:22}}><div style={lbl}>{t.dBen}</div><p style={{fontSize:14.5,color:S.ink2,lineHeight:1.6,margin:0}}>{d.b}</p></div>
+            <div style={{marginBottom:24,background:S.bg,borderRadius:10,padding:'16px 18px'}}><div style={lbl}>{t.dEnt}</div><p style={{fontSize:14.5,color:S.ink2,lineHeight:1.6,margin:0}}>{d.e}</p></div>
+          </React.Fragment>)}
+          {c[7].length>0&&(
+            <div style={{marginBottom:26}}><div style={lbl}>{t.dPre}</div>
+              <div style={{display:'flex',flexWrap:'wrap',gap:8}}>
+                {c[7].map(p=>{const pc=byCode[p];return <button key={p} onClick={()=>onGo(p)} style={{display:'inline-flex',gap:7,alignItems:'center',fontSize:13,color:S.ink2,border:`1px solid ${S.line}`,background:'white',borderRadius:8,padding:'7px 11px',cursor:'pointer'}}><span style={{...mono,fontSize:11,fontWeight:700,color:FAMS[pc[1]].c}}>{p}</span>{L?pc[3]:pc[5]}</button>;})}
+              </div>
+            </div>
+          )}
+          <a href="index.html#form-contacto" style={{display:'block',textAlign:'center',padding:'14px 20px',borderRadius:10,background:S.primary,color:'white',fontWeight:700,fontSize:15}}>{t.dCta} →</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Routes({t,lang}){
+  const L=lang==='es';
+  return (
+    <section style={{padding:'76px 56px'}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:34}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:S.primary,marginBottom:14}}>{t.routesH}</div>
+          <h2 style={{...serif,fontSize:32,fontWeight:700,color:S.ink,letterSpacing:-0.7,margin:'0 0 12px',textWrap:'pretty'}}>{t.routesT}</h2>
+          <p style={{fontSize:15.5,color:S.muted,margin:'0 auto',maxWidth:620,lineHeight:1.6}}>{t.routesS}</p>
+        </div>
+        <div style={{display:'grid',gap:14}}>
+          {ROUTES[lang].map(([name,codes],i)=>{
+            const h=codes.reduce((a,c)=>a+byCode[c][2],0);
+            return (
+              <div key={i} className="pg2" style={{display:'grid',gridTemplateColumns:'200px 1fr',gap:24,alignItems:'center',background:'white',border:`1px solid ${S.line}`,borderRadius:14,padding:'20px 24px'}}>
+                <div>
+                  <div style={{...serif,fontSize:20,fontWeight:700,color:S.ink,letterSpacing:-0.3}}>{name}</div>
+                  <div style={{...mono,fontSize:11.5,color:S.muted,marginTop:4}}>{codes.length} {t.courses} · {h} {t.hours}</div>
+                </div>
+                <div style={{display:'flex',flexWrap:'wrap',gap:8,alignItems:'center'}}>
+                  {codes.map((c,j)=>{
+                    const cc=byCode[c];const col=FAMS[cc[1]].c;
+                    return (
+                      <span key={c} style={{display:'inline-flex',alignItems:'center',gap:8,whiteSpace:'nowrap'}}>
+                        {j>0&&<span style={{color:'#A7B4C8',fontSize:13}}>→</span>}
+                        <span title={L?cc[3]:cc[5]} style={{display:'inline-flex',alignItems:'center',gap:7,fontSize:12.5,color:S.ink2,border:`1px solid ${S.line}`,borderRadius:8,padding:'6px 10px',background:S.bg,whiteSpace:'nowrap'}}>
+                          <span style={{...mono,fontSize:11,fontWeight:700,color:col}}>{c}</span>{L?cc[3]:cc[5]}
+                        </span>
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function How({t}){
+  return (
+    <section style={{padding:'76px 56px',background:S.ink,color:'white'}}>
+      <div style={{maxWidth:1000,margin:'0 auto'}}>
+        <div style={{textAlign:'center',marginBottom:38}}>
+          <div style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:'#7DB7FF',marginBottom:14}}>{t.howH}</div>
+          <h2 style={{...serif,fontSize:34,fontWeight:700,letterSpacing:-0.8,margin:0}}>{t.howT}</h2>
+        </div>
+        <div className="pg4" style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:14,marginBottom:36}}>
+          {t.how.map(([n,h,d],i)=>(
+            <div key={i} style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:12,padding:'22px 20px'}}>
+              <div style={{...mono,fontSize:22,fontWeight:700,color:'#4C7FE8',marginBottom:10}}>{n}</div>
+              <div style={{fontSize:16,fontWeight:700,marginBottom:8}}>{h}</div>
+              <div style={{fontSize:13.5,color:'#B8C7DF',lineHeight:1.55}}>{d}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{borderTop:'1px solid rgba(255,255,255,0.1)',paddingTop:24,display:'flex',flexWrap:'wrap',gap:10,justifyContent:'center',alignItems:'center'}}>
+          <span style={{...mono,fontSize:11,fontWeight:700,letterSpacing:1,color:'#7DB7FF',marginRight:6}}>{t.incH}</span>
+          {t.inc.map((x,i)=><span key={i} style={{fontSize:13,color:'white',border:'1px solid rgba(125,183,255,0.3)',background:'rgba(76,127,232,0.14)',borderRadius:999,padding:'6px 13px'}}>{x}</span>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTA({t}){
+  return (
+    <section style={{padding:'80px 56px',textAlign:'center'}}>
+      <div style={{maxWidth:680,margin:'0 auto'}}>
+        <h2 style={{...serif,fontSize:34,fontWeight:700,color:S.ink,letterSpacing:-0.7,margin:'0 0 16px'}}>{t.ctaT}</h2>
+        <p style={{fontSize:16,color:S.muted,margin:'0 0 28px',lineHeight:1.6}}>{t.ctaS}</p>
+        <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
+          <a href="index.html#form-contacto" style={{padding:'14px 26px',borderRadius:10,background:S.primary,color:'white',fontWeight:700,fontSize:15}}>{t.ctaB} →</a>
+          <a href="index.html#servicios" style={{padding:'14px 26px',borderRadius:10,border:`1px solid ${S.line}`,color:S.ink2,fontWeight:600,fontSize:15}}>{t.back}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App(){
+  const [lang,setLang]=React.useState(()=>{
+    const n=(navigator.languages&&navigator.languages[0])||navigator.language||'es';
+    return /^es/i.test(n)?'es':'en';
+  });
+  const t=T[lang];
+  return (
+    <div style={{background:'white'}}>
+      <Nav lang={lang} setLang={setLang} t={t}/>
+      <Hero t={t}/>
+      <Gains t={t}/>
+      <Catalog t={t} lang={lang}/>
+      <Routes t={t} lang={lang}/>
+      <How t={t}/>
+      <CTA t={t}/>
+      <footer style={{padding:'32px 56px',background:'#06142E',color:'#7B8AA8',fontSize:13,textAlign:'center'}}>
+        <div style={{marginBottom:10}}>{t.foot}</div>
+        <div>© 2026 IxT-QMS. {t.rights}. <a href="Aviso de Privacidad.html" style={{color:'#9FB4D6'}}>{t.priv}</a></div>
+      </footer>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+setTimeout(()=>{
+  let seen=false;
+  try{seen=sessionStorage.getItem('ixSeenForm')==='1';sessionStorage.setItem('ixSeenForm','1');}catch(e){}
+  if(seen||location.hash) return;
+  const targets=[];
+  document.querySelectorAll('#root section').forEach((sec)=>{
+    const inner=sec.firstElementChild; if(!inner) return;
+    Array.from(inner.children).forEach((ch)=>{ if(ch.dataset.noreveal) return; ch.classList.add('ixr'); targets.push(ch); });
+  });
+  const obs=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}}),{threshold:0.06,rootMargin:'0px 0px -6% 0px'});
+  targets.forEach((x)=>obs.observe(x));
+},60);
+</script>
+</body>
+</html>
