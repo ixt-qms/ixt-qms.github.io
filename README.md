@@ -21,7 +21,6 @@ Aguascalientes, México · [contacto@ixt-qms.com](mailto:contacto@ixt-qms.com)
 | `home.jsx` | Secciones de la página principal |
 | `v4-sales.jsx` | Componentes compartidos (plataforma, simulación de auditoría, pie de página) |
 | `Nuestra Historia.html` | Perfil profesional y trayectoria |
-| `Catalogo de Servicios.html` | Catálogo detallado de servicios |
 | `Escalera Comercial.html` | Niveles de contratación |
 | `screenshots/` | Capturas de la plataforma |
 

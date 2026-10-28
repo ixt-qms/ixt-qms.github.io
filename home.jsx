@@ -232,8 +232,8 @@ function V5Nav({ lang, setLang }) {
     return () => obs.disconnect();
   }, []);
   const links = L
-    ? [['#servicios','Servicios'],['#formacion','Formación'],['#plataforma','Método'],['Nuestra Historia.html','Perfil'],['#form-contacto','Contacto']]
-    : [['#servicios','Services'],['#formacion','Training'],['#plataforma','Method'],['Nuestra Historia.html','Profile'],['#form-contacto','Contact']];
+    ? [['#plataforma','Software'],['#servicios','Servicios'],['Catalogo de Formacion.html','Formación'],['Nuestra Historia.html','Perfil'],['#form-contacto','Contacto']]
+    : [['#plataforma','Software'],['#servicios','Services'],['Catalogo de Formacion.html','Training'],['Nuestra Historia.html','Profile'],['#form-contacto','Contact']];
   return (
     <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderBottom: `1px solid ${v4S.line}`, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px 12px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
@@ -269,14 +269,14 @@ function V5Hero({ lang }) {
     sub: 'Representación técnica, apoyo en lanzamientos, cambios de ingeniería y formación de equipos. Todo respaldado por una metodología propia de control de proceso y trazabilidad.',
     quote: '14 años en manufactura, entre operaciones que están construyendo su sistema de calidad y plantas auditadas con criterio severo. Conocemos los dos lados de la mesa: el criterio con el que el OEM juzga su paquete de aprobación, y la presión del proveedor dentro de la planta de su cliente. No importa de qué lado esté: recibe el beneficio de ambos.',
     cta1: 'Agendar reunión de descubrimiento', cta2: 'Ver líneas de servicio',
-    proof: 'Respaldo: instrucción en Universidad Nissan · desarrollo de hojas de operación estándar y evaluación de personal de planta',
+    proof: 'Respaldo: instrucción en la universidad corporativa de un OEM · desarrollo de hojas de operación estándar y evaluación de personal de planta',
   } : {
     eyebrow: 'TECHNICAL REPRESENTATION · CONSULTING · TRAINING',
     title: 'What works in plants held to demanding standards, adapted to the reality of yours.',
     sub: 'On-site technical representation, support on launches and engineering changes, and training for your teams — backed by our own methodology for process control and traceability.',
     quote: '14 years in manufacturing, across operations still building their quality system and plants audited to severe criteria. We know both sides of the table: the criteria the OEM uses to judge your approval package, and the supplier\'s pressure inside their customer\'s plant. Whichever side you are on, you get the benefit of both.',
     cta1: 'Schedule discovery meeting', cta2: 'View service lines',
-    proof: 'Backed by: instruction at Nissan University · standard operation sheet development and plant staff assessment',
+    proof: 'Backed by: instruction at an OEM corporate university · standard operation sheet development and plant staff assessment',
   };
   return (
     <section style={{ padding: '96px 56px 64px', background: `linear-gradient(180deg, ${v4S.bgCool} 0%, white 100%)` }}>
@@ -312,8 +312,8 @@ function V5Creds({ lang }) {
     ? ['Aguascalientes, México', 'Cobertura en planta: Bajío, Norte y Centro del país. Proyectos internacionales bajo acuerdo.']
     : ['Aguascalientes, Mexico', 'On-site coverage: Bajío, Northern and Central Mexico. International projects by agreement.'];
   const kz = L
-    ? 'Dos kaizen registrados en la base global de mejores prácticas de Nissan'
-    : "Two kaizen registered in Nissan's global best practices database";
+    ? 'Dos kaizen registrados en la base global de mejores prácticas de un OEM'
+    : "Two kaizen registered in an OEM's global best practices database";
   return (
     <section style={{ padding: '0 56px 72px', background: 'white' }}>
       <div className="g6" style={{ maxWidth: 1140, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 0, border: `1px solid ${v4S.line}`, borderRadius: 14, overflow: 'hidden' }}>
@@ -347,9 +347,9 @@ function V5Creds({ lang }) {
 function V5Kaizen({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'DOS KAIZEN REGISTRADOS EN NISSAN',
+    eyebrow: 'DOS KAIZEN REGISTRADOS EN OEM',
     title: 'Resultados medidos, no promesas.',
-    sub: 'Registrados en la base global de mejores prácticas de Nissan.',
+    sub: 'Registrados en la base global de mejores prácticas de un OEM.',
     lp: 'PROBLEMA', lm: 'MÉTODO', lr: 'RESULTADO',
     items: [
       { h: 'Método de Confirmación Virtual ECR → BOM 360 (Q, MFG, R&D)',
@@ -359,9 +359,9 @@ function V5Kaizen({ lang }) {
     ],
     close: 'Los módulos de BOM de cliente, auditorías, inspección de defectos y control de material de la plataforma son los nodos que correlacionan el dibujo, la especificación y la hoja de operación. La plataforma no es un producto aparte: es este kaizen automatizado.',
   } : {
-    eyebrow: 'TWO KAIZEN REGISTERED AT NISSAN',
+    eyebrow: 'TWO KAIZEN REGISTERED AT AN OEM',
     title: 'Measured results, not promises.',
-    sub: "Registered in Nissan's global best practices database.",
+    sub: "Registered in an OEM's global best practices database.",
     lp: 'PROBLEM', lm: 'METHOD', lr: 'RESULT',
     items: [
       { h: 'Virtual Confirmation Method ECR → BOM 360 (Q, MFG, R&D)',
@@ -410,18 +410,18 @@ function V5Services({ lang }) {
     eyebrow: 'CUATRO LÍNEAS DE SERVICIO', title: 'Si alguna de estas escenas le suena, ya sabe para qué servimos.',
     sub: 'Cada línea nace de un problema concreto y se contrata con alcance y entregables definidos por escrito.', cta: 'Solicitar propuesta',
     cards: [
-      { k: 'Lanzamiento de nuevos modelos', h: 'Que el arranque no se detenga por un cambio de ingeniería', sc: 'El cambio estaba liberado en el sistema, pero el documento que viajó con la unidad traía la versión anterior. Se descubre en la línea de pruebas, con la unidad ya armada.', d: 'Acompañamos el arranque desde la planeación hasta la producción estable: llevamos el control de los cambios de ingeniería, dejamos definidos los estándares de inspección y el plan de contención antes del primer embarque.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque', 'Programa de evaluaciones del evento: ajuste y acabado, apariencia, NVH, hermeticidad y ADAS', 'Consolidación de los reportes de prueba en el formato que su cliente va a pedir'], badge: 'Respaldo: 52 programas vehiculares lanzados, y programas de desarrollo de Mercedes-Benz y Volkswagen en IDIADA Applus.', link: ['Preparacion de Lanzamiento.html', 'Ver qué cubre una preparación de lanzamiento →'] },
+      { k: 'Lanzamiento de nuevos modelos', h: 'Que el arranque no se detenga por un cambio de ingeniería', sc: 'El cambio estaba liberado en el sistema, pero el documento que viajó con la unidad traía la versión anterior. Se descubre en la línea de pruebas, con la unidad ya armada.', d: 'Acompañamos el arranque desde la planeación hasta la producción estable: llevamos el control de los cambios de ingeniería, dejamos definidos los estándares de inspección y el plan de contención antes del primer embarque.', items: ['Planeación y ejecución de lanzamientos (SOP Readiness y Safe Launch)', 'Coordinación de cambios de ingeniería, BOM y validación de especificaciones', 'Soporte en corridas piloto, buy-offs y resolución de problemas durante el arranque', 'Auditoría de preparación para lanzamiento', 'Definición del plan de contención y de los estándares de inspección de arranque', 'Programa de evaluaciones del evento: ajuste y acabado, apariencia, NVH, hermeticidad y ADAS', 'Consolidación de los reportes de prueba en el formato que su cliente va a pedir'], badge: 'Respaldo: 52 programas vehiculares lanzados, y programas de desarrollo para OEM europeos en un laboratorio de validación.', link: ['Preparacion de Lanzamiento.html', 'Ver qué cubre una preparación de lanzamiento →'] },
       { k: 'Representación técnica en planta del cliente', h: 'Reaccionar dentro del plazo, y con la contramedida correcta', sc: 'Su contrato le da 24 horas para responder un reclamo. La aprobación del viaje tarda otras 24. Cuando alguien suyo llega, el cliente ya montó la contención, se la está cobrando, y de su lado nadie vio la pieza.', d: 'Ponemos un ingeniero en la planta de su cliente que describe técnicamente lo que está pasando el mismo día. Con eso reacciona al problema real y no al que se supone — y tiene con qué disputar lo que no le corresponde.', items: ['Respuesta dentro de la ventana contractual, sin depender de un viaje autorizado', 'Descripción técnica del modo de falla real, con evidencia de la pieza en sitio', 'Dirección de la contramedida al problema correcto: reaccionar mal mantiene el defecto en camino y sube el scrap', 'Soporte técnico para disputar cargos: qué es atribuible al proveedor y qué no', 'Contención, clasificación y retrabajo en sitio bajo autorización del cliente', 'Gestión de RMA y disposición de material no conforme', 'Canal técnico entre OEM y proveedor, con juntas y documentación en inglés', 'Respuesta durante crisis de calidad'] },
-      { k: 'Trazabilidad de inspección y contención', h: 'Que cada pieza salga de planta con su acta de nacimiento', sc: 'Su cliente pide el alcance de afectación de un lote. La contención se montó con un formato en papel, y la sospecha es incómoda: no hay forma de saber si el inspector confirmó pieza por pieza o solo pegó la hoja a la caja.', d: 'Acompañamos el diseño del flujo de inspección, contención, reparación y liberación en piso, y lo digitalizamos: cada pieza queda con su registro de quién la revisó, contra qué criterio y con qué resultado — configurable a lo que su cliente exige.', items: ['Diseño del flujo de inspección, retención, reparación, revalidación y liberación', 'Definición del criterio de retención y de quién autoriza la liberación o el desecho', 'Trazabilidad por pieza, lote y número de serie, con evidencia adjunta al registro', 'Registro de reparación: causa, responsable, reinspección y confirmación de efectividad', 'Respuesta a solicitudes de alcance de afectación: qué piezas, qué lotes, qué embarques', 'Formación del inspector en el criterio de juicio, no solo en el llenado del formato', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de Nissan, y el diseño del flujo de hospital de defectos que opera hoy en la plataforma.' },
+      { k: 'Trazabilidad de inspección y contención', h: 'Que cada pieza salga de planta con su acta de nacimiento', sc: 'Su cliente pide el alcance de afectación de un lote. La contención se montó con un formato en papel, y la sospecha es incómoda: no hay forma de saber si el inspector confirmó pieza por pieza o solo pegó la hoja a la caja.', d: 'Acompañamos el diseño del flujo de inspección, contención, reparación y liberación en piso, y lo digitalizamos: cada pieza queda con su registro de quién la revisó, contra qué criterio y con qué resultado — configurable a lo que su cliente exige.', items: ['Diseño del flujo de inspección, retención, reparación, revalidación y liberación', 'Definición del criterio de retención y de quién autoriza la liberación o el desecho', 'Trazabilidad por pieza, lote y número de serie, con evidencia adjunta al registro', 'Registro de reparación: causa, responsable, reinspección y confirmación de efectividad', 'Respuesta a solicitudes de alcance de afectación: qué piezas, qué lotes, qué embarques', 'Formación del inspector en el criterio de juicio, no solo en el llenado del formato', 'Correlación entre dibujo, especificación en BOM, norma de inspección y hoja de operación'], badge: 'Respaldo: los dos kaizen registrados en la base global de mejores prácticas de un OEM, y el diseño del flujo de hospital de defectos que opera hoy en la plataforma.' },
       { k: 'Auditoría y seguimiento a proveedores', h: 'Verificar en el piso lo que el 8D dice que ya está resuelto', sc: 'Un SQE lleva decenas de proveedores repartidos en varios países. El 8D regresó cerrado, con fotos y firma. Nadie fue a confirmar que el dispositivo esté instalado, dado de alta y funcionando — y el siguiente embarque trae el mismo defecto.', d: 'Trabajamos como extensión de su equipo de calidad de proveedores: vamos a la planta en su nombre, damos seguimiento al APQP y validamos físicamente que lo declarado en el 8D exista y funcione. Entendemos automotriz, así que también resolvemos las dudas técnicas del proveedor en sitio.', items: ['Seguimiento de APQP a petición del OEM: entregables, fechas y evidencia por fase', 'Validación física de las contramedidas declaradas en el 8D: que existan en el piso y que funcionen', 'Verificación de contención: cobertura real, criterio del inspector y registro', 'Auditoría de proceso y de estándar de inspección con criterio de OEM', 'Auditoría de preparación del proveedor para lanzamiento o incremento de volumen', 'Auditoría del manejo, empaque y uso del producto', 'Resolución de dudas técnicas del proveedor en sitio, sin esperar a la siguiente visita del SQE', 'Seguimiento del plan de acción con responsable y fecha comprometida'], note: 'No incluye auditoría de certificación de tercera parte.' },
     ],
   } : {
     eyebrow: 'FOUR SERVICE LINES', title: 'If any of these scenes sounds familiar, you already know what we are for.',
     sub: 'Every line comes from a concrete problem and is contracted with scope and deliverables defined in writing.', cta: 'Request proposal',
     cards: [
-      { k: 'New model launch', h: 'A ramp-up that is not stopped by an engineering change', sc: 'The change was released in the system, but the document that travelled with the unit carried the previous version. It surfaces on the test line, with the unit already built.', d: 'We support the ramp-up from planning through stable production: controlling engineering changes and defining inspection standards and the containment plan before the first shipment.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards', 'Event evaluation program: fit and finish, appearance, NVH, water tightness and ADAS', 'Consolidation of test reports in the format your customer will ask for'], badge: 'Backed by: 52 vehicle programs launched, and Mercedes-Benz and Volkswagen development programs at IDIADA Applus.', link: ['Preparacion de Lanzamiento.html', 'See what a launch preparation covers →'] },
+      { k: 'New model launch', h: 'A ramp-up that is not stopped by an engineering change', sc: 'The change was released in the system, but the document that travelled with the unit carried the previous version. It surfaces on the test line, with the unit already built.', d: 'We support the ramp-up from planning through stable production: controlling engineering changes and defining inspection standards and the containment plan before the first shipment.', items: ['Launch planning and execution (SOP Readiness and Safe Launch)', 'Engineering change, BOM and specification validation coordination', 'Support in pilot runs, buy-offs and problem solving during ramp-up', 'Launch readiness audit', 'Definition of the containment plan and start-up inspection standards', 'Event evaluation program: fit and finish, appearance, NVH, water tightness and ADAS', 'Consolidation of test reports in the format your customer will ask for'], badge: 'Backed by: 52 vehicle programs launched, and development programs for European OEMs at a validation laboratory.', link: ['Preparacion de Lanzamiento.html', 'See what a launch preparation covers →'] },
       { k: 'Technical representation at your customer plant', h: 'Reacting inside the window — and with the right countermeasure', sc: 'Your contract gives you 24 hours to answer a claim. Travel approval takes another 24. By the time someone of yours arrives, the customer has already set up containment, is charging you for it, and nobody on your side has seen the part.', d: 'We put an engineer inside your customer plant who describes technically what is happening the same day. With that you react to the real problem instead of the assumed one — and you have grounds to dispute what is not yours.', items: ['Response inside the contractual window, without depending on an approved trip', 'Technical description of the real failure mode, with evidence from the part on site', 'Countermeasure aimed at the right problem: reacting wrong keeps the defect shipping and raises scrap', 'Technical support to dispute chargebacks: what is attributable to the supplier and what is not', 'On-site containment, sorting and rework under customer authorization', 'RMA management and disposition of non-conforming material', 'Technical channel between OEM and supplier, with meetings and documentation in English', 'Response during quality crises'] },
-      { k: 'Inspection traceability and containment', h: 'Every part leaves the plant with its birth certificate', sc: 'Your customer asks for the affected scope of a lot. Containment was set up on a paper form, and the suspicion is uncomfortable: there is no way to know whether the inspector confirmed part by part or just taped the sheet to the box.', d: 'We support the design of the inspection, containment, repair and release flow on the floor, and digitalize it: every part carries a record of who checked it, against which criteria and with what result — configurable to what your customer demands.', items: ['Design of the inspection, hold, repair, revalidation and release flow', 'Definition of hold criteria and who authorizes release or scrap', 'Traceability by part, lot and serial number, with evidence attached to the record', 'Repair record: cause, owner, reinspection and effectiveness confirmation', 'Response to affected-scope requests: which parts, which lots, which shipments', 'Inspector training on judgement criteria, not just on filling in the form', 'Correlation between drawing, BOM specification, inspection standard and operation sheet'], badge: "Backed by: the two kaizen registered in Nissan's global best practices database, and the design of the defect hospital flow running in the platform today." },
+      { k: 'Inspection traceability and containment', h: 'Every part leaves the plant with its birth certificate', sc: 'Your customer asks for the affected scope of a lot. Containment was set up on a paper form, and the suspicion is uncomfortable: there is no way to know whether the inspector confirmed part by part or just taped the sheet to the box.', d: 'We support the design of the inspection, containment, repair and release flow on the floor, and digitalize it: every part carries a record of who checked it, against which criteria and with what result — configurable to what your customer demands.', items: ['Design of the inspection, hold, repair, revalidation and release flow', 'Definition of hold criteria and who authorizes release or scrap', 'Traceability by part, lot and serial number, with evidence attached to the record', 'Repair record: cause, owner, reinspection and effectiveness confirmation', 'Response to affected-scope requests: which parts, which lots, which shipments', 'Inspector training on judgement criteria, not just on filling in the form', 'Correlation between drawing, BOM specification, inspection standard and operation sheet'], badge: "Backed by: the two kaizen registered in an OEM's global best practices database, and the design of the defect hospital flow running in the platform today." },
       { k: 'Supplier audits and follow-up', h: 'Verify on the floor what the 8D says is already solved', sc: 'An SQE carries dozens of suppliers spread across several countries. The 8D came back closed, with photos and a signature. Nobody went to confirm the device is installed, set up and working — and the next shipment brings the same defect.', d: 'We work as an extension of your supplier quality team: we go to the plant on your behalf, follow up APQP and physically validate that what the 8D declares exists and works. We know automotive, so we also resolve the supplier technical questions on site.', items: ['APQP follow-up at OEM request: deliverables, dates and evidence by phase', 'Physical validation of the countermeasures declared in the 8D: that they exist on the floor and work', 'Containment verification: real coverage, inspector judgement and record', 'Process and inspection standard audit with OEM judgement', 'Supplier readiness audit for launch or volume increase', 'Audit of product handling, packaging and use', 'On-site resolution of supplier technical questions, without waiting for the next SQE visit', 'Action plan follow-up with owner and committed date'], note: 'Does not include third-party certification audits.' },
     ],
   };
@@ -554,10 +554,30 @@ function V5Training({ lang }) {
   );
 }
 
+function V5TrainingTeaser({ lang }) {
+  const L = lang === 'es';
+  const t = L
+    ? { h: 'FORMACIÓN', title: 'Veintiocho cursos, en aula y en planta.', sub: 'Desde habilidades de liderazgo hasta ingeniería de manufactura avanzada, con rutas por puesto y temario detallado de cada curso.', cta: 'Ver el catálogo de formación →' }
+    : { h: 'TRAINING', title: 'Twenty-eight courses, in the classroom and on the floor.', sub: 'From leadership skills to advanced manufacturing engineering, with role-based paths and a detailed syllabus for every course.', cta: 'See the training catalog →' };
+  return (
+    <section id="formacion" style={{ padding: '56px 56px', background: v4S.bgCool, borderTop: `1px solid ${v4S.line}`, borderBottom: `1px solid ${v4S.line}` }}>
+      <div className="g2" style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 32, alignItems: 'center' }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: v4S.primary, marginBottom: 12 }}>{t.h}</div>
+          <h2 style={{ fontSize: 30, lineHeight: 1.2, fontWeight: 700, color: v4S.ink, margin: '0 0 10px', letterSpacing: -0.6, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
+          <p style={{ fontSize: 15.5, color: v4S.ink2, margin: 0, lineHeight: 1.6 }}>{t.sub}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <a href="Catalogo de Formacion.html" style={{ display: 'inline-block', padding: '14px 24px', borderRadius: 10, background: v4S.primary, color: 'white', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>{t.cta}</a>
+        </div>
+      </div>
+    </section>
+  );
+}
 function V5Platform({ lang }) {
   const L = lang === 'es';
   const t = L ? {
-    eyebrow: 'ASÍ TRABAJAMOS', title: 'Nuestro método sigue cada pieza, no cada documento.',
+    eyebrow: 'SOFTWARE · ASÍ TRABAJAMOS', title: 'Nuestro método sigue cada pieza, no cada documento.',
     sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la herramienta con la que trabajamos. No se vende por separado: se incluye en los programas y se instala en el servidor del cliente.',
     flowH: 'EL CICLO DE VIDA DE LA PIEZA',
     flow: ['Inspección', 'Declaración de defecto', 'Reparación', 'Validación', 'MRB / Hospital de defectos', 'Reinspección', 'Liberación o scrap autorizado'],
@@ -575,8 +595,26 @@ function V5Platform({ lang }) {
       ['mrb-dashboard.png', 'MRB · control de material', 'Control de material no conforme con ubicación física y disposición.'],
     ],
     note: 'Requisitos técnicos para el departamento de TI del cliente disponibles a solicitud: sistema operativo, recursos de servidor, base de datos, puertos, respaldos y autenticación.',
+    ecoH: 'EL ECOSISTEMA COMPLETO', ecoT: 'Diez módulos sobre el mismo motor', ecoPill: 'Todo converge en un solo inicio',
+    eco: [
+      ['eco-inspeccion.png', 'Inspección de especificaciones', 'Cada especificación OK, NOK o medida contra tolerancia, configurada por parte'],
+      ['eco-qar.png', 'Alerta de calidad (QAR)', 'Un crítico en NOK emite la alerta ahí mismo; plazos de respuesta y cierre en vivo'],
+      ['eco-hospital.png', 'Hospital de defectos', 'Cada pieza retenida con su tiempo abierto: reparar, cuarentena o scrap'],
+      ['eco-mrb.png', 'MRB', 'Rendimiento, PPM y costo de scrap; cuarentena por número de serie'],
+      ['eco-8d.png', '8D', 'Costo, plazo de D4, % sin causa raíz y aprobación por fase, de D3 a D6'],
+      ['eco-ecr.png', 'Cambios de ingeniería (ECR)', 'Balance de scrap, inversión y ahorro, con matriz de riesgo'],
+      ['eco-calibracion.png', 'Calibración', 'Vencimientos con alerta, certificados y costo, listo para auditoría'],
+      ['eco-auditorias.png', 'Auditorías', 'Calendario anual por programa; hallazgos con evidencia y seguimiento'],
+      ['eco-instrucciones.png', 'Instrucciones de trabajo', 'Revisión controlada, con certificación de operadores y análisis de riesgo'],
+      ['eco-habilidades.png', 'Habilidades y entrenamiento', 'Radar de habilidades por persona: nivel real, no solo asistencia'],
+    ],
+    ecoSoon: 'Captura en preparación',
+    homeH: 'EL INICIO', homeT: 'Cada usuario arranca el día con lo que tiene pendiente.',
+    homeS: 'Al entrar, el sistema le recuerda sus actividades vencidas y por vencer, y los QAR, 8D y cambios de ingeniería abiertos a su nombre. Desde ahí, un clic lleva a inspección, reparación, liberación, cuarentena o cualquiera de los módulos.',
+    homeAlt: 'Pantalla de inicio con actividades pendientes, elementos abiertos y acceso a los módulos',
+    ecoNote: 'Capturas de la plataforma con datos de demostración. Los nombres de clientes, partes, proyectos y personas son ficticios y solo ilustran las funciones de cada módulo.',
   } : {
-    eyebrow: 'HOW WE WORK', title: 'Our method follows every part, not every document.',
+    eyebrow: 'SOFTWARE · HOW WE WORK', title: 'Our method follows every part, not every document.',
     sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the tool we work with. It is not sold separately: it is included in the programs and installed on the customer server.',
     flowH: 'THE LIFECYCLE OF THE PART',
     flow: ['Inspection', 'Defect declaration', 'Repair', 'Validation', 'MRB / Defect hospital', 'Reinspection', 'Release or authorized scrap'],
@@ -594,6 +632,24 @@ function V5Platform({ lang }) {
       ['mrb-dashboard.png', 'MRB · material control', 'Non-conforming material control with physical location and disposition.'],
     ],
     note: "Technical requirements for the customer's IT department available on request: operating system, server resources, database, ports, backups and authentication.",
+    ecoH: 'THE FULL ECOSYSTEM', ecoT: 'Ten modules on the same engine', ecoPill: 'Everything converges on one home screen',
+    eco: [
+      ['eco-inspeccion.png', 'Specification inspection', 'Every specification OK, NOK or measured against tolerance, configured per part'],
+      ['eco-qar.png', 'Quality alert (QAR)', 'A critical NOK issues the alert on the spot; response and closure deadlines live'],
+      ['eco-hospital.png', 'Defect hospital', 'Every held part with its open time: repair, quarantine or scrap'],
+      ['eco-mrb.png', 'MRB', 'Yield, PPM and scrap cost; quarantine by serial number'],
+      ['eco-8d.png', '8D', 'Cost, D4 deadline, % without root cause and approval by phase, D3 to D6'],
+      ['eco-ecr.png', 'Engineering changes (ECR)', 'Scrap, investment and savings balance, with a risk matrix'],
+      ['eco-calibracion.png', 'Calibration', 'Due dates with alerts, certificates and cost, audit-ready'],
+      ['eco-auditorias.png', 'Audits', 'Annual calendar by program; findings with evidence and follow-up'],
+      ['eco-instrucciones.png', 'Work instructions', 'Controlled revision, with operator certification and risk analysis'],
+      ['eco-habilidades.png', 'Skills and training', 'Skills radar per person: real level, not just attendance'],
+    ],
+    ecoSoon: 'Screenshot in preparation',
+    homeH: 'THE HOME SCREEN', homeT: 'Every user starts the day with what is pending.',
+    homeS: 'On login the system reminds each user of overdue and upcoming activities, and the QARs, 8Ds and engineering changes open under their name. From there, one click leads to inspection, repair, release, quarantine or any module.',
+    homeAlt: 'Home screen with pending activities, open items and access to the modules',
+    ecoNote: 'Platform screenshots with demo data. Customer, part, project and people names are fictitious and only illustrate what each module does.',
   };
   return (
     <section id="plataforma" style={{ padding: '88px 56px', background: v4S.ink, color: 'white' }}>
@@ -637,7 +693,40 @@ function V5Platform({ lang }) {
             </figure>
           ))}
         </div>
-        <div style={{ fontSize: 12.5, color: '#7B8AA8', fontStyle: 'italic' }}>{t.note}</div>
+        <div style={{ marginTop: 56, paddingTop: 44, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 16, flexWrap: 'wrap', marginBottom: 22 }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: '#7DB7FF', marginBottom: 10, fontFamily: '"JetBrains Mono", monospace' }}>{t.ecoH}</div>
+              <h3 style={{ fontSize: 28, fontWeight: 700, margin: 0, letterSpacing: -0.6, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.ecoT}</h3>
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 700, color: v4S.ink, background: 'white', borderRadius: 999, padding: '9px 18px' }}>{t.ecoPill}</span>
+          </div>
+          <div className="g5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0,1fr))', gap: 14, marginBottom: 18 }}>
+            {t.eco.map(([src, h, d], i) => (
+              <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ aspectRatio: '16 / 10', background: src ? 'white' : 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden', display: 'grid', placeItems: 'center' }}>
+                  {src
+                    ? <img src={'screenshots/' + src} alt={h} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top left', display: 'block' }}/>
+                    : <span style={{ fontSize: 11, color: '#7B8AA8', fontFamily: '"JetBrains Mono", monospace', letterSpacing: 0.4 }}>{t.ecoSoon}</span>}
+                </div>
+                <div style={{ padding: '12px 14px 14px' }}>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, marginBottom: 5, lineHeight: 1.3 }}>{h}</div>
+                  <div style={{ fontSize: 12, color: '#94A6C7', lineHeight: 1.5 }}>{d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="g2" style={{ display: 'grid', gridTemplateColumns: '1fr 1.7fr', gap: 28, alignItems: 'center', marginBottom: 22, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '22px 22px 22px 26px' }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: '#7DB7FF', marginBottom: 10, fontFamily: '"JetBrains Mono", monospace' }}>{t.homeH}</div>
+              <div style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.3, marginBottom: 10, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.homeT}</div>
+              <div style={{ fontSize: 13.5, color: '#94A6C7', lineHeight: 1.6 }}>{t.homeS}</div>
+            </div>
+            <img src="screenshots/inicio-dashboard.png" alt={t.homeAlt} loading="lazy" style={{ width: '100%', display: 'block', borderRadius: 8, border: '1px solid rgba(255,255,255,0.12)' }}/>
+          </div>
+          <div style={{ fontSize: 12, color: '#7B8AA8', lineHeight: 1.55 }}>* {t.ecoNote}</div>
+        </div>
+        <div style={{ fontSize: 12.5, color: '#7B8AA8', fontStyle: 'italic', marginTop: 26 }}>{t.note}</div>
       </div>
     </section>
   );
@@ -984,10 +1073,10 @@ function HomeLanding() {
       {intro && <V5Intro L={lang === 'es'} onDone={() => setIntro(false)}/>}
       <V5Nav lang={lang} setLang={setLang}/>
       <V5Hero lang={lang}/>
+      <V5Platform lang={lang}/>
       <V5Creds lang={lang}/>
       <V5Services lang={lang}/>
-      <V5Training lang={lang}/>
-      <V5Platform lang={lang}/>
+      <V5TrainingTeaser lang={lang}/>
       <V5Kaizen lang={lang}/>
       <V4AuditSim lang={lang}/>
       <V5Diagnostico lang={lang}/>
