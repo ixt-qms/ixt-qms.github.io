@@ -574,18 +574,53 @@ function V5TrainingTeaser({ lang }) {
     </section>
   );
 }
+/* Presentación interactiva incrustada (archivos en /presentacion/es y /presentacion/en).
+   La presentación mide 1280x720; aquí se escala al ancho disponible. */
+function V5DeckEmbed({ lang, title, full }) {
+  const boxRef = React.useRef(null);
+  const [w, setW] = React.useState(1100);
+  React.useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const update = () => setW(el.clientWidth || 1100);
+    update();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', update);
+      return () => window.removeEventListener('resize', update);
+    }
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const s = w / 1280;
+  const src = lang === 'es' ? 'presentacion/es/index.html' : 'presentacion/en/index.html';
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <div ref={boxRef} style={{ position: 'relative', width: '100%', height: Math.round(720 * s), overflow: 'hidden', borderRadius: 14, border: '1px solid rgba(255,255,255,0.14)', background: '#07131F', boxShadow: '0 30px 80px rgba(0,0,0,0.45)' }}>
+        <iframe key={src} src={src} title={title} loading="lazy" allowFullScreen
+          style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, border: 0, transform: `scale(${s})`, transformOrigin: '0 0' }}/>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 14 }}>
+        <a href={src} target="_blank" rel="noopener" style={{ fontSize: 13.5, fontWeight: 700, color: 'white', textDecoration: 'none', border: '1px solid rgba(125,183,255,0.45)', borderRadius: 999, padding: '9px 18px', background: 'rgba(76,127,232,0.16)' }}>{full} ↗</a>
+      </div>
+    </div>
+  );
+}
 function V5Platform({ lang }) {
   const L = lang === 'es';
   const t = L ? {
     eyebrow: 'SOFTWARE · ASÍ TRABAJAMOS', title: 'Nuestro método sigue cada pieza, no cada documento.',
-    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS, la herramienta con la que trabajamos. No se vende por separado: se incluye en los programas y se instala en el servidor del cliente.',
+    deckEyebrow: 'SOFTWARE · IxT-QMS', deckT: 'Conozca la plataforma en tres minutos.',
+    deckS: 'Presentación interactiva: avance con las flechas o con los puntos de la barra inferior.',
+    deckFull: 'Ver en pantalla completa', deckTitle: 'Presentación ejecutiva de IxT-QMS',
+    sub: 'Un sistema de calidad tradicional administra papeles. Nosotros seguimos la pieza inspeccionada desde que se detecta hasta su disposición final — y esa metodología está digitalizada en IxT-QMS. Se licencia por planta o como marca propia, con asesoría remota incluida, y se instala en el servidor del cliente.',
     flowH: 'EL CICLO DE VIDA DE LA PIEZA',
     flow: ['Inspección', 'Declaración de defecto', 'Reparación', 'Validación', 'MRB / Hospital de defectos', 'Reinspección', 'Liberación o scrap autorizado'],
     flowNote: 'El documento es el resultado. El flujo operativo es el valor.',
     points: [
       ['Instalada en su servidor', 'Sin base de datos compartida con nadie, sin proveedor externo que auditar.'],
       ['Opera sin internet', 'La operación crítica funciona aunque se caiga el enlace.'],
-      ['Se incluye en el programa', 'No estamos tomando instalaciones nuevas este trimestre. Trabajamos con un número limitado de socios iniciales mientras se cierra funcionalidad.'],
+      ['Asesoría remota incluida', 'Por videollamada o llamada, para resolver problemas y sacarle todo el provecho al sistema. Las visitas a planta se cotizan aparte.'],
     ],
     shotsH: 'Evidencia: cuatro módulos en operación',
     shots: [
@@ -615,14 +650,17 @@ function V5Platform({ lang }) {
     ecoNote: 'Capturas de la plataforma con datos de demostración. Los nombres de clientes, partes, proyectos y personas son ficticios y solo ilustran las funciones de cada módulo.',
   } : {
     eyebrow: 'SOFTWARE · HOW WE WORK', title: 'Our method follows every part, not every document.',
-    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS, the tool we work with. It is not sold separately: it is included in the programs and installed on the customer server.',
+    deckEyebrow: 'SOFTWARE · IxT-QMS', deckT: 'Get to know the platform in three minutes.',
+    deckS: 'Interactive presentation: move forward with the arrows or the dots in the bottom bar.',
+    deckFull: 'View full screen', deckTitle: 'IxT-QMS executive presentation',
+    sub: 'A traditional quality system manages paperwork. We follow the inspected part from detection through to final disposition — and that methodology is digitalized in IxT-QMS. It is licensed per plant or as white label, with remote advisory included, and installed on the customer server.',
     flowH: 'THE LIFECYCLE OF THE PART',
     flow: ['Inspection', 'Defect declaration', 'Repair', 'Validation', 'MRB / Defect hospital', 'Reinspection', 'Release or authorized scrap'],
     flowNote: 'The document is the result. The operational workflow is the value.',
     points: [
       ['Installed on your server', 'No shared database with anyone, no external vendor to audit.'],
       ['Runs without internet', 'Critical operation keeps working even if the link goes down.'],
-      ['Included in the program', 'We are not taking new installations this quarter. We work with a limited number of early partners while functionality is finalized.'],
+      ['Remote advisory included', 'By video or phone call, to solve problems and get the most out of the system. On-site visits are quoted separately.'],
     ],
     shotsH: 'Evidence: four modules in operation',
     shots: [
@@ -654,45 +692,12 @@ function V5Platform({ lang }) {
   return (
     <section id="plataforma" style={{ padding: '88px 56px', background: v4S.ink, color: 'white' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <div className="g2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'start', marginBottom: 48 }}>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: '#7DB7FF', marginBottom: 14 }}>{t.eyebrow}</div>
-            <h2 style={{ fontSize: 38, lineHeight: 1.15, fontWeight: 700, margin: 0, letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.title}</h2>
-          </div>
-          <p style={{ fontSize: 15.5, color: '#94A6C7', margin: 0, lineHeight: 1.65 }}>{t.sub}</p>
+        <div style={{ marginBottom: 26 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: '#7DB7FF', marginBottom: 14 }}>{t.deckEyebrow}</div>
+          <h2 style={{ fontSize: 38, lineHeight: 1.15, fontWeight: 700, margin: '0 0 12px', letterSpacing: -0.8, fontFamily: '"Source Serif 4", Georgia, serif' }}>{t.deckT}</h2>
+          <p style={{ fontSize: 15.5, color: '#94A6C7', margin: 0, lineHeight: 1.65 }}>{t.deckS}</p>
         </div>
-        <div style={{ border: '1px solid rgba(255,255,255,0.12)', borderRadius: 14, padding: '24px 26px', marginBottom: 34, background: 'rgba(255,255,255,0.03)' }}>
-          <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: '#7DB7FF', marginBottom: 16, fontFamily: '"JetBrains Mono", monospace' }}>{t.flowH}</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', marginBottom: 16 }}>
-            {t.flow.map((f, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <span style={{ color: '#4C7FE8', fontWeight: 700, fontSize: 13 }}>→</span>}
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'white', background: 'rgba(76,127,232,0.16)', border: '1px solid rgba(125,183,255,0.3)', borderRadius: 999, padding: '7px 15px' }}>{f}</span>
-              </React.Fragment>
-            ))}
-          </div>
-          <div style={{ fontSize: 14, color: '#94A6C7', fontStyle: 'italic' }}>{t.flowNote}</div>
-        </div>
-        <div className="g3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 46 }}>
-          {t.points.map(([h, b], i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '24px 26px' }}>
-              <div style={{ fontSize: 15.5, fontWeight: 700, marginBottom: 10 }}>{h}</div>
-              <div style={{ fontSize: 13.5, color: '#94A6C7', lineHeight: 1.6 }}>{b}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 0.6, color: '#94A6C7', textTransform: 'uppercase', marginBottom: 18 }}>{t.shotsH}</div>
-        <div className="g2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 22, marginBottom: 26 }}>
-          {t.shots.map(([src, h, alt], i) => (
-            <figure key={i} style={{ margin: 0, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, overflow: 'hidden' }}>
-              <img src={'screenshots/' + src} alt={alt} loading="lazy" style={{ width: '100%', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.1)' }}/>
-              <figcaption style={{ padding: '14px 18px 16px' }}>
-                <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 5 }}>{h}</div>
-                <div style={{ fontSize: 12.5, color: '#94A6C7', lineHeight: 1.5 }}>{alt}</div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <V5DeckEmbed lang={lang} title={t.deckTitle} full={t.deckFull}/>
         <div style={{ marginTop: 56, paddingTop: 44, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 16, flexWrap: 'wrap', marginBottom: 22 }}>
             <div>
@@ -746,7 +751,7 @@ function V5Diagnostico({ lang }) {
         items: ['Visita a planta con alcance y entregable definidos', 'Propuesta técnica detallada', 'Índice detallado de formación'],
         foot: 'Acreditable contra el programa si se contrata dentro de 30 días.' },
       { n: '3', h: 'Programa', tag: 'Contrato anual', tagC: '#0B2545',
-        items: ['Implementación, formación privada, representación técnica o digitalización', 'Acceso a la plataforma IxT-QMS incluido, instalada en su servidor', 'Seguimiento continuo con entregables por periodo'] },
+        items: ['Implementación, formación privada, representación técnica o digitalización', 'Licencia de la plataforma IxT-QMS opcional, instalada en su servidor', 'Seguimiento continuo con entregables por periodo'] },
     ],
     costH: 'ANTES DE ESCRIBIR',
     costT: 'Ponga números a lo que ya está pagando.',
@@ -779,7 +784,7 @@ function V5Diagnostico({ lang }) {
         items: ['Plant visit with defined scope and deliverable', 'Detailed technical proposal', 'Detailed training syllabus'],
         foot: 'Creditable against the program if contracted within 30 days.' },
       { n: '3', h: 'Program', tag: 'Annual contract', tagC: '#0B2545',
-        items: ['Implementation, private training, technical representation or digitalization', 'IxT-QMS platform included, installed on your server', 'Ongoing follow-up with deliverables per period'] },
+        items: ['Implementation, private training, technical representation or digitalization', 'Optional IxT-QMS platform license, installed on your server', 'Ongoing follow-up with deliverables per period'] },
     ],
     costH: 'BEFORE YOU WRITE',
     costT: 'Put numbers on what you are already paying.',
